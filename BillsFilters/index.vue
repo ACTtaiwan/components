@@ -1,34 +1,65 @@
 <template>
   <Row :gutter="20">
-    <Col :span="this.isTablet ? 12 : 24" class="filter-block">
+    <i-col
+      :span="isTablet ? 12 : 24"
+      class="filter-block">
       <h2 class="filter-title">Congress</h2>
       <div class="filter-field-block">
         <div class="filter-field">
           <span class="filter-field-title">from</span>
-          <InputNumber class="filter-field-value" v-model="filterData.congressFrom" @on-change="clearErros" :min="this.congressMin" :max="this.congressMax"></InputNumber>
+          <InputNumber
+            v-model="filterData.congressFrom"
+            :min="congressMin"
+            :max="congressMax"
+            class="filter-field-value"
+            @on-change="clearErros"/>
         </div>
         <div class="filter-field">
           <span class="filter-field-title">to</span>
-          <InputNumber class="filter-field-value" v-model="filterData.congressTo" @on-change="clearErros" :min="this.congressMin" :max="this.congressMax"></InputNumber>
+          <InputNumber
+            v-model="filterData.congressTo"
+            :min="congressMin"
+            :max="congressMax"
+            class="filter-field-value"
+            @on-change="clearErros"/>
         </div>
       </div>
-      <div class="formErrorBlock" v-if="this.errors.congressError !== ''">{{ this.errors.congressError }}</div>
-    </Col>
-    <Col :span="this.isTablet ? 12 : 24" class="filter-block" :class="{ tablet: this.isTablet }">
+      <div
+        v-if="errors.congressError !== ''"
+        class="formErrorBlock">
+        {{ errors.congressError }}
+      </div>
+    </i-col>
+    <i-col
+      :span="isTablet ? 12 : 24"
+      :class="{ tablet: isTablet }"
+      class="filter-block">
       <h2 class="filter-title">Category</h2>
-      <Select multiple v-model="filterData.selectedCategories" @on-change="onCategorySelect" placeholder="select bill categories">
-        <Option v-for="category in categories" :value="category.id" :key="category.id">{{ category.name }}</Option>
+      <Select
+        v-model="filterData.selectedCategories"
+        multiple
+        placeholder="select bill categories"
+        @on-change="onCategorySelect">
+        <Option
+          v-for="category in categories"
+          :value="category.id"
+          :key="category.id">{{ category.name }}</Option>
       </Select>
-    </Col>
+    </i-col>
     <!-- <Col :span="this.isTablet ? 12 : 24" class="filter-block" :class="{ tablet: this.isTablet }">
       <h2 class="filter-title">Sponsor</h2>
       <Select v-model="filterData.selectedSponsorId" @on-change="onSponsorSelect" clearable remote :remote-method="getSponsorSuggestList" placeholder="select a sponsor">
         <Option v-for="category in categories" :value="category.id" :key="category.id">{{ category.name }}</Option>
       </Select>
     </Col> -->
-    <Col :span="24" class="filter-block">
-      <TwButton label="Search" @press="submit" :loading="loading"></TwButton>
-    </Col>
+    <i-col
+      :span="24"
+      class="filter-block">
+      <TwButton
+        :loading="loading"
+        label="Search"
+        @press="submit"/>
+    </i-col>
   </Row>
 </template>
 
@@ -36,6 +67,9 @@
 import TwButton from '~/components/TwButton'
 
 export default {
+  components: {
+    TwButton
+  },
   props: {
     categories: {
       type: Array,
@@ -107,9 +141,6 @@ export default {
         this.$emit('on-filter', this.filterData)
       }
     }
-  },
-  components: {
-    TwButton
   }
 }
 </script>

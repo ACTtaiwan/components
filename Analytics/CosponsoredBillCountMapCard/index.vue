@@ -1,30 +1,32 @@
 <template>
-  <div class="analytic-card" :class="{ phone: this.isPhone }">
+  <div :class="{ phone: isPhone }" class="analytic-card">
     <h1 class="analytic-card-title">Cosponsorship of bills by states</h1>
     <div class="analytic-card-body">
       <div class="analytic-card-info-block">
-        <span class="label">Congress ({{ this.congressRange[0] }} - {{ this.congressRange[1] }})</span>
-        <Slider class="slider" v-model="congressRange" @on-change="updateChart" :step="1" show-stops range :min="this.congressMin" :max="this.congressMax"></Slider>
+        <span class="label">Congress ({{ congressRange[0] }} - {{ congressRange[1] }})</span>
+        <Slider
+          v-model="congressRange" :step="1" :min="congressMin" :max="congressMax"
+          class="slider" showStops range @on-change="updateChart"/>
       </div>
       <div class="chart-container">
-        <BillCountMap v-if="mapUtils && bills && isInitiated"
+        <BillCountMap
+          v-if="mapUtils && bills && isInitiated"
           v-show="!isChartLoading"
-          mapId="cosponsored-bill-count-map"
           :bills="bills"
           :usMap="usMap"
           :stateToFips="stateToFips"
-          :fipsToState="fipsToState">
-        </BillCountMap>
+          :fipsToState="fipsToState"
+          mapId="cosponsored-bill-count-map"/>
         <!-- loader -->
-        <div class="overlay-container" v-if="isChartLoading && isInitiated">
+        <div v-if="isChartLoading && isInitiated" class="overlay-container">
           <div class="overlay-block">
-            <Spinner></Spinner>
+            <Spinner/>
           </div>
         </div>
         <!-- Initializer -->
-        <div class="overlay-container" v-if="!isInitiated">
+        <div v-if="!isInitiated" class="overlay-container">
           <div class="overlay-block">
-            <TwButton label="Start Analysis" @press="onInitChart"></TwButton>
+            <TwButton label="Start Analysis" @press="onInitChart"/>
           </div>
         </div>
       </div>
@@ -43,6 +45,11 @@ import PrefetchBillsByCongressQuery from '~/apollo/queries/Analytics/PrefetchBil
 import BillCosponsorQuery from '~/apollo/queries/Analytics/BillCosponsor'
 
 export default {
+  components: {
+    Spinner,
+    TwButton,
+    BillCountMap
+  },
   props: {},
   data () {
     return {
@@ -52,9 +59,6 @@ export default {
       mapUtils: null,
       bills: null
     }
-  },
-  mounted () {
-    // this.updateChart()
   },
   computed: {
     isPhone () {
@@ -82,6 +86,9 @@ export default {
     fipsToState () {
       return JSON.parse(this.mapUtils.fipsToState)
     }
+  },
+  mounted () {
+    // this.updateChart()
   },
   methods: {
     onInitChart () {
@@ -145,11 +152,6 @@ export default {
         return data.maps[0]
       }
     }
-  },
-  components: {
-    Spinner,
-    TwButton,
-    BillCountMap
   }
 }
 </script>

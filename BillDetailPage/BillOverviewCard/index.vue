@@ -1,51 +1,80 @@
 <template>
-  <div class="overview-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="overview-card">
     <h1 class="overview-card-title">Overview</h1>
     <div class="bill-meta">
-      <span class="bill-meta-info">{{ bill.billCode}}</span>
+      <span class="bill-meta-info">{{ bill.billCode }}</span>
       <span class="bill-meta-info">{{ bill.billType.code | billType }}</span>
     </div>
     <h1 class="bill-title">{{ bill.title }}</h1>
     <Row>
-      <Col :span="24" class="overview-card-info-block">
-        <!-- Sponsor -->
-        <span class="label">Sponsor</span>
-        <div class="bill-sponsor">
-          <img class="avatar" :class="avatarClass" :src="avatarSource" :style="avatarStyle" />
-          <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
-          <p class="area">{{ this.memberArea }} </p>
-        </div>
+      <Col
+        :span="24"
+        class="overview-card-info-block">
+      <!-- Sponsor -->
+      <span class="label">Sponsor</span>
+      <div class="bill-sponsor">
+        <img
+          :class="avatarClass"
+          :src="avatarSource"
+          :style="avatarStyle"
+          class="avatar" >
+        <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
+        <p class="area">{{ memberArea }} </p>
+      </div>
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Congress -->
-        <span class="label">Congress</span>
-        <p class="value">{{ bill.congress }}th</p>
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Congress -->
+      <span class="label">Congress</span>
+      <p class="value">{{ bill.congress }}th</p>
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Introduced Date -->
-        <span class="label">Introduced</span>
-        <p class="value">{{ bill.introducedDate | localTime }}</p>
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Introduced Date -->
+      <span class="label">Introduced</span>
+      <p class="value">{{ bill.introducedDate | localTime }}</p>
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Cosponsors -->
-        <span class="label">Cosponsors</span>
-        <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Cosponsors -->
+      <span class="label">Cosponsors</span>
+      <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Categories -->
-        <span class="label">Categories</span>
-        <div class="categories" v-if="bill.categories">
-          <Tooltip class="value category" v-for="category in bill.categories" :key="category.id" :content="category.name">
-            <img :src="categoryMap[category.code]"/>
-          </Tooltip>
-        </div>
-        <span v-else class="value">none</span>
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Categories -->
+      <span class="label">Categories</span>
+      <div
+        v-if="bill.categories"
+        class="categories">
+        <Tooltip
+          v-for="category in bill.categories"
+          :key="category.id"
+          :content="category.name"
+          class="value category">
+          <img :src="categoryMap[category.code]">
+        </Tooltip>
+      </div>
+      <span
+        v-else
+        class="value">none</span>
       </Col>
-      <Col :span="24" class="overview-card-info-block">
-        <!-- Tracker -->
-        <span class="label">Status</span>
-        <p class="value">{{ billLatestAction | trimConGovAction }}</p>
-        <BillTracker class="bill-tracker" :steps="bill.trackers" :progress="billProgress"></BillTracker>
+      <Col
+        :span="24"
+        class="overview-card-info-block">
+      <!-- Tracker -->
+      <span class="label">Status</span>
+      <p class="value">{{ billLatestAction | trimConGovAction }}</p>
+      <BillTracker
+        :steps="bill.trackers"
+        :progress="billProgress"
+        class="bill-tracker"/>
       </Col>
     </Row>
   </div>
@@ -67,6 +96,9 @@ import catDefense from '~/assets/img/cat-defense.svg'
 import catOther from '~/assets/img/cat-other.svg'
 
 export default {
+  components: {
+    BillTracker
+  },
   props: {
     bill: {
       type: Object,
@@ -161,9 +193,6 @@ export default {
       }
       return latestAction
     }
-  },
-  components: {
-    BillTracker
   }
 }
 </script>

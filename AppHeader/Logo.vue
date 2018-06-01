@@ -1,6 +1,11 @@
 <template>
-  <nuxt-link class="logo" :to="path(this, '/')">
-    <img class="logo-img" :src="logo" alt="logo" />
+  <nuxt-link
+    :to="path(this, '/')"
+    class="logo">
+    <img
+      :src="logo"
+      class="logo-img"
+      alt="logo" >
     <span class="logo-text">U.S. TAIWAN WATCH</span>
   </nuxt-link>
 </template>

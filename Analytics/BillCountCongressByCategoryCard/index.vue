@@ -1,16 +1,18 @@
 <template>
-  <div class="analytic-card" :class="{ phone: this.isPhone }">
+  <div :class="{ phone: isPhone }" class="analytic-card">
     <h1 class="analytic-card-title">Bill count by category</h1>
     <div class="analytic-card-body">
       <div class="analytic-card-info-block">
-        <span class="label">Congress ({{ this.congressRange[0] }} - {{ this.congressRange[1] }})</span>
-        <Slider class="slider" v-model="congressRange" @on-change="updateChart" :step="1" show-stops range :min="this.congressMin" :max="this.congressMax"></Slider>
+        <span class="label">Congress ({{ congressRange[0] }} - {{ congressRange[1] }})</span>
+        <Slider
+          v-model="congressRange" :step="1" :min="congressMin" :max="congressMax" class="slider" showStops
+          range @on-change="updateChart"/>
       </div>
       <div class="chart-container">
-        <div class="chart-loading-overlay" v-if="isChartLoading">
-          <Spinner></Spinner>
+        <div v-if="isChartLoading" class="chart-loading-overlay">
+          <Spinner/>
         </div>
-        <BarChart class="chart" :class="{ isLoading: this.isChartLoading }" ref="chart" :chartData="this.chartData" :options="this.chartOptions"></BarChart>
+        <BarChart ref="chart" :class="{ isLoading: isChartLoading }" :chartData="chartData" :options="chartOptions" class="chart"/>
       </div>
     </div>
   </div>
@@ -22,6 +24,9 @@ import Spinner from '~/components/Spinner'
 import CategoryByCongressQuery from '~/apollo/queries/Analytics/CategoryByCongress'
 
 export default {
+  components: {
+    Spinner
+  },
   props: {
     categories: {
       type: Array,
@@ -71,9 +76,6 @@ export default {
       }
     }
   },
-  mounted () {
-    this.updateChart()
-  },
   computed: {
     isPhone () {
       return this.$store.getters.isPhone
@@ -106,6 +108,9 @@ export default {
       }
     }
   },
+  mounted () {
+    this.updateChart()
+  },
   methods: {
     prefetchBillIdsByCategory (categoryId) {
       return this.$apollo.query({
@@ -129,9 +134,6 @@ export default {
         self.billIdsByCategory = bills
       })
     }
-  },
-  components: {
-    Spinner
   }
 }
 </script>

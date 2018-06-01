@@ -1,5 +1,7 @@
 <template>
-  <div class="bill-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="bill-card">
     <div class="bill-meta">
       <span class="bill-update-time">{{ billLatestActionDate | localTime }}</span>
       <span class="bill-code">{{ bill.billCode }}</span>
@@ -12,18 +14,27 @@
       <div class="bill-card-info-block">
         <span class="label">Latest Action</span>
         <p class="value">{{ billLatestAction | trimConGovAction | truncate(200) }}</p>
-        <BillTracker class="tracker" :steps="bill.trackers" :progress="billProgress"></BillTracker>
+        <BillTracker
+          :steps="bill.trackers"
+          :progress="billProgress"
+          class="tracker"/>
       </div>
     </div>
     <div class="bill-footer">
       <div class="social">
-        <TwButton class="social-button" icon="android-bookmark" type="icon"></TwButton>
+        <TwButton
+          class="social-button"
+          icon="android-bookmark"
+          type="icon"/>
         <FbShareWrapper :url="path(this, `/bills/${bill.id}`)">
-          <TwButton class="social-button" icon="android-share" type="icon"></TwButton>
+          <TwButton
+            class="social-button"
+            icon="android-share"
+            type="icon"/>
         </FbShareWrapper>
       </div>
       <router-link :to="path(this, `/bills/${bill.id}`)">
-        <TwButton label="More"></TwButton>
+        <TwButton label="More"/>
       </router-link>
     </div>
   </div>
@@ -35,6 +46,11 @@ import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
 
 export default {
+  components: {
+    BillTracker,
+    TwButton,
+    FbShareWrapper
+  },
   props: {
     bill: {
       type: Object,
@@ -70,7 +86,7 @@ export default {
           latestActionTime = action.datetime
         }
       })
-      this.billLatestActionDate = latestActionTime
+      this.updateLastActionTime(latestActionTime)
       // strip html tags from the string
       var dom = document.createElement('DIV')
       dom.innerHTML = latestAction
@@ -78,12 +94,10 @@ export default {
     }
   },
   methods: {
-    path
-  },
-  components: {
-    BillTracker,
-    TwButton,
-    FbShareWrapper
+    path,
+    updateLastActionTime (latestActionTime) {
+      this.billLatestActionDate = latestActionTime
+    }
   }
 }
 </script>

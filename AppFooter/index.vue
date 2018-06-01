@@ -1,8 +1,16 @@
 <template>
-  <footer :class="{ phone: this.isPhone}">
+  <footer :class="{ phone: isPhone}">
     <span class="copyright">Copyright © TaiwanWatch.org 2018</span>
-    <a class="powerBy"  target="_blank" href="https://grants.g0v.tw/power/" alt="power by g0v" data-reactid="76">
-      <img src="https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png" alt="g0v" data-reactid="77">
+    <a
+      class="powerBy"
+      target="_blank"
+      href="https://grants.g0v.tw/power/"
+      alt="power by g0v"
+      data-reactid="76">
+      <img
+        src="https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png"
+        alt="g0v"
+        data-reactid="77">
     </a>
   </footer>
 </template>
@@ -13,12 +21,12 @@ export default {
   data () {
     return {}
   },
-  methods: {},
   computed: {
     isPhone () {
       return this.$store.getters.isPhone
     }
-  }
+  },
+  methods: {}
 }
 </script>
 

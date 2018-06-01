@@ -1,7 +1,11 @@
 <template>
-  <div class="versions-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="versions-card">
     <h1 class="versions-card-title">Versions</h1>
-    <Table :columns="tableColumns" :data="tableData"></Table>
+    <Table
+      :columns="tableColumns"
+      :data="tableData"/>
   </div>
 
 </template>
@@ -10,6 +14,7 @@
 import columnRenderer from './columnRenderer'
 
 export default {
+  components: {},
   props: {
     bill: {
       type: Object,
@@ -50,8 +55,7 @@ export default {
         })
         .sort((a, b) => parseInt(b.date) - parseInt(a.date))
     }
-  },
-  components: {}
+  }
 }
 </script>
 

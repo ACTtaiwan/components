@@ -1,25 +1,38 @@
 <template>
-  <Button v-if="this.type === 'icon'" class="iconButton" shape="circle" :icon="this.icon" @click="press"></Button>
-  <Button v-else class="button" shape="circle" :icon="this.icon" @click="press" :loading="loading">{{ this.label }}</Button>
+  <Button
+    v-if="type === 'icon'"
+    :icon="icon"
+    class="iconButton"
+    shape="circle"
+    @click="press"/>
+  <Button
+    v-else
+    :icon="icon"
+    :loading="loading"
+    class="button"
+    shape="circle"
+    @click="press">
+    {{ label }}
+  </Button>
 </template>
 <script>
 export default {
   props: {
     icon: {
       type: String,
-      required: false
+      default: () => ''
     },
     label: {
       type: String,
-      required: false
+      default: () => ''
     },
     type: {
       type: String,
-      required: false
+      default: () => ''
     },
     loading: {
       type: Boolean,
-      required: false
+      default: () => false
     }
   },
   data () {

@@ -1,11 +1,17 @@
 <template>
-  <div class="sponsors-map-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="sponsors-map-card">
     <h1 class="sponsors-map-card-title">Sponsors Map</h1>
     <div class="sponsors-map-card-body">
       <div class="sponsors">
         <!-- {{cosponsor.role.person.id}} -->
-        <router-link v-for="cosponsor in bill.cosponsors" :key="cosponsor.role.id" :to="path(getThis(), `/members/${cosponsor.role.person.id}`)">
-          <Tag :name="cosponsor.role.id"
+        <router-link
+          v-for="cosponsor in bill.cosponsors"
+          :key="cosponsor.role.id"
+          :to="path(getThis(), `/members/${cosponsor.role.person.id}`)">
+          <Tag
+            :name="cosponsor.role.id"
             :color="{Republican: 'red', Democrat: 'blue'}[cosponsor.role.party]"
             type="dot">
             {{ `${cosponsor.role.person.firstname} ${cosponsor.role.person.lastname} (${cosponsor.role.state})` }}
@@ -13,7 +19,7 @@
         </router-link>
 
       </div>
-      <Spinner v-if="!isMapDataLoaded"></Spinner>
+      <Spinner v-if="!isMapDataLoaded"/>
       <SponsorsMap
         v-if="isMapDataLoaded"
         :sponsors="sponsors"
@@ -34,6 +40,10 @@ import SponsorsMap from '~/components/SponsorsMap'
 import Spinner from '~/components/Spinner'
 
 export default {
+  components: {
+    SponsorsMap,
+    Spinner
+  },
   props: {
     bill: {
       type: Object,
@@ -81,7 +91,9 @@ export default {
       const cosponsors = this.bill.cosponsors
       const hasCosponsors = cosponsors && cosponsors.length > 0
       const mainSponsorArray = [sponsor]
-      const sponsors = hasCosponsors ? mainSponsorArray.concat(cosponsors.map(cosponsor => cosponsor.role)) : mainSponsorArray
+      const sponsors = hasCosponsors
+        ? mainSponsorArray.concat(cosponsors.map(cosponsor => cosponsor.role))
+        : mainSponsorArray
       return sponsors
     }
   },
@@ -117,10 +129,6 @@ export default {
     getThis () {
       return this
     }
-  },
-  components: {
-    SponsorsMap,
-    Spinner
   }
 }
 </script>

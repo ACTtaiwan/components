@@ -1,7 +1,11 @@
 <template>
   <div class="bill-map">
-    <div class="map" id="cd-map" />
-    <tooltip :title="tooltipTitle" :sponsors="tooltipSponsors"/>
+    <div
+      id="cd-map"
+      class="map"/>
+    <tooltip
+      :title="tooltipTitle"
+      :sponsors="tooltipSponsors"/>
   </div>
 </template>
 
@@ -14,7 +18,33 @@ export default {
   components: {
     tooltip
   },
-  props: ['sponsors', 'usMap', 'stateToFips', 'fipsToState', 'congressMap'],
+  props: {
+    sponsors: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+    usMap: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    },
+    stateToFips: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    },
+    fipsToState: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    },
+    congressMap: {
+      type: Object,
+      required: false,
+      default: () => ({})
+    }
+  },
   data () {
     return {
       tooltipTitle: '',

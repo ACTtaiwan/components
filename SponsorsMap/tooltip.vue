@@ -1,8 +1,17 @@
 <template>
   <div id="tooltip">
-    <p slot="title" class="title">{{ title }}</p>
-    <p class="sponsor" v-for="sponsor in sponsors" :key="sponsor.id">
-      <Icon type="ios-circle-filled" :style="getPartyStyleObject(sponsor.color)"></Icon>
+    <p
+      slot="title"
+      class="title">
+      {{ title }}
+    </p>
+    <p
+      v-for="sponsor in sponsors"
+      :key="sponsor.id"
+      class="sponsor">
+      <Icon
+        :style="getPartyStyleObject(sponsor.color)"
+        type="ios-circle-filled"/>
       <span class="name">{{ sponsor.name }}</span>
     </p>
   </div>
@@ -11,7 +20,18 @@
 import { path } from '@/plugins/utils'
 
 export default {
-  props: ['title', 'sponsors'],
+  props: {
+    title: {
+      type: String,
+      required: false,
+      default: () => ({})
+    },
+    sponsors: {
+      type: Array,
+      required: false,
+      default: () => []
+    }
+  },
 
   methods: {
     path,

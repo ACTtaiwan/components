@@ -1,7 +1,12 @@
 <template>
   <div class="bill-map" >
-    <div class="map" :id="mapId" />
-    <tooltip :title="tooltipTitle" :mapId="mapId" :count="tooltipCount"/>
+    <div
+      :id="mapId"
+      class="map" />
+    <tooltip
+      :title="tooltipTitle"
+      :mapId="mapId"
+      :count="tooltipCount"/>
   </div>
 </template>
 
@@ -46,9 +51,6 @@ export default {
       maxCount: 0,
       minCount: 0
     }
-  },
-  mounted () {
-    this.drawMap()
   },
   computed: {
     projection () {
@@ -105,8 +107,8 @@ export default {
         if (countByState.count < min) min = countByState.count
       })
 
-      this.maxCount = max
-      this.minCount = min
+      this.setMaxCount(max)
+      this.setMinCount(min)
 
       return countByStateArray
     }
@@ -115,6 +117,9 @@ export default {
     bills () {
       this.redraw()
     }
+  },
+  mounted () {
+    this.drawMap()
   },
   methods: {
     zoomed () {
@@ -148,6 +153,12 @@ export default {
 
     getFormattedNumber (value) {
       return ('0' + value).slice(-2)
+    },
+    setMaxCount (max) {
+      this.maxCount = max
+    },
+    setMinCount (min) {
+      this.minCount = min
     },
     drawMap () {
       let self = this

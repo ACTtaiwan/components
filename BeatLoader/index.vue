@@ -1,9 +1,16 @@
 <template>
-<div class="v-spinner" v-show="loading">
-    <div class="v-beat v-beat-odd" v-bind:style="spinnerStyle">
-    </div><div class="v-beat v-beat-even" v-bind:style="spinnerStyle">
-    </div><div class="v-beat v-beat-odd" v-bind:style="spinnerStyle">
-    </div>
+  <div
+    v-show="loading"
+    class="v-spinner">
+    <div
+      :style="spinnerStyle"
+      class="v-beat v-beat-odd"/>
+    <div
+      :style="spinnerStyle"
+      class="v-beat v-beat-even"/>
+    <div
+      :style="spinnerStyle"
+      class="v-beat v-beat-odd"/>
   </div>
 </template>
 

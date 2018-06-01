@@ -1,62 +1,93 @@
 <template>
-  <div class="cosponsored-bills-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="cosponsored-bills-card">
     <h1 class="cosponsored-bills-card-title">Cosponsored Bills ({{ cosponsoredBills.length }})</h1>
     <div class="cosponsored-bills-card-body">
       <Row class="cosponsored-bills-card-charts">
-        <Col :span="this.isPhone ? 24 : 18" class="cosponsored-bills-card-info-block">
-          <div class="chart-container">
-            <DoughnutChart ref="chart"
-              class="chart"
-              :chartData="this.chartData"
-              :options="this.chartOptions">
-            </DoughnutChart>
-          </div>
+        <Col
+          :span="isPhone ? 24 : 18"
+          class="cosponsored-bills-card-info-block">
+        <div class="chart-container">
+          <DoughnutChart
+            ref="chart"
+            :chartData="chartData"
+            :options="chartOptions"
+            class="chart"/>
+        </div>
         </Col>
       </Row>
-      <div class="sponsored-bill-block" v-for="bill in cosponsoredBills" :key="bill.id" :vm="this">
+      <div
+        v-for="bill in cosponsoredBills"
+        :key="bill.id"
+        :vm="this"
+        class="sponsored-bill-block">
         <div class="bill-meta">
-          <span class="bill-code">{{ bill.billCode}}</span>
+          <span class="bill-code">{{ bill.billCode }}</span>
           <span class="bill-type">{{ bill.billType.code | billType }}</span>
         </div>
         <router-link :to="path(getThis(), `/bills/${bill.id}`)">
           <h1 class="bill-title">{{ bill.title }}</h1>
         </router-link>
         <Row>
-          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
-            <!-- Congress -->
-            <span class="label">Congress</span>
-            <p class="value" >{{ bill.congress }}</p>
+          <Col
+            :span="getIsDesktop() ? 6 : 12"
+            class="cosponsored-bills-card-info-block">
+          <!-- Congress -->
+          <span class="label">Congress</span>
+          <p class="value" >{{ bill.congress }}</p>
           </Col>
-          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
-            <!-- Cosponsors -->
-            <span class="label">Cosponsors</span>
-            <p class="value" >{{ bill.cosponsors.length }}</p>
+          <Col
+            :span="getIsDesktop() ? 6 : 12"
+            class="cosponsored-bills-card-info-block">
+          <!-- Cosponsors -->
+          <span class="label">Cosponsors</span>
+          <p class="value" >{{ bill.cosponsors.length }}</p>
           </Col>
-          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
-            <!-- Introduced Date -->
-            <span class="label">Introduced</span>
-            <p class="value">{{ bill.introducedDate | localTime }}</p>
+          <Col
+            :span="getIsDesktop() ? 6 : 12"
+            class="cosponsored-bills-card-info-block">
+          <!-- Introduced Date -->
+          <span class="label">Introduced</span>
+          <p class="value">{{ bill.introducedDate | localTime }}</p>
           </Col>
-          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
-            <!-- Categories -->
-            <span class="label">Categories</span>
-            <div class="categories" v-if="bill.categories">
-              <Tooltip class="value category" v-for="category in bill.categories" :key="category.id" :content="category.name">
-                <img :src="categoryMap[category.code]"/>
-              </Tooltip>
-            </div>
-            <span v-else class="value">none</span>
+          <Col
+            :span="getIsDesktop() ? 6 : 12"
+            class="cosponsored-bills-card-info-block">
+          <!-- Categories -->
+          <span class="label">Categories</span>
+          <div
+            v-if="bill.categories"
+            class="categories">
+            <Tooltip
+              v-for="category in bill.categories"
+              :key="category.id"
+              :content="category.name"
+              class="value category">
+              <img :src="categoryMap[category.code]">
+            </Tooltip>
+          </div>
+          <span
+            v-else
+            class="value">none</span>
           </Col>
-          <Col :span="24" class="cosponsored-bills-card-info-block">
-            <!-- Tracker -->
-            <span class="label">Status</span>
-            <p class="value">{{ getBillLatestAction(bill) | trimConGovAction }}</p>
-            <BillTracker class="tracker" :steps="bill.trackers" :progress="getBillProgress(bill)"></BillTracker>
+          <Col
+            :span="24"
+            class="cosponsored-bills-card-info-block">
+          <!-- Tracker -->
+          <span class="label">Status</span>
+          <p class="value">{{ getBillLatestAction(bill) | trimConGovAction }}</p>
+          <BillTracker
+            :steps="bill.trackers"
+            :progress="getBillProgress(bill)"
+            class="tracker"/>
           </Col>
         </Row>
         <div class="bill-footer">
-          <router-link class="more-btn" :to="path(getThis(), `/bills/${bill.id}`)">
-            <TwButton label="More"></TwButton>
+          <router-link
+            :to="path(getThis(), `/bills/${bill.id}`)"
+            class="more-btn">
+            <TwButton label="More"/>
           </router-link>
         </div>
       </div>
@@ -89,6 +120,10 @@ import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 
 export default {
+  components: {
+    BillTracker,
+    TwButton
+  },
   props: {
     member: {
       type: Object,
@@ -230,10 +265,6 @@ export default {
       return currentStep / totalSteps * 100
     },
     path
-  },
-  components: {
-    BillTracker,
-    TwButton
   }
 }
 </script>

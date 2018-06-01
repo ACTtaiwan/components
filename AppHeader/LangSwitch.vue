@@ -1,11 +1,17 @@
 <template>
   <div class="langSwitch">
     <!-- English -->
-    <router-link class="locale" :class="{ active: $i18n.locale === 'en-us' }" :to="localeStrippedPath">
+    <router-link
+      :class="{ active: $i18n.locale === 'en-us' }"
+      :to="localeStrippedPath"
+      class="locale">
       {{ $t('locales.' + 'en-us') }}
     </router-link>
     <!-- Chinese -->
-    <router-link class="locale" :class="{ active: $i18n.locale === 'zh-tw' }" :to="`/zh-tw` + localeStrippedPath">
+    <router-link
+      :class="{ active: $i18n.locale === 'zh-tw' }"
+      :to="`/zh-tw` + localeStrippedPath"
+      class="locale">
       {{ $t('locales.' + 'zh-tw') }}
     </router-link>
   </div>

@@ -1,13 +1,30 @@
 <template>
   <Row :gutter="20">
-    <Col :span="this.isTablet ? 12 : 24" class="filter-block" :class="{ tablet: this.isTablet }">
-      <h2 class="filter-title">State</h2>
-      <Select multiple v-model="filterData.selectedStates" @on-change="onStateSelect" placeholder="select member states">
-        <Option v-for="state in stateList" :value="state.code" :key="state.code">{{ locale === 'en-us' ? state.en : state.zh }}</Option>
-      </Select>
+    <Col
+      :span="isTablet ? 12 : 24"
+      :class="{ tablet: isTablet }"
+      class="filter-block">
+    <h2 class="filter-title">State</h2>
+    <Select
+      v-model="filterData.selectedStates"
+      multiple
+      placeholder="select member states"
+      @on-change="onStateSelect">
+      <Option
+        v-for="state in stateList"
+        :value="state.code"
+        :key="state.code">
+        {{ locale === 'en-us' ? state.en : state.zh }}
+      </Option>
+    </Select>
     </Col>
-    <Col :span="24" class="filter-block">
-      <TwButton label="Search" @press="submit" :loading="loading"></TwButton>
+    <Col
+      :span="24"
+      class="filter-block">
+    <TwButton
+      :loading="loading"
+      label="Search"
+      @press="submit"/>
     </Col>
   </Row>
 </template>
@@ -16,14 +33,19 @@
 import TwButton from '~/components/TwButton'
 
 export default {
+  components: {
+    TwButton
+  },
   props: {
     states: {
       type: Object,
-      required: false
+      required: false,
+      default: () => ({})
     },
     loading: {
       type: Boolean,
-      required: true
+      required: true,
+      default: false
     }
   },
   data () {
@@ -59,9 +81,6 @@ export default {
     submit () {
       this.$emit('on-filter', this.filterData)
     }
-  },
-  components: {
-    TwButton
   }
 }
 </script>

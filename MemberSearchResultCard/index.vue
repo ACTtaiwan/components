@@ -1,64 +1,114 @@
 <template>
-  <div class="member-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="member-card">
     <div class="member-meta">
       <span class="member-meta-info">{{ memberAreaCode }}</span>
-      <span class="member-meta-info">{{ member.party}}</span>
+      <span class="member-meta-info">{{ member.party }}</span>
     </div>
     <div class="member-profile">
-      <img class="avatar" :class="avatarClass" :src="avatarSource" :style="avatarStyle" />
+      <img
+        :class="avatarClass"
+        :src="avatarSource"
+        :style="avatarStyle"
+        class="avatar" >
       <div class="member-name-title">
         <router-link :to="path(this, `/members/${member.person.id}`)">
           <h1 class="member-name">{{ member.title }} {{ member.person.firstname }} {{ member.person.middlename }} {{ member.person.lastname }}</h1>
         </router-link>
-        <p class="area">{{ this.memberTitle }} </p>
+        <p class="area">{{ memberTitle }} </p>
       </div>
     </div>
 
     <div class="member-info">
       <Row>
-        <Col :span="this.isDesktop ? 8 : 12" class="member-card-info-block">
+        <i-col
+          :span="isDesktop ? 8 : 12"
+          class="member-card-info-block">
           <!-- Sponsored -->
           <span class="label">Sponsored bills</span>
           <p class="value">{{ billIdSponsored }}</p>
-        </Col>
-        <Col :span="this.isDesktop ? 8 : 12" class="member-card-info-block">
+        </i-col>
+        <i-col
+          :span="isDesktop ? 8 : 12"
+          class="member-card-info-block">
           <!-- Cosponsored -->
           <span class="label">Cosponsored bills</span>
           <p class="value">{{ billIdCosponsored }}</p>
-        </Col>
-        <Col :span="this.isDesktop ? 8 : 12" class="member-card-info-block">
+        </i-col>
+        <i-col
+          :span="isDesktop ? 8 : 12"
+          class="member-card-info-block">
           <!-- Social Media -->
           <span class="label">Social Media</span>
           <p class="value">
-            <a v-if="twitterLink" :href="twitterLink" target="_blank"><img class="social twitter" :src="twitterLogo"/></a>
-            <a v-if="youtubeLink" :href="youtubeLink" target="_blank"><img class="social youtube" :src="youtubeLogo"/></a>
-            <a v-if="facebookLink" :href="facebookLink" target="_blank"><img class="social facebook" :src="facebookLogo"/></a>
-            <a v-if="cspanLink" :href="cspanLink" target="_blank"><img class="social cspan" :src="cspanLogo"/></a>
+            <a
+              v-if="twitterLink"
+              :href="twitterLink"
+              target="_blank">
+              <img
+                :src="twitterLogo"
+                class="social twitter">
+            </a>
+            <a
+              v-if="youtubeLink"
+              :href="youtubeLink"
+              target="_blank"><img
+                :src="youtubeLogo"
+                class="social youtube"></a>
+            <a
+              v-if="facebookLink"
+              :href="facebookLink"
+              target="_blank"><img
+                :src="facebookLogo"
+                class="social facebook"></a>
+            <a
+              v-if="cspanLink"
+              :href="cspanLink"
+              target="_blank"><img
+                :src="cspanLogo"
+                class="social cspan"></a>
           </p>
-        </Col>
-        <Col :span="this.isDesktop ? 8 : 12" class="member-card-info-block">
+        </i-col>
+        <i-col
+          :span="isDesktop ? 8 : 12"
+          class="member-card-info-block">
           <!-- Website -->
           <span class="label">Website</span>
-          <a class="value link" :href="member.website" target="_blank">{{ member.website }}</a>
-        </Col>
-        <Col :span="24" class="member-card-info-block" v-if="lastSupportBill.time">
+          <a
+            :href="member.website"
+            class="value link"
+            target="_blank">{{ member.website }}</a>
+        </i-col>
+        <i-col
+          v-if="lastSupportBill.time"
+          :span="24"
+          class="member-card-info-block">
           <!-- Last Support Bill -->
           <span class="label">Last supported bill</span>
           <p class="value">{{ lastSupportBill.bill.billCode }} - {{ lastSupportBill.bill.title | truncate(200) }}
             <span class="support-bill">({{ lastSupportBill.role }} on <span class="date">{{ lastSupportBill.time | localTime }}</span>)</span>
           </p>
-        </Col>
+        </i-col>
       </Row>
     </div>
     <div class="bill-footer">
       <div class="social">
-        <TwButton class="social-button" icon="android-bookmark" type="icon" style="light"></TwButton>
+        <TwButton
+          class="social-button"
+          icon="android-bookmark"
+          type="icon"
+          style="light"/>
         <FbShareWrapper :url="path(this, `/members/${member.person.id}`)">
-          <TwButton class="social-button" icon="android-share" type="icon" style="light"></TwButton>
+          <TwButton
+            class="social-button"
+            icon="android-share"
+            type="icon"
+            style="light"/>
         </FbShareWrapper>
       </div>
       <router-link :to="path(this, `/members/${member.person.id}`)">
-        <TwButton label="More"></TwButton>
+        <TwButton label="More"/>
       </router-link>
     </div>
   </div>
@@ -81,14 +131,20 @@ import RolesQuery from '~/apollo/queries/MemberLandingPage/Roles'
 import BillsQuery from '~/apollo/queries/MemberLandingPage/Bills'
 
 export default {
+  components: {
+    TwButton,
+    FbShareWrapper
+  },
   props: {
     member: {
       type: Object,
-      required: true
+      required: true,
+      default: () => ({})
     },
     states: {
       type: Object,
-      required: false
+      required: false,
+      default: () => ({})
     }
   },
   data () {
@@ -102,6 +158,80 @@ export default {
       billIdCosponsored: 0,
       billIdSponsored: 0,
       lastSupportBill: false
+    }
+  },
+  computed: {
+    locale () {
+      return this.$store.state.locale
+    },
+    isDesktop () {
+      return this.$store.getters.isDesktop
+    },
+    isPhone () {
+      return this.$store.getters.isPhone
+    },
+    avatarSource () {
+      const pictures = this.member.person.profilePictures
+      return pictures && pictures.tiny ? pictures.tiny : defaultAvatar
+    },
+    avatarStyle () {
+      return `
+        object-fit: cover;
+        width: ${this.size}px;
+        height: ${this.size}px;
+      `
+    },
+    avatarClass () {
+      let color = ''
+      switch (this.member.party) {
+        case 'Republican':
+          color = 'red'
+          break
+        case 'Democrat':
+          color = 'blue'
+          break
+        default:
+          color = 'gray'
+          break
+      }
+      return color
+    },
+    memberAreaCode () {
+      if (this.member.district) {
+        return `${this.member.state}-${this.member.district}`
+      } else {
+        return `${this.member.state}`
+      }
+    },
+    memberTitle () {
+      const lang = { 'en-us': 'en', 'zh-tw': 'zh' }[this.$store.state.locale]
+
+      if (!this.states) return ''
+      if (this.member.district) {
+        return `${this.member.titleLong} for ${this.states[this.member.state][lang]}'s ${
+          this.member.district
+        }th district`
+      } else {
+        return `${this.member.titleLong} for ${this.states[this.member.state][lang]}`
+      }
+    },
+    twitterLink () {
+      return this.ppMember && this.ppMember.twitter_account
+        ? `https://twitter.com/${this.ppMember.twitter_account}`
+        : null
+    },
+    facebookLink () {
+      return this.ppMember && this.ppMember.facebook_account
+        ? `https://www.facebook.com/${this.ppMember.facebook_account}`
+        : null
+    },
+    youtubeLink () {
+      return this.ppMember && this.ppMember.youtube_account
+        ? `https://www.youtube.com/user/${this.ppMember.youtube_account}`
+        : null
+    },
+    cspanLink () {
+      return this.ppMember && this.ppMember.cspan_id ? `https://www.c-span.org/person/?${this.ppMember.cspan_id}` : null
     }
   },
   mounted () {
@@ -156,72 +286,6 @@ export default {
       })
     this.fetchProPublicaMember(personBioGuideId)
   },
-  computed: {
-    locale () {
-      return this.$store.state.locale
-    },
-    isDesktop () {
-      return this.$store.getters.isDesktop
-    },
-    isPhone () {
-      return this.$store.getters.isPhone
-    },
-    avatarSource () {
-      const pictures = this.member.person.profilePictures
-      return pictures && pictures.tiny ? pictures.tiny : defaultAvatar
-    },
-    avatarStyle () {
-      return `
-        object-fit: cover;
-        width: ${this.size}px;
-        height: ${this.size}px;
-      `
-    },
-    avatarClass () {
-      let color = ''
-      switch (this.member.party) {
-        case 'Republican':
-          color = 'red'
-          break
-        case 'Democrat':
-          color = 'blue'
-          break
-        default:
-          color = 'gray'
-          break
-      }
-      return color
-    },
-    memberAreaCode () {
-      if (this.member.district) {
-        return `${this.member.state}-${this.member.district}`
-      } else {
-        return `${this.member.state}`
-      }
-    },
-    memberTitle () {
-      const lang = { 'en-us': 'en', 'zh-tw': 'zh' }[this.$store.state.locale]
-
-      if (!this.states) return ''
-      if (this.member.district) {
-        return `${this.member.titleLong} for ${this.states[this.member.state][lang]}'s ${this.member.district}th district`
-      } else {
-        return `${this.member.titleLong} for ${this.states[this.member.state][lang]}`
-      }
-    },
-    twitterLink () {
-      return this.ppMember && this.ppMember.twitter_account ? `https://twitter.com/${this.ppMember.twitter_account}` : null
-    },
-    facebookLink () {
-      return this.ppMember && this.ppMember.facebook_account ? `https://www.facebook.com/${this.ppMember.facebook_account}` : null
-    },
-    youtubeLink () {
-      return this.ppMember && this.ppMember.youtube_account ? `https://www.youtube.com/user/${this.ppMember.youtube_account}` : null
-    },
-    cspanLink () {
-      return this.ppMember && this.ppMember.cspan_id ? `https://www.c-span.org/person/?${this.ppMember.cspan_id}` : null
-    }
-  },
   methods: {
     path,
     fetchMemberRoles ({ personIds }) {
@@ -240,10 +304,6 @@ export default {
       const response = await get(`https://api.propublica.org/congress/v1/members/${bioGuideId}.json`)
       this.ppMember = response.data.results[0]
     }
-  },
-  components: {
-    TwButton,
-    FbShareWrapper
   }
 }
 </script>

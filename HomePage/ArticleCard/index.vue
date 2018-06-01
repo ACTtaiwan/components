@@ -1,12 +1,23 @@
 <template>
-  <div class="article-card" :class="{ phone: this.isPhone }">
-    <div class="article-img" :style="imgStyle"></div>
-    <a :href="article.url" target="_blank"><h1 class="article-title">{{ article.title | truncate(100) }}</h1></a>
+  <div
+    :class="{ phone: isPhone }"
+    class="article-card">
+    <div
+      :style="imgStyle"
+      class="article-img"/>
+    <a
+      :href="article.url"
+      target="_blank">
+      <h1 class="article-title">
+        {{ article.title | truncate(100) }}
+      </h1>
+    </a>
 
   </div>
 </template>
 <script>
 export default {
+  components: {},
   props: {
     article: {
       type: Object,
@@ -26,8 +37,7 @@ export default {
       return this.$store.getters.isPhone
     }
   },
-  methods: {},
-  components: {}
+  methods: {}
 }
 </script>
 

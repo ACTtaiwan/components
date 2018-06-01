@@ -1,17 +1,28 @@
 <template>
   <header>
-    <Menu mode="horizontal" theme="light" :active-name="activeMenuItem">
+    <Menu
+      :active-name="activeMenuItem"
+      mode="horizontal"
+      theme="light">
       <div class="header-wrapper">
-        <div class="header-menu-hamburger" :class="{isMenuOpen: isMenuOpen}" @click="onHamburgerClick">
-          <span></span>
+        <div
+          :class="{isMenuOpen: isMenuOpen}"
+          class="header-menu-hamburger"
+          @click="onHamburgerClick">
+          <span/>
         </div>
-        <Logo></Logo>
-        <div class="header-nav" :class="{isMenuOpen: isMenuOpen}">
+        <Logo/>
+        <div
+          :class="{isMenuOpen: isMenuOpen}"
+          class="header-nav">
           <!-- MENU -->
           <div class="header-menu">
-            <router-link class="menu-item" :class="{'menu-item-selected': activeMenuItem === 'bills'}" :to="path(this, '/bills')">
+            <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'bills'}"
+              :to="path(this, '/bills')"
+              class="menu-item">
               <MenuItem name="bills" >
-                {{ $t('site.menu.billItemText') }}
+              {{ $t('site.menu.billItemText') }}
               </MenuItem>
             </router-link>
             <!-- <router-link class="menu-item" :class="{'menu-item-selected': activeMenuItem === 'votes'}" :to="path(this, '/votes')">
@@ -19,16 +30,19 @@
                 {{ $t('site.menu.votesItemText') }}
               </MenuItem>
             </router-link> -->
-            <router-link class="menu-item" :class="{'menu-item-selected': activeMenuItem === 'members'}" :to="path(this, '/members')">
+            <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'members'}"
+              :to="path(this, '/members')"
+              class="menu-item">
               <MenuItem name="members">
-                {{ $t('site.menu.congressMemberItemText') }}
+              {{ $t('site.menu.congressMemberItemText') }}
               </MenuItem>
             </router-link>
           </div>
           <!-- INFO -->
           <div class="header-info">
-            <UserInfo></UserInfo>
-            <LangSwitch></LangSwitch>
+            <UserInfo/>
+            <LangSwitch/>
           </div>
         </div>
       </div>
@@ -43,6 +57,11 @@ import LangSwitch from './LangSwitch'
 import { path } from '@/plugins/utils'
 
 export default {
+  components: {
+    Logo,
+    UserInfo,
+    LangSwitch
+  },
   props: {},
   data () {
     return {
@@ -64,11 +83,6 @@ export default {
       this.isMenuOpen = !this.isMenuOpen
     },
     path
-  },
-  components: {
-    Logo,
-    UserInfo,
-    LangSwitch
   }
 }
 </script>>

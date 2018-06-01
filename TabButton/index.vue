@@ -1,20 +1,31 @@
 <template>
-  <Button class="tab-button" :class="{ enabled: selected }" type="ghost" shape="circle" :icon="this.icon" @click="select">{{ this.label }}</Button>
+  <Button
+    :class="{ enabled: selected }"
+    :icon="icon"
+    class="tab-button"
+    type="ghost"
+    shape="circle"
+    @click="select">
+    {{ label }}
+  </Button>
 </template>
 <script>
 export default {
   props: {
     selected: {
       type: Boolean,
-      required: true
+      required: true,
+      default: () => false
     },
     icon: {
       type: String,
-      required: false
+      required: false,
+      default: () => ''
     },
     label: {
       type: String,
-      required: false
+      required: false,
+      default: () => ''
     }
   },
   data () {

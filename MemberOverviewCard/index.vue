@@ -1,65 +1,116 @@
 <template>
-  <div class="overview-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="overview-card">
     <h1 class="overview-card-title">Overview</h1>
     <div class="member-meta">
       <span class="member-meta-info">{{ memberAreaCode }}</span>
-      <span class="member-meta-info">{{ members[0].party}}</span>
-      <span v-if="isInCongress" class="member-meta-info success">In Congress</span>
+      <span class="member-meta-info">{{ members[0].party }}</span>
+      <span
+        v-if="isInCongress"
+        class="member-meta-info success">
+        In Congress
+      </span>
     </div>
     <div class="member-profile">
-      <img class="avatar" :class="avatarClass" :src="avatarSource" :style="avatarStyle" />
+      <img
+        :class="avatarClass"
+        :src="avatarSource"
+        :style="avatarStyle"
+        class="avatar" >
       <div class="member-name-title">
         <h1 class="member-name">{{ members[0].title }} {{ members[0].person.firstname }} {{ members[0].person.middlename }} {{ members[0].person.lastname }}</h1>
         <p class="member-title">{{ memberTitle }} </p>
       </div>
     </div>
     <Row>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Terms -->
-        <span class="label">Terms</span>
-        <div v-if="terms" class="poptip-block">
-          <p class="value stats">{{ terms.length }}</p>
-          <Poptip class="poptip" :trigger="this.isPhone ? 'click' : 'hover'" placement="right">
-            <Icon type="information-circled"></Icon>
-            <div class="poptip-content" slot="content">
-              <p v-for="term in terms" :key="term">{{ term }}th</p>
-            </div>
-          </Poptip>
-        </div>
-        <BeatLoader v-else class="stats-loader" />
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Terms -->
+      <span class="label">Terms</span>
+      <div
+        v-if="terms"
+        class="poptip-block">
+        <p class="value stats">{{ terms.length }}</p>
+        <Poptip
+          :trigger="isPhone ? 'click' : 'hover'"
+          class="poptip"
+          placement="right">
+          <Icon type="information-circled"/>
+          <div
+            slot="content"
+            class="poptip-content">
+            <p
+              v-for="term in terms"
+              :key="term">{{ term }}th</p>
+          </div>
+        </Poptip>
+      </div>
+      <BeatLoader
+        v-else
+        class="stats-loader" />
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Vote with party -->
-        <span class="label">Vote with party</span>
-        <div v-if="ppMember" class="poptip-block">
-          <p class="value stats">{{ Number.parseFloat(ppMember.roles[0].votes_with_party_pct).toPrecision(2) }}%</p>
-          <Poptip class="poptip" trigger="hover" placement="right">
-            <Icon type="information-circled"></Icon>
-            <div class="poptip-content" slot="content">
-              <p>This is calculated for {{ppMember.roles[0].congress}}th Congress</p>
-            </div>
-          </Poptip>
-        </div>
-        <BeatLoader v-else class="stats-loader"/>
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Vote with party -->
+      <span class="label">Vote with party</span>
+      <div
+        v-if="ppMember"
+        class="poptip-block">
+        <p class="value stats">{{ Number.parseFloat(ppMember.roles[0].votes_with_party_pct).toPrecision(2) }}%</p>
+        <Poptip
+          class="poptip"
+          trigger="hover"
+          placement="right">
+          <Icon type="information-circled"/>
+          <div
+            slot="content"
+            class="poptip-content">
+            <p>This is calculated for {{ ppMember.roles[0].congress }}th Congress</p>
+          </div>
+        </Poptip>
+      </div>
+      <BeatLoader
+        v-else
+        class="stats-loader"/>
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Sponsored -->
-        <span class="label">Sponsored bills</span>
-        <p class="value stats" v-if="sponsoredBills">{{ sponsoredBills.length }}</p>
-        <BeatLoader v-else class="stats-loader" />
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Sponsored -->
+      <span class="label">Sponsored bills</span>
+      <p
+        v-if="sponsoredBills"
+        class="value stats">{{ sponsoredBills.length }}</p>
+      <BeatLoader
+        v-else
+        class="stats-loader" />
       </Col>
-      <Col :span="this.isDesktop ? 6 : 12" class="overview-card-info-block">
-        <!-- Cosponsored -->
-        <span class="label">Cosponsored bills</span>
-        <p class="value stats" v-if="cosponsoredBills">{{ cosponsoredBills.length }}</p>
-        <BeatLoader v-else class="stats-loader" />
+      <Col
+        :span="isDesktop ? 6 : 12"
+        class="overview-card-info-block">
+      <!-- Cosponsored -->
+      <span class="label">Cosponsored bills</span>
+      <p
+        v-if="cosponsoredBills"
+        class="value stats">{{ cosponsoredBills.length }}</p>
+      <BeatLoader
+        v-else
+        class="stats-loader" />
       </Col>
-      <Col :span="24" class="overview-card-info-block">
-        <!-- Committees -->
-        <span class="label">Current Committees</span>
-        <p class="value" v-for="committee in ppMember.roles[0].committees" :key="committee.code">{{ committee.name }}
-          <span class="note">({{ committee.title.toLowerCase() }})</span>
-        </p>
+      <Col
+        :span="24"
+        class="overview-card-info-block">
+      <!-- Committees -->
+      <span class="label">Current Committees</span>
+      <p
+        v-for="committee in ppMember.roles[0].committees"
+        :key="committee.code"
+        class="value">{{ committee.name }}
+        <span class="note">({{ committee.title.toLowerCase() }})</span>
+      </p>
       </Col>
     </Row>
   </div>
@@ -70,6 +121,9 @@ import defaultAvatar from '~/assets/img/tw-logo-color.png'
 import BeatLoader from '~/components/BeatLoader'
 
 export default {
+  components: {
+    BeatLoader
+  },
   props: {
     ppMember: {
       type: Object,
@@ -85,11 +139,13 @@ export default {
     },
     sponsoredBills: {
       type: Array,
-      required: false
+      required: false,
+      default: () => []
     },
     cosponsoredBills: {
       type: Array,
-      required: false
+      required: false,
+      default: () => []
     }
   },
   data () {
@@ -155,9 +211,6 @@ export default {
       })
       return isInCongress
     }
-  },
-  components: {
-    BeatLoader
   }
 }
 </script>

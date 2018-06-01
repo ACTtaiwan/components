@@ -1,9 +1,15 @@
 <template>
   <div class="progress">
 
-    <div class="progress-bar" :style="this.style" />
+    <div
+      :style="style"
+      class="progress-bar" />
     <div class="stages">
-      <Tooltip :class="dotClass" v-for="step in steps" :content="step.stepName" :key="step.stepName"></Tooltip>
+      <Tooltip
+        v-for="step in steps"
+        :class="dotClass"
+        :content="step.stepName"
+        :key="step.stepName"/>
     </div>
 
   </div>

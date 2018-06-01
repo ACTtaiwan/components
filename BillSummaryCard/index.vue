@@ -1,8 +1,8 @@
 <template>
-  <div class="summary-card" :class="{ phone: this.isPhone }">
+  <div :class="{ phone: isPhone }" class="summary-card">
     <h1 class="summary-card-title">Summary</h1>
     <div class="summary-card-body">
-      <p class="paragraph" v-for="paragraph in paragraphs">{{ paragraph }}</p>
+      <p v-for="(paragraph, index) in paragraphs" :key="index" class="paragraph">{{ paragraph }}</p>
     </div>
   </div>
 
@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  components: {},
   props: {
     bill: {
       type: Object,
@@ -44,8 +45,7 @@ export default {
         return paragraph
       })
     }
-  },
-  components: {}
+  }
 }
 </script>
 

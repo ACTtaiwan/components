@@ -1,38 +1,82 @@
 <template>
-  <div class="contact-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="contact-card">
     <h1 class="contact-card-title">Contact</h1>
     <div class="contact-card-body">
       <Row>
-        <Col v-if="member.url" :span="24" class="contact-card-info-block">
+        <i-col
+          v-if="member.url"
+          :span="24"
+          class="contact-card-info-block">
           <!-- Website -->
           <span class="label">Website</span>
-          <a :href="member.url" target="_blank" class="value link" >{{ member.url }}</a>
-        </Col>
-        <Col :span="24" class="contact-card-info-block">
+          <a
+            :href="member.url"
+            target="_blank"
+            class="value link" >{{ member.url }}</a>
+        </i-col>
+        <i-col
+          :span="24"
+          class="contact-card-info-block">
           <!-- Socail Media -->
           <span class="label">Social Media</span>
           <p class="value">
-            <a v-if="twitterLink" :href="twitterLink" target="_blank"><img class="social twitter" :src="twitterLogo"/></a>
-            <a v-if="youtubeLink" :href="youtubeLink" target="_blank"><img class="social youtube" :src="youtubeLogo"/></a>
-            <a v-if="facebookLink" :href="facebookLink" target="_blank"><img class="social facebook" :src="facebookLogo"/></a>
-            <a v-if="cspanLink" :href="cspanLink" target="_blank"><img class="social cspan" :src="cspanLogo"/></a>
+            <a
+              v-if="twitterLink"
+              :href="twitterLink"
+              target="_blank">
+              <img
+                :src="twitterLogo"
+                class="social twitter">
+            </a>
+            <a
+              v-if="youtubeLink"
+              :href="youtubeLink"
+              target="_blank"><img
+                :src="youtubeLogo"
+                class="social youtube">
+            </a>
+            <a
+              v-if="facebookLink"
+              :href="facebookLink"
+              target="_blank"><img
+                :src="facebookLogo"
+                class="social facebook">
+            </a>
+            <a
+              v-if="cspanLink"
+              :href="cspanLink"
+              target="_blank"><img
+                :src="cspanLogo"
+                class="social cspan">
+            </a>
           </p>
-        </Col>
-        <Col v-if="member.roles[0].phone" :span="24" class="contact-card-info-block">
+        </i-col>
+        <i-col
+          v-if="member.roles[0].phone"
+          :span="24"
+          class="contact-card-info-block">
           <!-- Phone -->
           <span class="label">Phone</span>
           <p class="value" >{{ member.roles[0].phone }}</p>
-        </Col>
-        <Col v-if="member.roles[0].fax" :span="24" class="contact-card-info-block">
+        </i-col>
+        <i-col
+          v-if="member.roles[0].fax"
+          :span="24"
+          class="contact-card-info-block">
           <!-- Fax -->
           <span class="label">Fax</span>
           <p class="value" >{{ member.roles[0].fax }}</p>
-        </Col>
-        <Col v-if="member.roles[0].office" :span="24" class="contact-card-info-block">
+        </i-col>
+        <i-col
+          v-if="member.roles[0].office"
+          :span="24"
+          class="contact-card-info-block">
           <!-- Office -->
           <span class="label">Office</span>
           <p class="value" >{{ member.roles[0].office }}</p>
-        </Col>
+        </i-col>
       </Row>
     </div>
   </div>
@@ -47,6 +91,7 @@ import youtubeLogo from '~/assets/img/youtube_logo.svg'
 import twitterLogo from '~/assets/img/twitter_logo.svg'
 
 export default {
+  components: {},
   props: {
     member: {
       type: Object,
@@ -77,8 +122,7 @@ export default {
     cspanLink () {
       return this.member.cspan_id ? `https://www.c-span.org/person/?${this.member.cspan_id}` : null
     }
-  },
-  components: {}
+  }
 }
 </script>
 

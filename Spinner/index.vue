@@ -1,12 +1,24 @@
 <template>
-  <svg v-bind:style="styles" class="spinner spinner--circle" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+  <svg
+    :style="styles"
+    class="spinner spinner--circle"
+    viewBox="0 0 66 66"
+    xmlns="http://www.w3.org/2000/svg">
+    <circle
+      class="path"
+      fill="none"
+      stroke-width="6"
+      stroke-linecap="round"
+      cx="33"
+      cy="33"
+      r="30"/>
   </svg>
 </template>
 <script>
 export default {
   props: {
     size: {
+      type: String,
       default: '30px'
     }
   },
@@ -44,7 +56,7 @@ $duration: 1.4s;
   stroke-dasharray: $offset;
   stroke-dashoffset: 0;
   transform-origin: center;
-  animation: circle-dash $duration ease-in-out infinite, circle-colors ($duration*4) ease-in-out infinite;
+  animation: circle-dash $duration ease-in-out infinite, circle-colors ($duration * 4) ease-in-out infinite;
 }
 @keyframes circle-colors {
   0% {

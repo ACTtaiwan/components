@@ -1,66 +1,103 @@
 <template>
-  <div class="bill-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="bill-card">
     <div class="bill-meta">
-      <span class="bill-code">{{ bill.billCode}}</span>
-      <span class="bill-type">{{ this.billType }}</span>
+      <span class="bill-code">{{ bill.billCode }}</span>
+      <span class="bill-type">{{ billType }}</span>
     </div>
     <router-link :to="path(this, `/bills/${bill.id}`)">
       <h1 class="bill-title">{{ bill.title | truncate(160) }}</h1>
     </router-link>
     <div class="bill-info">
       <Row>
-        <Col :span="24" class="bill-card-info-block">
-          <!-- Sponsor -->
-          <div class="bill-sponsor">
-            <img class="avatar" :class="avatarClass" :src="avatarSource" :style="avatarStyle" />
-            <router-link :to="path(this, `/members/${bill.sponsor.person.id}`)">
-              <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
-            </router-link>
-            <p class="area">{{ this.memberArea }} </p>
-          </div>
+        <Col
+          :span="24"
+          class="bill-card-info-block">
+        <!-- Sponsor -->
+        <div class="bill-sponsor">
+          <img
+            :class="avatarClass"
+            :src="avatarSource"
+            :style="avatarStyle"
+            class="avatar" >
+          <router-link :to="path(this, `/members/${bill.sponsor.person.id}`)">
+            <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
+          </router-link>
+          <p class="area">{{ memberArea }} </p>
+        </div>
         </Col>
-        <Col :span="this.isDesktop ? 6 : 12" class="bill-card-info-block">
-          <!-- Congress -->
-          <span class="label">Congress</span>
-          <p class="value">{{ bill.congress }}th</p>
+        <Col
+          :span="isDesktop ? 6 : 12"
+          class="bill-card-info-block">
+        <!-- Congress -->
+        <span class="label">Congress</span>
+        <p class="value">{{ bill.congress }}th</p>
         </Col>
-        <Col :span="this.isDesktop ? 6 : 12" class="bill-card-info-block">
-          <!-- Introduced Date -->
-          <span class="label">Introduced</span>
-          <p class="value">{{ bill.introducedDate | localTime }}</p>
+        <Col
+          :span="isDesktop ? 6 : 12"
+          class="bill-card-info-block">
+        <!-- Introduced Date -->
+        <span class="label">Introduced</span>
+        <p class="value">{{ bill.introducedDate | localTime }}</p>
         </Col>
-        <Col :span="this.isDesktop ? 6 : 12" class="bill-card-info-block">
-          <!-- Cosponsors -->
-          <span class="label">Cosponsors</span>
-          <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
+        <Col
+          :span="isDesktop ? 6 : 12"
+          class="bill-card-info-block">
+        <!-- Cosponsors -->
+        <span class="label">Cosponsors</span>
+        <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
         </Col>
-        <Col :span="this.isDesktop ? 6 : 12" class="bill-card-info-block">
-          <!-- Categories -->
-          <span class="label">Categories</span>
-          <div class="categories" v-if="bill.categories">
-            <Tooltip class="value category" v-for="category in bill.categories" :key="category.id" :content="category.name">
-              <img :src="categoryMap[category.code]"/>
-            </Tooltip>
-          </div>
-          <span v-else class="value">none</span>
+        <Col
+          :span="isDesktop ? 6 : 12"
+          class="bill-card-info-block">
+        <!-- Categories -->
+        <span class="label">Categories</span>
+        <div
+          v-if="bill.categories"
+          class="categories">
+          <Tooltip
+            v-for="category in bill.categories"
+            :key="category.id"
+            :content="category.name"
+            class="value category">
+            <img :src="categoryMap[category.code]">
+          </Tooltip>
+        </div>
+        <span
+          v-else
+          class="value">none</span>
         </Col>
-        <Col :span="24" class="bill-card-info-block">
-          <!-- Tracker -->
-          <span class="label">Status</span>
-          <p class="value">{{ billLatestAction | trimConGovAction }}</p>
-          <BillTracker class="tracker" :steps="bill.trackers" :progress="billProgress"></BillTracker>
+        <Col
+          :span="24"
+          class="bill-card-info-block">
+        <!-- Tracker -->
+        <span class="label">Status</span>
+        <p class="value">{{ billLatestAction | trimConGovAction }}</p>
+        <BillTracker
+          :steps="bill.trackers"
+          :progress="billProgress"
+          class="tracker"/>
         </Col>
       </Row>
     </div>
     <div class="bill-footer">
       <div class="social">
-        <TwButton class="social-button" icon="android-bookmark" type="icon" style="light"></TwButton>
+        <TwButton
+          class="social-button"
+          icon="android-bookmark"
+          type="icon"
+          style="light"/>
         <FbShareWrapper :url="path(this, `/bills/${bill.id}`)">
-          <TwButton class="social-button" icon="android-share" type="icon" style="light"></TwButton>
+          <TwButton
+            class="social-button"
+            icon="android-share"
+            type="icon"
+            style="light"/>
         </FbShareWrapper>
       </div>
       <router-link :to="path(this, `/bills/${bill.id}`)">
-        <TwButton label="More"></TwButton>
+        <TwButton label="More"/>
       </router-link>
     </div>
   </div>
@@ -83,6 +120,11 @@ import catDefense from '~/assets/img/cat-defense.svg'
 import catOther from '~/assets/img/cat-other.svg'
 
 export default {
+  components: {
+    BillTracker,
+    TwButton,
+    FbShareWrapper
+  },
   props: {
     bill: {
       type: Object,
@@ -182,11 +224,6 @@ export default {
   },
   methods: {
     path
-  },
-  components: {
-    BillTracker,
-    TwButton,
-    FbShareWrapper
   }
 }
 </script>

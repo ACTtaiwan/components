@@ -1,9 +1,13 @@
 <template>
-  <div class="actions-card" :class="{ phone: this.isPhone }">
+  <div
+    :class="{ phone: isPhone }"
+    class="actions-card">
     <h1 class="actions-card-title">Actions</h1>
     <div class="actions-card-body">
       <Timeline>
-        <TimelineItem v-for="action in actions" :key="action.index">
+        <TimelineItem
+          v-for="action in actions"
+          :key="action.index">
           <p class="time">{{ action.datetime | localTime }}</p>
           <p class="content">{{ action.description | trimConGovAction }}</p>
         </TimelineItem>
@@ -15,6 +19,7 @@
 
 <script>
 export default {
+  components: {},
   props: {
     bill: {
       type: Object,
@@ -43,8 +48,7 @@ export default {
         return action
       })
     }
-  },
-  components: {}
+  }
 }
 </script>
 
