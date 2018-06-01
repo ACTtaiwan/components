@@ -16,9 +16,9 @@ module.exports = {
   plugins: ['vue'],
   // add your custom rules here
   rules: {
+    'space-before-function-paren': ['error', 'always'],
     'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     'vue/attribute-hyphenation': [2, 'never'],
-    'space-before-function-paren': ['error', 'always'],
     'vue/max-attributes-per-line': [
       2,
       {
@@ -32,21 +32,3 @@ module.exports = {
   },
   globals: {}
 }
-
-// module.exports = {
-//   root: true,
-//   parser: 'babel-eslint',
-//   env: {
-//     browser: true,
-//     node: true
-//   },
-//   extends: 'standard',
-//   // required to lint *.vue files
-//   plugins: ['html'],
-//   // add your custom rules here
-//   rules: {
-//     camelcase: 'off',
-//     'space-before-function-paren': ['error', 'always']
-//   },
-//   globals: {}
-// }
