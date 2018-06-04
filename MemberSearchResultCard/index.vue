@@ -13,7 +13,7 @@
         :style="avatarStyle"
         class="avatar" >
       <div class="member-name-title">
-        <router-link :to="path(this, `/members/${member.person.id}`)">
+        <router-link :to="`/members/${member.person.id}`">
           <h1 class="member-name">{{ member.title }} {{ member.person.firstname }} {{ member.person.middlename }} {{ member.person.lastname }}</h1>
         </router-link>
         <p class="area">{{ memberTitle }} </p>
@@ -99,7 +99,7 @@
           icon="android-bookmark"
           type="icon"
           style="light"/>
-        <FbShareWrapper :url="path(this, `/members/${member.person.id}`)">
+        <FbShareWrapper :url="`/members/${member.person.id}`">
           <TwButton
             class="social-button"
             icon="android-share"
@@ -107,7 +107,7 @@
             style="light"/>
         </FbShareWrapper>
       </div>
-      <router-link :to="path(this, `/members/${member.person.id}`)">
+      <router-link :to="`/members/${member.person.id}`">
         <TwButton label="More"/>
       </router-link>
     </div>
@@ -115,7 +115,7 @@
 </template>
 <script>
 import _ from 'lodash'
-import { path, get } from '@/plugins/utils'
+import { get } from '@/plugins/utils'
 import TwButton from '~/components/TwButton'
 import defaultAvatar from '~/assets/img/tw-logo-color.png'
 import FbShareWrapper from '~/components/FbShareWrapper'
@@ -204,7 +204,7 @@ export default {
       }
     },
     memberTitle () {
-      const lang = { 'en-us': 'en', 'zh-tw': 'zh' }[this.$store.state.locale]
+      const lang = 'zh'
 
       if (!this.states) return ''
       if (this.member.district) {
@@ -287,7 +287,6 @@ export default {
     this.fetchProPublicaMember(personBioGuideId)
   },
   methods: {
-    path,
     fetchMemberRoles ({ personIds }) {
       return this.$apollo.query({
         query: RolesQuery,

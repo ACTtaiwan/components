@@ -6,7 +6,7 @@
       <span class="bill-code">{{ bill.billCode }}</span>
       <span class="bill-type">{{ billType }}</span>
     </div>
-    <router-link :to="path(this, `/bills/${bill.id}`)">
+    <router-link :to="`/bills/${bill.id}`">
       <h1 class="bill-title">{{ bill.title | truncate(160) }}</h1>
     </router-link>
     <div class="bill-info">
@@ -21,7 +21,7 @@
             :src="avatarSource"
             :style="avatarStyle"
             class="avatar" >
-          <router-link :to="path(this, `/members/${bill.sponsor.person.id}`)">
+          <router-link :to="`/members/${bill.sponsor.person.id}`">
             <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
           </router-link>
           <p class="area">{{ memberArea }} </p>
@@ -88,7 +88,7 @@
           icon="android-bookmark"
           type="icon"
           style="light"/>
-        <FbShareWrapper :url="path(this, `/bills/${bill.id}`)">
+        <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"
             icon="android-share"
@@ -96,14 +96,13 @@
             style="light"/>
         </FbShareWrapper>
       </div>
-      <router-link :to="path(this, `/bills/${bill.id}`)">
+      <router-link :to="`/bills/${bill.id}`">
         <TwButton label="More"/>
       </router-link>
     </div>
   </div>
 </template>
 <script>
-import { path } from '@/plugins/utils'
 import defaultAvatar from '~/assets/img/tw-logo-color.png'
 import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
@@ -222,9 +221,7 @@ export default {
       return dom.textContent || dom.innerText || ''
     }
   },
-  methods: {
-    path
-  }
+  methods: {}
 }
 </script>
 

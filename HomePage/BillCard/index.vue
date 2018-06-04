@@ -7,7 +7,7 @@
       <span class="bill-code">{{ bill.billCode }}</span>
       <span class="bill-type">{{ bill.billType.code | billType }}</span>
     </div>
-    <router-link :to="path(this, `/bills/${bill.id}`)">
+    <router-link :to="`/bills/${bill.id}`">
       <h1 class="bill-title">{{ bill.title | truncate(100) }}</h1>
     </router-link>
     <div class="bill-info">
@@ -26,21 +26,20 @@
           class="social-button"
           icon="android-bookmark"
           type="icon"/>
-        <FbShareWrapper :url="path(this, `/bills/${bill.id}`)">
+        <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"
             icon="android-share"
             type="icon"/>
         </FbShareWrapper>
       </div>
-      <router-link :to="path(this, `/bills/${bill.id}`)">
+      <router-link :to="`/bills/${bill.id}`">
         <TwButton label="More"/>
       </router-link>
     </div>
   </div>
 </template>
 <script>
-import { path } from '@/plugins/utils'
 import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
@@ -94,7 +93,6 @@ export default {
     }
   },
   methods: {
-    path,
     updateLastActionTime (latestActionTime) {
       this.billLatestActionDate = latestActionTime
     }

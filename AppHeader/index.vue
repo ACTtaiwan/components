@@ -19,20 +19,15 @@
           <div class="header-menu">
             <router-link
               :class="{'menu-item-selected': activeMenuItem === 'bills'}"
-              :to="path(this, '/bills')"
+              :to="`/bills`"
               class="menu-item">
               <MenuItem name="bills" >
               {{ $t('site.menu.billItemText') }}
               </MenuItem>
             </router-link>
-            <!-- <router-link class="menu-item" :class="{'menu-item-selected': activeMenuItem === 'votes'}" :to="path(this, '/votes')">
-              <MenuItem name="votes">
-                {{ $t('site.menu.votesItemText') }}
-              </MenuItem>
-            </router-link> -->
             <router-link
               :class="{'menu-item-selected': activeMenuItem === 'members'}"
-              :to="path(this, '/members')"
+              :to="`/members`"
               class="menu-item">
               <MenuItem name="members">
               {{ $t('site.menu.congressMemberItemText') }}
@@ -42,7 +37,6 @@
           <!-- INFO -->
           <div class="header-info">
             <UserInfo/>
-            <LangSwitch/>
           </div>
         </div>
       </div>
@@ -53,14 +47,11 @@
 <script>
 import Logo from './Logo'
 import UserInfo from './UserInfo'
-import LangSwitch from './LangSwitch'
-import { path } from '@/plugins/utils'
 
 export default {
   components: {
     Logo,
-    UserInfo,
-    LangSwitch
+    UserInfo
   },
   props: {},
   data () {
@@ -81,8 +72,7 @@ export default {
   methods: {
     onHamburgerClick (event) {
       this.isMenuOpen = !this.isMenuOpen
-    },
-    path
+    }
   }
 }
 </script>>

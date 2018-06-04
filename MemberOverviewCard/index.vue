@@ -109,7 +109,7 @@
         v-for="committee in ppMember.roles[0].committees"
         :key="committee.code"
         class="value">{{ committee.name }}
-        <span class="note">({{ committee.title.toLowerCase() }})</span>
+        <span class="note">({{ committee.title && committee.title.toLowerCase() }})</span>
       </p>
       </Col>
     </Row>

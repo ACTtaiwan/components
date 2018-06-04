@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    :to="path(this, '/')"
+    :to="`/`"
     class="logo">
     <img
       :src="logo"
@@ -12,7 +12,6 @@
 
 <script>
 import logo from '~/assets/img/tw-logo-color.png'
-import { path } from '@/plugins/utils'
 
 export default {
   data () {
@@ -20,9 +19,7 @@ export default {
       logo
     }
   },
-  methods: {
-    path
-  }
+  methods: {}
 }
 </script>>
 

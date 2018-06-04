@@ -26,7 +26,7 @@
           <span class="bill-code">{{ bill.billCode }}</span>
           <span class="bill-type">{{ bill.billType.code | billType }}</span>
         </div>
-        <router-link :to="path(getThis(), `/bills/${bill.id}`)">
+        <router-link :to="`/bills/${bill.id}`">
           <h1 class="bill-title">{{ bill.title }}</h1>
         </router-link>
         <Row>
@@ -85,7 +85,7 @@
         </Row>
         <div class="bill-footer">
           <router-link
-            :to="path(getThis(), `/bills/${bill.id}`)"
+            :to="`/bills/${bill.id}`"
             class="more-btn">
             <TwButton label="More"/>
           </router-link>
@@ -97,7 +97,6 @@
 
 <script>
 import _ from 'lodash'
-import { path } from '@/plugins/utils'
 
 // logos
 import cspanLogo from '~/assets/img/cspan_logo.svg'
@@ -263,8 +262,7 @@ export default {
         if (step.selected) currentStep = index + 1
       })
       return currentStep / totalSteps * 100
-    },
-    path
+    }
   }
 }
 </script>

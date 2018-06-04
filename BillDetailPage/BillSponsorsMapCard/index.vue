@@ -9,7 +9,7 @@
         <router-link
           v-for="cosponsor in bill.cosponsors"
           :key="cosponsor.role.id"
-          :to="path(getThis(), `/members/${cosponsor.role.person.id}`)">
+          :to="`/members/${cosponsor.role.person.id}`">
           <Tag
             :name="cosponsor.role.id"
             :color="{Republican: 'red', Democrat: 'blue'}[cosponsor.role.party]"
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { path } from '@/plugins/utils'
 import queryMapUtils from '~/apollo/queries/mapUtils'
 import queryCdMap from '~/apollo/queries/cdMap'
 import SponsorsMap from '~/components/SponsorsMap'
@@ -125,7 +124,6 @@ export default {
     }
   },
   methods: {
-    path,
     getThis () {
       return this
     }

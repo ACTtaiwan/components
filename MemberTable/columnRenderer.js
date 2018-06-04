@@ -1,5 +1,3 @@
-// import { path } from '@/plugins/utils'
-
 const columnRenderer = vm => {
   return [
     {

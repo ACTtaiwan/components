@@ -1,5 +1,3 @@
-import { path } from '@/plugins/utils'
-
 const columnRenderer = vm => {
   return [
     {
@@ -24,7 +22,7 @@ const columnRenderer = vm => {
         const bill = params.row
         const dataObject = {
           props: {
-            to: path(vm, `/bills/${bill.id}`),
+            to: `/bills/${bill.id}`,
             replace: true
           },
           attrs: {

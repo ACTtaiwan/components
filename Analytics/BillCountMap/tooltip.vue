@@ -5,8 +5,6 @@
   </div>
 </template>
 <script>
-import { path } from '@/plugins/utils'
-
 export default {
   props: {
     title: {
@@ -23,7 +21,6 @@ export default {
     }
   },
   methods: {
-    path,
     getPartyStyleObject (color) {
       return {
         color,
