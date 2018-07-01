@@ -185,7 +185,7 @@ header {
     font-size: 1.1em;
 
     &:hover {
-      // border-bottom: none;
+      border-bottom: none;
     }
   }
 }
@@ -193,7 +193,7 @@ header {
 .menu-item-selected {
   .ivu-menu-item {
     color: $twBlue;
-    // border-bottom: none;
+    border-bottom: none;
   }
 }
 
@@ -202,10 +202,9 @@ header {
   justify-content: center;
 }
 
-@media screen and (max-width: #{$largeDeviceWidth}) {
+@media screen and (max-width: $mediumDeviceWidth) {
   .header-nav {
     opacity: 0;
-    transition: opacity 0.3s;
     visibility: hidden;
     background-color: #4a505e;
     color: #fff;
@@ -242,7 +241,7 @@ header {
   }
 }
 
-@media screen and (min-width: #{$largeDeviceWidthPlusOne}) {
+@media screen and (min-width: $mediumDeviceWidth + 1) {
   .header-menu-hamburger {
     display: none;
   }
