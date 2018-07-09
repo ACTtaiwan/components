@@ -228,7 +228,7 @@ header {
   }
 }
 
-@media screen and (min-width: #{$largeDeviceWidthPlusOne}) {
+@media screen and (min-width: $largeDeviceWidth + 1) {
   .header-menu-hamburger {
     display: none;
   }
