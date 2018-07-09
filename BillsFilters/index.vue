@@ -1,8 +1,6 @@
 <template>
   <Row :gutter="20">
-    <i-col
-      :span="isTablet ? 12 : 24"
-      class="filter-block">
+    <i-col :xs="{ span: 24 }" class="filter-block">
       <h2 class="filter-title">Congress</h2>
       <div class="filter-field-block">
         <div class="filter-field">
@@ -30,10 +28,7 @@
         {{ errors.congressError }}
       </div>
     </i-col>
-    <i-col
-      :span="isTablet ? 12 : 24"
-      :class="{ tablet: isTablet }"
-      class="filter-block">
+    <i-col :xs="{ span: 24 }" class="filter-block">
       <h2 class="filter-title">Category</h2>
       <Select
         v-model="filterData.selectedCategories"
@@ -97,12 +92,6 @@ export default {
   computed: {
     locale () {
       return this.$store.state.locale
-    },
-    isPhone () {
-      return this.$store.getters.isPhone
-    },
-    isTablet () {
-      return this.$store.getters.isTablet
     },
     congressMax () {
       return this.$store.state.currentCongress
@@ -182,7 +171,7 @@ export default {
       }
 
       .filter-field-value {
-        min-width: 50px;
+        min-width: 30px;
         width: 100%;
       }
     }
