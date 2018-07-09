@@ -33,6 +33,22 @@
               {{ $t('site.menu.congressMemberItemText') }}
               </MenuItem>
             </router-link>
+            <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'insights'}"
+              :to="`/insights`"
+              class="menu-item">
+              <MenuItem name="insights">
+              {{ $t('site.menu.insightsItemText') }}
+              </MenuItem>
+            </router-link>
+            <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'articles'}"
+              :to="`/articles`"
+              class="menu-item">
+              <MenuItem name="articles">
+              {{ $t('site.menu.articlesItemText') }}
+              </MenuItem>
+            </router-link>
           </div>
           <!-- INFO -->
           <div class="header-info">
@@ -60,12 +76,9 @@ export default {
     }
   },
   computed: {
-    localeStrippedPath () {
-      let regex = new RegExp('/' + this.$i18n.locale + '/', 'g')
-      return this.$route.fullPath.replace(regex, '/')
-    },
     activeMenuItem () {
-      let currentItem = this.localeStrippedPath.split('/')[1]
+      let path = this.$route.fullPath
+      let currentItem = path.split('/')[1]
       return currentItem === '' ? 'home' : currentItem
     }
   },
@@ -179,6 +192,7 @@ header {
 
 .menu-item-selected {
   .ivu-menu-item {
+    color: $twBlue;
     border-bottom: none;
   }
 }
@@ -188,10 +202,9 @@ header {
   justify-content: center;
 }
 
-@media screen and (max-width: #{$largeDeviceWidth}) {
+@media screen and (max-width: $mediumDeviceWidth - 1) {
   .header-nav {
     opacity: 0;
-    transition: opacity 0.3s;
     visibility: hidden;
     background-color: #4a505e;
     color: #fff;
@@ -228,7 +241,7 @@ header {
   }
 }
 
-@media screen and (min-width: $largeDeviceWidth + 1) {
+@media screen and (min-width: $mediumDeviceWidth) {
   .header-menu-hamburger {
     display: none;
   }
