@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="{ phone: isPhone }"
-    class="bill-card">
+  <div class="bill-card">
     <div class="bill-meta">
       <span class="bill-code">{{ bill.billCode }}</span>
       <span class="bill-type">{{ billType }}</span>
@@ -149,9 +147,6 @@ export default {
   computed: {
     isDesktop () {
       return this.$store.getters.isDesktop
-    },
-    isPhone () {
-      return this.$store.getters.isPhone
     },
     avatarSource () {
       const pictures = this.bill.sponsor.person.profilePictures
