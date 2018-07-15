@@ -1,31 +1,23 @@
 <template>
   <Row :gutter="20">
-    <Col
-      :span="isTablet ? 12 : 24"
-      :class="{ tablet: isTablet }"
-      class="filter-block">
-    <h2 class="filter-title">State</h2>
-    <Select
-      v-model="filterData.selectedStates"
-      multiple
-      placeholder="select member states"
-      @on-change="onStateSelect">
-      <Option
-        v-for="state in stateList"
-        :value="state.code"
-        :key="state.code">
-        {{ state.zh }}
-      </Option>
-    </Select>
-    </Col>
-    <Col
-      :span="24"
-      class="filter-block">
-    <TwButton
-      :loading="loading"
-      label="Search"
-      @press="submit"/>
-    </Col>
+    <i-col :xs="{ span: 24 }" class="filter-block">
+      <h2 class="filter-title">State</h2>
+      <Select
+        v-model="filterData.selectedStates"
+        multiple
+        placeholder="select member states"
+        @on-change="onStateSelect">
+        <Option
+          v-for="state in stateList"
+          :value="state.code"
+          :key="state.code">
+          {{ state.zh }}
+        </Option>
+      </Select>
+    </i-col>
+    <i-col :span="24" class="filter-block">
+      <TwButton :loading="loading" :label="$t('MembersFilters.searchButtonLabel')" @press="submit"/>
+    </i-col>
   </Row>
 </template>
 
@@ -58,9 +50,6 @@ export default {
   computed: {
     locale () {
       return this.$store.state.locale
-    },
-    isTablet () {
-      return this.$store.getters.isTablet
     },
     stateList () {
       let stateList = []
