@@ -1,11 +1,11 @@
 <template>
   <Row :gutter="20">
     <i-col :xs="{ span: 24 }" class="filter-block">
-      <h2 class="filter-title">State</h2>
+      <h2 class="filter-title">{{ $t('MembersFilters.stateFieldTitle') }}</h2>
       <Select
         v-model="filterData.selectedStates"
+        :placeholder="$t('MembersFilters.stateFieldPlaceholder')"
         multiple
-        placeholder="select member states"
         @on-change="onStateSelect">
         <Option
           v-for="state in stateList"
@@ -16,7 +16,10 @@
       </Select>
     </i-col>
     <i-col :span="24" class="filter-block">
-      <TwButton :loading="loading" :label="$t('MembersFilters.searchButtonLabel')" @press="submit"/>
+      <TwButton
+        :loading="loading"
+        :label="$t('MembersFilters.searchButtonLabel')"
+        @press="submit"/>
     </i-col>
   </Row>
 </template>

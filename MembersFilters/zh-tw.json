@@ -1,5 +1,7 @@
 {
   "MembersFilters": {
+    "stateFieldTitle": "議員所在州",
+    "stateFieldPlaceholder": "選擇議員所在州",
     "searchButtonLabel": "搜尋"
   }
 }
