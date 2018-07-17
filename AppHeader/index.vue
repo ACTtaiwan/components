@@ -49,6 +49,24 @@
               {{ $t('site.menu.articlesItemText') }}
               </MenuItem>
             </router-link>
+            <Submenu name="about" class="menu-item">
+              <template slot="title">
+                <span class="ivu-menu-submenu-title">{{ $t('site.menu.aboutItemText') }}</span>
+              </template>
+              <MenuGroup title="觀測站">
+                <MenuItem name="3-1">緣起</MenuItem>
+                <MenuItem name="3-2">加入我們</MenuItem>
+                <MenuItem name="3-3">支持我們</MenuItem>
+              </MenuGroup>
+              <MenuGroup title="資料">
+                <MenuItem name="3-1">來源</MenuItem>
+                <MenuItem name="3-2">分析方法</MenuItem>
+              </MenuGroup>
+            </Submenu>
+            <!-- <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'about'}"
+              :to="`/about`"
+              class="menu-item"/> -->
           </div>
           <!-- INFO -->
           <div class="header-info">
@@ -179,7 +197,8 @@ header {
 }
 
 .menu-item {
-  .ivu-menu-item {
+  .ivu-menu-item,
+  .ivu-menu-submenu-title {
     color: $twBlack;
     font-weight: $twMedium;
     font-size: 1.1em;

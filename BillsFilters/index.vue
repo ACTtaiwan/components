@@ -28,7 +28,7 @@
         {{ errors.congressError }}
       </div>
     </i-col>
-    <i-col :xs="{ span: 24 }" class="filter-block">
+    <!-- <i-col :xs="{ span: 24 }" class="filter-block">
       <h2 class="filter-title">Category</h2>
       <Select
         v-model="filterData.selectedCategories"
@@ -40,7 +40,7 @@
           :value="category.id"
           :key="category.id">{{ category.name }}</Option>
       </Select>
-    </i-col>
+    </i-col> -->
     <!-- <Col :span="this.isTablet ? 12 : 24" class="filter-block" :class="{ tablet: this.isTablet }">
       <h2 class="filter-title">Sponsor</h2>
       <Select v-model="filterData.selectedSponsorId" @on-change="onSponsorSelect" clearable remote :remote-method="getSponsorSuggestList" placeholder="select a sponsor">
