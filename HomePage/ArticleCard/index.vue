@@ -9,7 +9,7 @@
       :href="article.url"
       target="_blank">
       <h1 class="article-title">
-        {{ article.title | truncate(100) }}
+        {{ article.headline | truncate(100) }}
       </h1>
     </a>
 
