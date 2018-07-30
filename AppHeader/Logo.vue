@@ -6,7 +6,7 @@
       :src="logo"
       class="logo-img"
       alt="logo" >
-    <span class="logo-text">U.S. TAIWAN WATCH</span>
+    <span class="logo-text">{{ this.$t('site.logoTitle') }}</span>
   </nuxt-link>
 </template>
 
