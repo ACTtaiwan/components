@@ -11,7 +11,7 @@
           v-for="state in stateList"
           :value="state.code"
           :key="state.code">
-          {{ state.zh }}
+          {{ state.en }}
         </Option>
       </Select>
     </i-col>

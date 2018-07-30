@@ -1,0 +1,7 @@
+{
+  "MembersFilters": {
+    "stateFieldTitle": "State",
+    "stateFieldPlaceholder": "choose states",
+    "searchButtonLabel": "Search"
+  }
+}

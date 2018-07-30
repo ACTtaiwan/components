@@ -204,7 +204,7 @@ export default {
       }
     },
     memberTitle () {
-      const lang = 'zh'
+      const lang = 'en'
 
       if (!this.states) return ''
       if (this.member.district) {
