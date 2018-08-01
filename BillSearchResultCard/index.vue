@@ -49,18 +49,41 @@
         <Col
           :span="isDesktop ? 6 : 12"
           class="bill-card-info-block">
-        <!-- Categories -->
-        <span class="label">Categories</span>
+        <!-- Tags -->
+        <span class="label">{{ $t('BillSearchResultCard.tagsFieldTitle') }}</span>
         <div
-          v-if="bill.categories"
-          class="categories">
-          <Tooltip
-            v-for="category in bill.categories"
-            :key="category.id"
-            :content="category.name"
-            class="value category">
-            <img :src="categoryMap[category.code]">
-          </Tooltip>
+          v-if="bill.tags"
+          class="tags">
+          <Tag
+            v-for="tag in bill.tags.slice(0, 3)"
+            :key="tag.tag"
+            type="border"
+            class="tag">
+            {{ tag.tag }}
+          </Tag>
+          <Button
+            v-if="bill.tags.length > 3"
+            class="tag"
+            icon="ios-more"
+            type="dashed"
+            size="small"
+            @click="tagsModal = true"/>
+          <Modal
+            v-model="tagsModal"
+            footerHide
+            className="vertical-center-modal">
+            <p slot="header" style="color:#3e57c1 ;text-align:center">
+              <Icon type="ios-pricetag" />
+              <span> All tags</span>
+            </p>
+            <Tag
+              v-for="tag in bill.tags"
+              :key="tag.tag"
+              type="border"
+              class="tag">
+              {{ tag.tag }}
+            </Tag>
+          </Modal>
         </div>
         <span
           v-else
@@ -106,16 +129,6 @@ import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
 
-// categories icons
-import catAppropriation from '~/assets/img/cat-appropriation.svg'
-import catArms from '~/assets/img/cat-arms.svg'
-import catUsTw from '~/assets/img/cat-ustaiwan.svg'
-import catDemocracy from '~/assets/img/cat-democracy.svg'
-import catTrade from '~/assets/img/cat-trade.svg'
-import catInternational from '~/assets/img/cat-international.svg'
-import catDefense from '~/assets/img/cat-defense.svg'
-import catOther from '~/assets/img/cat-other.svg'
-
 export default {
   components: {
     BillTracker,
@@ -131,17 +144,7 @@ export default {
   data () {
     return {
       size: 40,
-      categoryMap: {
-        arm: catArms,
-        int: catInternational,
-        trade: catTrade,
-        other: catOther,
-        dem: catDemocracy,
-        ustw: catUsTw,
-        appn: catAppropriation,
-        def: catDefense,
-        tra: catAppropriation
-      }
+      tagsModal: false
     }
   },
   computed: {
@@ -149,6 +152,7 @@ export default {
       return this.$store.getters.isDesktop
     },
     avatarSource () {
+      console.log('!!!', this.bill)
       const pictures = this.bill.sponsor.person.profilePictures
       return pictures.tiny ? pictures.tiny : defaultAvatar
     },
@@ -311,28 +315,9 @@ export default {
 .bill-card-info-block {
   @extend .card-info-block;
 
-  .categories {
-    display: flex;
-    flex-wrap: wrap;
-
-    .category {
-      margin-right: 10px;
-      background: $twGrayLighter;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 5px;
-
-      &:last-child {
-        margin-right: 0px;
-      }
-
-      img {
-        height: 14px;
-      }
+  .tags {
+    .tag {
+      height: auto;
     }
   }
 }
@@ -363,5 +348,15 @@ export default {
 
 .ivu-tooltip-rel {
   display: inherit;
+}
+
+.vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal {
+    top: 0;
+  }
 }
 </style>
