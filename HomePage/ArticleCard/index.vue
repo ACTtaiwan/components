@@ -5,9 +5,11 @@
     <a
       :href="article.url"
       target="_blank">
-      <div
-        :style="imgStyle"
-        class="article-img"/>
+      <div class="article-img-wrapper">
+        <div
+          :style="imgStyle"
+          class="article-img"/>
+      </div>
       <div class="card-content">
         <div v-if="showAuthor && article.author" class="card-font article-author">
           {{ article.author }}
@@ -92,6 +94,7 @@ export default {
 @import 'assets/css/colors';
 
 $spacer: 20px;
+$zoomScale: 1.1;
 
 .article-card {
   @extend .card;
@@ -150,6 +153,21 @@ $spacer: 20px;
 
 .article-img {
   padding-top: 60%;
+  transition: transform .4s;
+
+  &.article-img:hover {
+    -ms-transform: scale($zoomScale); /* IE 9 */
+    -webkit-transform: scale($zoomScale); /* Safari 3-8 */
+    transform: scale($zoomScale); 
+  }
+}
+
+.article-img-wrapper {
+  overflow: hidden;
+}
+
+.article-img-wrapper,
+.article-img {
   border-radius: 10px;
 }
 
@@ -162,6 +180,7 @@ $spacer: 20px;
     padding: 0 $spacer $spacer $spacer;
   }
 
+  .article-img-wrapper,
   .article-img {
     border-radius: 5px 5px 0 0;
   }
