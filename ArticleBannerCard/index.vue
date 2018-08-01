@@ -2,12 +2,12 @@
   <div :class="{ phone: isPhone }" class="article-card">
     <a :href="article.url" target="_blank">
       <div :style="imgStyle" class="article-img">
-        <div class="content">
+        <div class="card-content">
           <div class="card-font article-title">
-            {{ article.headline | truncate(100) }}
+            {{ article.headline }}
           </div>
           <div class="card-font article-subtitle">
-            {{ article.subhead | truncate(100) }}
+            {{ article.subhead }}
           </div>
           <div class="card-font article-author">
             {{ article.author }}
@@ -67,7 +67,7 @@ $marginSide: 60px;
   position: relative;
 }
 
-.content {
+.card-content {
   position: absolute;
   bottom: 0;
   left: $marginSide;
@@ -90,7 +90,7 @@ $marginSide: 60px;
 }
 
 .article-title {
-  font-size: 1.4em;
+  font-size: 1.8em;
   font-weight: $twSemiBold;
 }
 
