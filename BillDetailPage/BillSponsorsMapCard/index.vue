@@ -12,7 +12,7 @@
           :to="`/members/${cosponsor.role.person.id}`">
           <Tag
             :name="cosponsor.role.id"
-            :color="{Republican: 'red', Democrat: 'blue'}[cosponsor.role.party]"
+            :color="{Republican: 'error', Democrat: 'primary'}[cosponsor.role.party]"
             type="dot">
             {{ `${cosponsor.role.person.firstname} ${cosponsor.role.person.lastname} (${cosponsor.role.state})` }}
           </Tag>
