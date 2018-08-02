@@ -94,7 +94,7 @@ export default {
 @import 'assets/css/colors';
 
 $spacer: 20px;
-$zoomScale: 1.1;
+$zoomScale: 1.07;
 
 .article-card {
   @extend .card;
@@ -188,8 +188,11 @@ $zoomScale: 1.1;
 
 // phone
 @media screen and (max-width: $smallDeviceWidth - 1) {
-  .img-no-margin .article-img {
-    border-radius: 0;
+  .img-no-margin {
+    .article-img,
+    .article-img-wrapper {
+      border-radius: 0;
+    }
   }
 }
 

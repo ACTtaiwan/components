@@ -4,7 +4,7 @@
     class="sponsored-bills-card">
     <h1 class="sponsored-bills-card-title">Sponsored Bills ({{ sponsoredBills.length }})</h1>
     <div class="sponsored-bills-card-body">
-      <Row class="sponsored-bills-card-charts">
+      <!-- <Row class="sponsored-bills-card-charts">
         <Col
           :span="isPhone ? 24 : 18"
           class="sponsored-bills-card-info-block">
@@ -16,7 +16,7 @@
             class="chart"/>
         </div>
         </Col>
-      </Row>
+      </Row> -->
       <div
         v-for="bill in sponsoredBills"
         :key="bill.id"
@@ -214,7 +214,7 @@ export default {
     chartData () {
       let map = {}
       this.sponsoredBills.forEach(bill => {
-        bill.categories.forEach(category => {
+        bill.categories && bill.categories.forEach(category => {
           if (!map[category.id]) {
             map[category.id] = { name: category.name, count: 0 }
           }

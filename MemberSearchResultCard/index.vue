@@ -96,13 +96,13 @@
       <div class="social">
         <TwButton
           class="social-button"
-          icon="android-bookmark"
+          icon="md-bookmark"
           type="icon"
           style="light"/>
         <FbShareWrapper :url="`/members/${member.person.id}`">
           <TwButton
             class="social-button"
-            icon="android-share"
+            icon="md-share"
             type="icon"
             style="light"/>
         </FbShareWrapper>

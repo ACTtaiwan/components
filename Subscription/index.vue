@@ -2,7 +2,8 @@
   <div class="subscriptions">
     <div :style="{ 'background-image': 'url(' + waves + ')' }" class="content-wrapper" >
       <div class="title">Get Updates</div>
-      <div class="description">American Citizens for Taiwan articles, Congressional tool, Congressional Guide, and TaiwaneseCulture.org site remain free, but take an enormous time each month to research, write and post, and thousands of dollars to sustain. If you find any value in what we do, become a Friend of ACT by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</div>
+      <div v-if="!(isTablet || isPhone)" class="description">American Citizens for Taiwan articles, Congressional tool, Congressional Guide, and TaiwaneseCulture.org site remain free, but take an enormous time each month to research, write and post, and thousands of dollars to sustain. If you find any value in what we do, become a Friend of ACT by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</div>
+      <div v-if="isTablet || isPhone" class="placeholder"/>
       <div class="email-btn-wrapper">
         <input v-model="email" :disabled="state === 'loading'" type="email" placeholder="your email" name="email" class="box-email">
         <Button :loading="state === 'loading'" :icon="(state === 'done') ? 'checkmark-round' : null" type="primary" class="sub-btn" @click="toLoading">
@@ -24,6 +25,14 @@ export default {
       waves,
       state: 'none',
       email: null
+    }
+  },
+  computed: {
+    isPhone () {
+      return this.$store.getters.isPhone
+    },
+    isTablet () {
+      return this.$store.getters.isTablet
     }
   },
   methods: {
@@ -75,6 +84,7 @@ export default {
       overflow: hidden;
       display: flex;
       justify-content: center;
+      margin: 0 10px;
     }
 
     .sub-btn {
@@ -112,6 +122,10 @@ export default {
         font-size: 18px;
       }
     }
+  }
+
+  .placeholder {
+    height: 20px;
   }
 }
 </style>

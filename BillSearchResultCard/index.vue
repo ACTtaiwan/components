@@ -106,21 +106,29 @@
       <div class="social">
         <TwButton
           class="social-button"
-          icon="android-bookmark"
+          icon="md-bookmark"
           type="icon"
           style="light"/>
         <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"
-            icon="android-share"
+            icon="md-share"
             type="icon"
             style="light"/>
         </FbShareWrapper>
       </div>
-      <router-link :to="`/bills/${bill.id}`">
-        <TwButton label="More"/>
-      </router-link>
+      <div>
+        <TwButton 
+          :icon="showPopVox ? 'md-arrow-dropdown' : 'md-arrow-dropright'"
+          class="action" 
+          label="Write Lawmaker" 
+          @press="showPopVox = !showPopVox"/>
+        <router-link :to="`/bills/${bill.id}`" class="action">
+          <TwButton label="More"/>
+        </router-link>
+      </div>
     </div>
+    <POPVox v-if="showPopVox" :bill="bill" class="popvox"/>
   </div>
 </template>
 <script>
@@ -128,12 +136,14 @@ import defaultAvatar from '~/assets/img/tw-logo-color.png'
 import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
+import POPVox from '~/components/POPVox'
 
 export default {
   components: {
     BillTracker,
     TwButton,
-    FbShareWrapper
+    FbShareWrapper,
+    POPVox
   },
   props: {
     bill: {
@@ -144,7 +154,8 @@ export default {
   data () {
     return {
       size: 40,
-      tagsModal: false
+      tagsModal: false,
+      showPopVox: false
     }
   },
   computed: {
@@ -338,6 +349,15 @@ export default {
     }
   }
 }
+
+.action {
+  margin-left: 10px;
+}
+
+.popvox {
+  margin-top: 20px;
+}
+
 </style>
 
 
