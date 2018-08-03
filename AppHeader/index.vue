@@ -62,17 +62,22 @@
                     <router-link :to="`/about#intro`">
                       <MenuItem name="intro">
                       {{ $t('site.aboutItemDropdown[0].menuItemTitles[0]') }}
-                    </MenuItem>
+                      </MenuItem>
                     </router-link>
-                    <router-link :to="`/about#join`">
+                    <!-- <router-link :to="`/about#join`">
                       <MenuItem name="join">
                       {{ $t('site.aboutItemDropdown[0].menuItemTitles[1]') }}
-                    </MenuItem>
+                      </MenuItem>
+                    </router-link> -->
+                    <router-link :to="`/about#contact`">
+                      <MenuItem name="contact">
+                      {{ $t('site.aboutItemDropdown[0].menuItemTitles[2]') }}
+                      </MenuItem>
                     </router-link>
                     <router-link :to="`/about#support`">
                       <MenuItem name="support">
-                      {{ $t('site.aboutItemDropdown[0].menuItemTitles[2]') }}
-                    </MenuItem>
+                      {{ $t('site.aboutItemDropdown[0].menuItemTitles[3]') }}
+                      </MenuItem>
                     </router-link>
                   </MenuGroup>
                 </no-ssr>
