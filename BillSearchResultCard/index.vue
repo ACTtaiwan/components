@@ -106,20 +106,20 @@
       <div class="social">
         <TwButton
           class="social-button"
-          icon="md-bookmark"
+          icon="android-bookmark"
           type="icon"
           style="light"/>
         <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"
-            icon="md-share"
+            icon="android-share"
             type="icon"
             style="light"/>
         </FbShareWrapper>
       </div>
       <div>
         <TwButton 
-          :icon="showPopVox ? 'md-arrow-dropdown' : 'md-arrow-dropright'"
+          :icon="showPopVox ? 'android-arrow-dropdown' : 'android-arrow-dropright'"
           class="action" 
           label="Write Lawmaker" 
           @press="showPopVox = !showPopVox"/>

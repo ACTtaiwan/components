@@ -24,12 +24,12 @@
       <div class="social">
         <TwButton
           class="social-button"
-          icon="md-bookmark"
+          icon="android-bookmark"
           type="icon"/>
         <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"
-            icon="md-share"
+            icon="android-share"
             type="icon"/>
         </FbShareWrapper>
       </div>
