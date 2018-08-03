@@ -57,35 +57,39 @@
                 <template slot="title">
                   <span class="ivu-menu-submenu-title">{{ $t('site.menu.aboutItemText') }}</span>
                 </template>
-                <MenuGroup :title="$t('site.aboutItemDropdown[0].menuGroupTitle')">
-                  <router-link :to="`/about#intro`">
-                    <MenuItem name="3-1">
-                    {{ $t('site.aboutItemDropdown[0].menuItemTitles[0]') }}
+                <no-ssr>
+                  <MenuGroup :title="$t('site.aboutItemDropdown[0].menuGroupTitle')">
+                    <router-link :to="`/about#intro`">
+                      <MenuItem name="intro">
+                      {{ $t('site.aboutItemDropdown[0].menuItemTitles[0]') }}
                     </MenuItem>
-                  </router-link>
-                  <router-link :to="`/about#join`">
-                    <MenuItem name="3-2">
-                    {{ $t('site.aboutItemDropdown[0].menuItemTitles[1]') }}
+                    </router-link>
+                    <router-link :to="`/about#join`">
+                      <MenuItem name="join">
+                      {{ $t('site.aboutItemDropdown[0].menuItemTitles[1]') }}
                     </MenuItem>
-                  </router-link>
-                  <router-link :to="`/about#support`">
-                    <MenuItem name="3-3">
-                    {{ $t('site.aboutItemDropdown[0].menuItemTitles[2]') }}
+                    </router-link>
+                    <router-link :to="`/about#support`">
+                      <MenuItem name="support">
+                      {{ $t('site.aboutItemDropdown[0].menuItemTitles[2]') }}
                     </MenuItem>
-                  </router-link>
-                </MenuGroup>
-                <MenuGroup :title="$t('site.aboutItemDropdown[1].menuGroupTitle')">
-                  <router-link :to="`/about#data-source`">
-                    <MenuItem name="3-1">
-                    {{ $t('site.aboutItemDropdown[1].menuItemTitles[0]') }}
+                    </router-link>
+                  </MenuGroup>
+                </no-ssr>
+                <no-ssr>
+                  <MenuGroup :title="$t('site.aboutItemDropdown[1].menuGroupTitle')">
+                    <router-link :to="`/about#data-source`">
+                      <MenuItem name="data-source">
+                      {{ $t('site.aboutItemDropdown[1].menuItemTitles[0]') }}
                     </MenuItem>
-                  </router-link>
-                  <router-link :to="`/about#methodology`">
-                    <MenuItem name="3-2">
-                    {{ $t('site.aboutItemDropdown[1].menuItemTitles[1]') }}
+                    </router-link>
+                    <router-link :to="`/about#methodology`">
+                      <MenuItem name="methodology">
+                      {{ $t('site.aboutItemDropdown[1].menuItemTitles[1]') }}
                     </MenuItem>
-                  </router-link>
-                </MenuGroup>
+                    </router-link>
+                  </MenuGroup>
+                </no-ssr>
               </Submenu>
             </router-link>
           </div>
