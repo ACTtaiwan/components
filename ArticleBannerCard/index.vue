@@ -1,20 +1,20 @@
 <template>
   <div :class="{ phone: isPhone }" class="article-card">
     <a :href="article.url" target="_blank">
-      <div :style="imgStyle" class="article-img">
-        <div class="card-content">
-          <div class="card-font article-title">
-            {{ article.headline }}
-          </div>
-          <div class="card-font article-subtitle">
-            {{ article.subhead }}
-          </div>
-          <div class="card-font article-author">
-            {{ article.author }}
-          </div>
-          <div class="card-font article-date">
-            {{ displayDate }}
-          </div>
+      <div :style="imgStyle" class="article-img"/>
+      <div class="article-img article-linear-bg"/>
+      <div class="card-content">
+        <div class="card-font article-title">
+          {{ article.headline }}
+        </div>
+        <div class="card-font article-subtitle">
+          {{ article.subhead }}
+        </div>
+        <div class="card-font article-author">
+          {{ article.author }}
+        </div>
+        <div class="card-font article-date">
+          {{ displayDate }}
         </div>
       </div>
     </a>
@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      imgStyle: `background-image: linear-gradient(180deg, rgb(0, 0, 0, 0), rgb(0, 0, 0, 1)), url("${this.article.imageUrl}");`
+      imgStyle: `background-image: url("${this.article.imageUrl}");`
     }
   },
   computed: {
@@ -80,6 +80,14 @@ $marginSide: 60px;
   background-size: cover;
   background-position: center;
   height: 100%;
+}
+
+.article-linear-bg {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .card-font {
