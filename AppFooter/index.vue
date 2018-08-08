@@ -1,6 +1,6 @@
 <template>
   <footer :class="{ phone: isPhone}">
-    <span class="copyright">Copyright © TaiwanWatch.org 2018</span>
+    <span class="copyright">{{ copyright }}</span>
     <a
       class="powerBy"
       target="_blank"
@@ -8,6 +8,7 @@
       alt="power by g0v"
       data-reactid="76">
       <img
+        v-if="showPoweredby"
         src="https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png"
         alt="g0v"
         data-reactid="77">
@@ -17,7 +18,16 @@
 
 <script>
 export default {
-  props: {},
+  props: {
+    copyright: {
+      type: String,
+      default: 'Copyright © TaiwanWatch.org 2018'
+    },
+    showPoweredby: {
+      type: Boolean,
+      default: true
+    }
+  },
   data () {
     return {}
   },
