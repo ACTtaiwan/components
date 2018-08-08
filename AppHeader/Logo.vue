@@ -47,6 +47,8 @@ export default {
   margin-left: 10px;
   font-weight: $twSemiBold;
   letter-spacing: 1px;
+  max-height: 40px;
+  line-height: 1em;
 }
 
 @media screen and (max-width: #{$largeDeviceWidth}) {
