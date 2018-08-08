@@ -33,9 +33,19 @@
             type="icon"/>
         </FbShareWrapper>
       </div>
-      <router-link :to="`/bills/${bill.id}`">
-        <TwButton label="More"/>
-      </router-link>
+      <div>
+        <TwButton v-if="showSupportBtn" class="action" label="Support" @press="showSupportDialog = true"/>
+        <Modal 
+          :width="768"
+          v-model="showSupportDialog" 
+          footerHide="true" 
+          class="modal-support-dialog">
+          <POPVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
+        </Modal>
+        <router-link :to="`/bills/${bill.id}`">
+          <TwButton class="action" label="More"/>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -43,22 +53,29 @@
 import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
+import POPVox from '~/components/POPVox'
 
 export default {
   components: {
     BillTracker,
     TwButton,
-    FbShareWrapper
+    FbShareWrapper,
+    POPVox
   },
   props: {
     bill: {
       type: Object,
       required: true
+    },
+    showSupportBtn: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-      billLatestActionDate: ''
+      billLatestActionDate: '',
+      showSupportDialog: false
     }
   },
   computed: {
@@ -188,4 +205,13 @@ export default {
     }
   }
 }
+
+.action {
+  margin-left: 10px;
+}
+
+.popvox {
+  margin-top: 30px;
+}
+
 </style>
