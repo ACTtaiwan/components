@@ -40,12 +40,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'assets/css/app';
 @import 'assets/css/colors';
 @import 'assets/css/typography';
 
 .button {
-  background: $twIndigo;
-  color: $twWhite;
+  @include button-color();
   padding: 6px 12px;
   border: none;
   font-weight: $twSemiBold;

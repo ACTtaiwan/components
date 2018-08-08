@@ -9,6 +9,11 @@
     v-else
     :icon="icon"
     :loading="loading"
+    :style="{ 
+      'font-size': fontSize,
+      'width': width,
+      'height': height,
+    }"
     class="button"
     shape="circle"
     @click="press">
@@ -33,6 +38,18 @@ export default {
     loading: {
       type: Boolean,
       default: () => false
+    },
+    fontSize: {
+      type: String,
+      default: '.9em'
+    },
+    width: {
+      type: String,
+      default: undefined
+    },
+    height: {
+      type: String,
+      default: undefined
     }
   },
   data () {
@@ -56,13 +73,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import 'assets/css/app';
 @import 'assets/css/colors';
 @import 'assets/css/typography';
 
 .button {
+  @include button-color();
   font-size: 0.9em;
-  background: $twIndigo;
-  color: $twWhite;
   padding: 6px 12px;
   border: none;
   font-weight: $twSemiBold;
