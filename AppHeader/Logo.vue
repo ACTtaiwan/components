@@ -46,9 +46,9 @@ export default {
   color: $twBlack;
   margin-left: 10px;
   font-weight: $twSemiBold;
-  letter-spacing: 1px;
   max-height: 40px;
   line-height: 1em;
+  max-width: 130px;
 }
 
 @media screen and (max-width: #{$largeDeviceWidth}) {
