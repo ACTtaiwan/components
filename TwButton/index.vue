@@ -70,9 +70,14 @@ export default {
 
         // btn color
         switch (this.color) {
+          case 'gray-light':
+            classes.push('gray-light')
+            break
+
           case 'gray':
             classes.push('gray')
             break
+
           default:
             classes.push('indego')
             break
@@ -119,7 +124,11 @@ export default {
   @include button-color($twIndigo, $twWhite);
 }
 
-.gray {
+.gray-light {
   @include button-color($twGrayLightest, $twGray);
+}
+
+.gray {
+  @include button-color($twGray, $twWhite);
 }
 </style>

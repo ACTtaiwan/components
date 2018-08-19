@@ -41,7 +41,7 @@
           <div class="overlay-block">
             <TwButton
               label="Start Analysis"
-              color="gray"
+              color="gray-light"
               @press="onInitChart"/>
           </div>
         </div>
