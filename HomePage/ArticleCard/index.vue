@@ -71,12 +71,12 @@ export default {
       return this.$store.getters.isPhone
     },
     displayDate () {
-      let str = '';
+      let str = ''
       if (this.article.date) {
         let thisYear = new Date().year
         let d = new Date(parseInt(this.article.date))
-        let yearStyle = (d.year !== thisYear) ? 'numeric' : undefined
-        str += d.toLocaleDateString(this.$store.locale, {month: 'short', day: 'numeric', year: yearStyle})
+        let yearStyle = d.year !== thisYear ? 'numeric' : undefined
+        str += d.toLocaleDateString(this.$store.locale, { month: 'short', day: 'numeric', year: yearStyle })
       }
       return str
     },
@@ -114,7 +114,7 @@ $zoomScale: 1.07;
     color: $twIndigo;
   }
 
-  &+.card-font:not(.article-intro) {
+  & + .card-font:not(.article-intro) {
     margin: 5px auto;
   }
 }
@@ -124,13 +124,13 @@ $zoomScale: 1.07;
 }
 
 .article-author {
-  font-size: .8em;
+  font-size: 0.8em;
   font-weight: $twRegular;
   color: $twGrayLight;
 }
 
 .article-date {
-  font-size: .8em;
+  font-size: 0.8em;
   font-weight: $twRegular;
   color: $twGrayLight;
 }
@@ -138,6 +138,11 @@ $zoomScale: 1.07;
 .article-title {
   font-size: 1.4em;
   font-weight: $twSemiBold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .article-subtitle {
@@ -153,12 +158,12 @@ $zoomScale: 1.07;
 
 .article-img {
   padding-top: 60%;
-  transition: transform .4s;
+  transition: transform 0.4s;
 
   &.article-img:hover {
     -ms-transform: scale($zoomScale); /* IE 9 */
     -webkit-transform: scale($zoomScale); /* Safari 3-8 */
-    transform: scale($zoomScale); 
+    transform: scale($zoomScale);
   }
 }
 
@@ -195,5 +200,4 @@ $zoomScale: 1.07;
     }
   }
 }
-
 </style>

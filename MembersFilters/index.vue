@@ -6,6 +6,7 @@
         v-model="filterData.selectedStates"
         :placeholder="$t('MembersFilters.stateFieldPlaceholder')"
         multiple
+        filterable
         @on-change="onStateSelect">
         <Option
           v-for="state in stateList"

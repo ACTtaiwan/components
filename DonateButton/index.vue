@@ -29,11 +29,11 @@ export default {
   mounted () {
     if (!window.DonorBox) {
       window.DonorBox = { widgetLinkClassName: 'custom-dbox-popup' }
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = 'https://donorbox.org/install-popup-button.js';
-      script.defer = true;
-      window.document.head.appendChild(script);
+      var script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = 'https://donorbox.org/install-popup-button.js'
+      script.defer = true
+      window.document.head.appendChild(script)
     }
   }
 }
@@ -45,7 +45,7 @@ export default {
 @import 'assets/css/typography';
 
 .button {
-  @include button-color();
+  @include button-color($twIndigo, $twWhite);
   padding: 6px 12px;
   border: none;
   font-weight: $twSemiBold;

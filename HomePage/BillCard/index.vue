@@ -35,7 +35,7 @@
       </div>
       <div>
         <TwButton v-if="showSupportBtn" class="action" label="Support" @press="showSupportDialog = true"/>
-        <Modal 
+        <Modal
           :width="768"
           :footerHide="true" 
           v-model="showSupportDialog" 
@@ -213,5 +213,4 @@ export default {
 .popvox {
   margin-top: 30px;
 }
-
 </style>
