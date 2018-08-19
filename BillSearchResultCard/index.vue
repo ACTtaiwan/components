@@ -104,11 +104,11 @@
     </div>
     <div class="bill-footer">
       <div class="social">
-        <TwButton
+        <!-- <TwButton
           class="social-button"
           icon="md-bookmark"
           type="icon"
-          style="light"/>
+          style="light"/> -->
         <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"

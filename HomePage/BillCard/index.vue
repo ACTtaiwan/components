@@ -22,10 +22,10 @@
     </div>
     <div class="bill-footer">
       <div class="social">
-        <TwButton
+        <!-- <TwButton
           class="social-button"
           icon="md-bookmark"
-          type="icon"/>
+          type="icon"/> -->
         <FbShareWrapper :url="`/bills/${bill.id}`">
           <TwButton
             class="social-button"
@@ -37,8 +37,8 @@
         <TwButton v-if="showSupportBtn" class="action" label="Support" @press="showSupportDialog = true"/>
         <Modal 
           :width="768"
+          :footerHide="true" 
           v-model="showSupportDialog" 
-          footerHide="true" 
           class="modal-support-dialog">
           <POPVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
         </Modal>

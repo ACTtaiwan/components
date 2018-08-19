@@ -88,11 +88,11 @@
                       {{ $t('site.aboutItemDropdown[1].menuItemTitles[0]') }}
                     </MenuItem>
                     </router-link>
-                    <router-link :to="`/about#methodology`">
+                    <!-- <router-link :to="`/about#methodology`">
                       <MenuItem name="methodology">
                       {{ $t('site.aboutItemDropdown[1].menuItemTitles[1]') }}
                     </MenuItem>
-                    </router-link>
+                    </router-link> -->
                   </MenuGroup>
                 </no-ssr>
               </Submenu>
