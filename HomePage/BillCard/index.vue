@@ -35,10 +35,10 @@
       </div>
       <div>
         <TwButton v-if="showSupportBtn" class="action" label="Support" @press="showSupportDialog = true"/>
-        <Modal 
+        <Modal
           :width="768"
-          v-model="showSupportDialog" 
-          footerHide="true" 
+          v-model="showSupportDialog"
+          footerHide="true"
           class="modal-support-dialog">
           <POPVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
         </Modal>
@@ -213,5 +213,4 @@ export default {
 .popvox {
   margin-top: 30px;
 }
-
 </style>

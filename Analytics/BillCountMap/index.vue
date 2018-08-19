@@ -258,7 +258,7 @@ path {
   display: inline-block;
   position: relative;
   width: 100%;
-  padding-bottom: 55%; /* aspect ratio */
+  padding-bottom: 60%; /* aspect ratio */
   vertical-align: top;
   overflow: hidden;
 }

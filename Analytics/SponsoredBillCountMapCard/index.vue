@@ -36,10 +36,12 @@
         <!-- Initializer -->
         <div
           v-if="!isInitiated"
+          :style="sponsorCountMapStyle"
           class="overlay-container">
           <div class="overlay-block">
             <TwButton
               label="Start Analysis"
+              color="gray"
               @press="onInitChart"/>
           </div>
         </div>
@@ -53,6 +55,8 @@
 import Spinner from '~/components/Spinner'
 import TwButton from '~/components/TwButton'
 import BillCountMap from '~/components/Analytics/BillCountMap'
+// Images
+import sponsorCountMapBkgd from '~/assets/img/sponsorCountMapBkgd.png'
 // Queries
 import queryMapUtils from '~/apollo/queries/mapUtils'
 import PrefetchBillsByCongressQuery from '~/apollo/queries/Analytics/PrefetchBillsByCongress'
@@ -71,7 +75,8 @@ export default {
       isInitiated: false,
       congressRange: [114, 115],
       mapUtils: null,
-      bills: null
+      bills: null,
+      sponsorCountMapStyle: `background-image: url("${sponsorCountMapBkgd}"); background-size: cover;`
     }
   },
   computed: {
@@ -144,12 +149,9 @@ export default {
       await this.asyncForEach(this.getChunckedArray(billIds, 40), async idsSubset => {
         let result = await this.fetchBills(idsSubset)
         bills = [...bills, ...result.data.bills]
-        console.log('+++++')
       })
 
       this.isChartLoading = false
-
-      console.log('wwwww', bills)
       this.bills = bills
     }
   },
@@ -189,14 +191,14 @@ export default {
 }
 
 .overlay-container {
-  padding-top: 55%;
+  padding-top: 60%;
   position: relative;
   display: flex;
   justify-content: center;
 
   .overlay-block {
     position: absolute;
-    top: 40%;
+    top: 50%;
   }
 }
 

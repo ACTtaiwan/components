@@ -1,20 +1,20 @@
 <template>
   <Button
     v-if="type === 'icon'"
+    :class="buttonClass"
     :icon="icon"
-    class="iconButton"
     shape="circle"
     @click="press"/>
   <Button
     v-else
     :icon="icon"
     :loading="loading"
-    :style="{ 
+    :style="{
       'font-size': fontSize,
       'width': width,
       'height': height,
     }"
-    class="button"
+    :class="buttonClass"
     shape="circle"
     @click="press">
     {{ label }}
@@ -32,6 +32,10 @@ export default {
       default: () => ''
     },
     type: {
+      type: String,
+      default: () => ''
+    },
+    color: {
       type: String,
       default: () => ''
     },
@@ -58,10 +62,23 @@ export default {
   computed: {
     buttonClass () {
       let classes = []
-      if (this.type) {
-        classes.push(`${this.type}-type`)
+
+      if (this.type === 'icon') {
+        classes.push('iconButton')
+      } else {
+        classes.push('defualtButton')
+
+        // btn color
+        switch (this.color) {
+          case 'gray':
+            classes.push('gray')
+            break
+          default:
+            classes.push('indego')
+            break
+        }
       }
-      console.log(this.label)
+
       return classes
     }
   },
@@ -77,8 +94,7 @@ export default {
 @import 'assets/css/colors';
 @import 'assets/css/typography';
 
-.button {
-  @include button-color();
+.defualtButton {
   font-size: 0.9em;
   padding: 6px 12px;
   border: none;
@@ -97,5 +113,13 @@ export default {
     color: $twGray;
     background: $twGrayLighter;
   }
+}
+
+.indego {
+  @include button-color($twIndigo, $twWhite);
+}
+
+.gray {
+  @include button-color($twGrayLightest, $twGray);
 }
 </style>
