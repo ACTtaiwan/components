@@ -10,7 +10,14 @@
         </img>
       </div>
       <div class="card-content">
-        <TwButton v-if="showTitle && card.title" :label="card.title" fontSize="1.3em" width="84%" height="100%" class="action-btn"/>
+        <TwButton 
+          v-if="showTitle && card.title"
+          :label="card.title"
+          fontSize="1.3em"
+          width="84%"
+          height="100%"
+          color="gray" 
+          class="action-btn"/>
         <div v-if="showSubtitle && card.subtitle" class="card-subtitle">
           {{ card.subtitle }}
         </div>
