@@ -162,7 +162,6 @@ $zoomScale: 1.07;
 
   .right {
     flex-basis: 60%;
-    margin: 0 50px;
   }
 
   .content-wrapper {
@@ -193,6 +192,7 @@ $zoomScale: 1.07;
     .box-wrapper {
       width: 70%;
       display: flex;
+      align-items: center;
 
       .help-btn {
         margin-left: 20px;
@@ -237,12 +237,6 @@ $zoomScale: 1.07;
       width: 100%;
     }
   }
-}
-
-@media screen and (max-width: 1400px) {
-  .subscriptions .right {
-    margin: 0;
-  }  
 }
 
 @media screen and (max-width: 1200px) {
