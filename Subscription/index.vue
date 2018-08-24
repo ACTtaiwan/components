@@ -1,30 +1,70 @@
 <template>
-  <div class="subscriptions">
-    <div :style="{ 'background-image': 'url(' + waves + ')' }" class="content-wrapper" >
-      <div class="title">Get Updates</div>
-      <div v-if="!(isTablet || isPhone)" class="description">American Citizens for Taiwan articles, Congressional tool, Congressional Guide, and TaiwaneseCulture.org site remain free, but take an enormous time each month to research, write and post, and thousands of dollars to sustain. If you find any value in what we do, become a Friend of ACT by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</div>
-      <div v-if="isTablet || isPhone" class="placeholder"/>
-      <div class="email-btn-wrapper">
-        <input v-model="email" :disabled="state === 'loading'" type="email" placeholder="your email" name="email" class="box-email">
-        <Button :loading="state === 'loading'" :icon="(state === 'done') ? 'checkmark-round' : null" type="primary" class="sub-btn" @click="toLoading">
-          <span v-if="state === 'none'">Subscribe</span>
-          <span v-if="state === 'loading'">Saving...</span>
-          <span v-if="state === 'done'">Thanks!</span>
-        </Button>
+  <Modal :width="`60vw`" :footerHide="true" v-model="showModal" class="sub-modal">
+    <div :class="{ 'phone': isPhone, 'tablet': isTablet }" class="subscriptions">
+      <img :src="waves" class="bg-img"></img>
+      <div class="content-wrapper" >
+        <section class="left">
+          <div class="title">Don’t fall behind</div>
+          <div class="description">
+            <p>Don’t miss a single article or new Taiwan related bill in Congress. Join over 2,000 subscribers who keep up with U.S. Taiwan relations.</p>
+            <p>Delivered every 5-10 days, straight to your inbox.</p>
+            <p>You can unsubscribe at any time.</p>
+          </div>
+          <div class="box-wrapper">
+            <input v-model="name" :disabled="state === 'loading'" type="text" placeholder="full name" name="name" class="box box-name">
+            <Tooltip placement="top" maxWidth="300">
+              <TwButton class="help-btn" type="icon" icon="md-help"/>
+              <div slot="content">
+                <p>let us know what we should call you</p>
+              </div>
+            </Tooltip>
+          </div>
+          <div class="box-wrapper">
+            <input v-model="email" :disabled="state === 'loading'" type="email" placeholder="email" name="email" class="box box-email">
+            <Tooltip placement="top" maxWidth="300">
+              <TwButton class="help-btn" type="icon" icon="md-help"/>
+              <div slot="content">
+                <p>enter your email address</p>
+              </div>
+            </Tooltip>
+          </div>
+          <Button :loading="state === 'loading'" :icon="(state === 'done') ? 'checkmark-round' : null" type="primary" class="sub-btn" @click="toLoading">
+            <span v-if="state === 'none'">Subscribe</span>
+            <span v-if="state === 'loading'">Saving...</span>
+            <span v-if="state === 'done'">Thanks!</span>
+          </Button>
+        </section>
+        <section class="right">
+          <img :src="emailMockup" class="email-img"></img>
+        </section>
       </div>
     </div>
-  </div>  
+  </Modal>  
 </template>
 
 <script>
 import Vue from 'vue'
 import waves from '~/assets/img/wave-white.svg'
+import emailMockup from '~/assets/img/email-mockup.png'
+import TwButton from '~/components/TwButton'
+
 export default {
+  components: {
+    TwButton
+  },
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       waves,
+      emailMockup,
       state: 'none',
-      email: null
+      email: null,
+      name: null
     }
   },
   computed: {
@@ -33,6 +73,14 @@ export default {
     },
     isTablet () {
       return this.$store.getters.isTablet
+    },
+    showModal: {
+      get () {
+        return this.show
+      },
+      set (val) {
+        !val && this.$emit('close')
+      }
     }
   },
   methods: {
@@ -51,62 +99,119 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import 'assets/css/app';
 @import 'assets/css/colors';
 @import 'assets/css/typography';
 
+$zoomScale: 1.07;
+
 .subscriptions {
-  background-image: linear-gradient(116deg, #83c2f6, #4c8fea);
+  background-image: linear-gradient(116deg, $twIndigo, #4a44ad, #d8aec5);
+  // background-image: linear-gradient(116deg, #0a70b8, #d8aec5);
+  // background-image: linear-gradient(-64deg, #2978e2, #4a44ad);
+
+  .bg-img {
+    position: absolute;
+    height: 100%;
+    left: 20%;
+    opacity: .4;
+    pointer-events: none;
+  }
+
+  .email-img {
+    width: 100%;
+    transition: transform .4s;
+
+    &:hover {
+      -ms-transform: scale($zoomScale); /* IE 9 */
+      -webkit-transform: scale($zoomScale); /* Safari 3-8 */
+      transform: scale($zoomScale);
+    }
+  }
+
+  .right {
+    flex-basis: 60%;
+    margin: 0 50px;
+  }
 
   .content-wrapper {
     background-position: center;
     background-size: cover;
-    text-align: center;
+    text-align: left;
     height: 100%;
-    padding: 46px 0;
+    padding: 40px;
+    display: flex;
+    align-items: center;
 
     .title {
       color: $twWhite;
       font-weight: $twMedium;
       font-size: 24px;
+      letter-spacing: 2px;
     }
 
     .description {
       font-size: 16px;
-      line-height: 1.31;
+      line-height: 1.5em;
+      letter-spacing: 1px;
       color: $twWhite;
-      padding: 22px 0 26px 0;
-      width: 60vw;
+      padding: 40px 0 70px 0;
       margin: auto;
+
+      > p + p {
+        margin-top: 20px;
+      }
     }
 
-    .email-btn-wrapper {
+    .box-wrapper {
       height: 32px;
+      width: 70%;
       overflow: hidden;
       display: flex;
-      justify-content: center;
-      margin: 0 10px;
+
+      .help-btn {
+        margin-left: 20px;
+      }
+
+      & + .box-wrapper {
+        margin-top: 20px;
+      }
     }
 
     .sub-btn {
-      background-color: $twWhite;
-      border-color: $twWhite;
-      color: $twBlueDark;
+      @include button-color($twWhite, $twBlueDark);
+      border: none;
       font-size: 18px;
       font-weight: $twMedium;
       height: 32px;
+      width: 150px;
       padding: 0 12px;
-      border-radius: 0 2px 2px 0;
+      border-radius: 32px;
+      margin-top: 30px;
+      box-shadow: 5px 10px 30px rgba(0, 0, 0, .3);
     }
 
-    .box-email {
-      width: 320px;
+    .box {
       height: 32px;
-      border-radius: 2px 0 0 2px;
+      border-radius: 2px;
       border: solid 1px #ffffff;
       background: transparent;
     }
 
-    input[type="email"] {
+    .box-email {
+      width: 100%;
+    }
+
+    .box-name {
+      width: 100%;
+    }
+
+    .box-last-name {
+      margin-left: 20px;
+    }
+
+    input[type="email"],
+    input[type="text"] {
       text-align: center;
       color: white;
       font-size: 18px;
@@ -124,8 +229,37 @@ export default {
     }
   }
 
-  .placeholder {
-    height: 20px;
+  &.phone,
+  &.tablet {
+    .left,
+    .box-wrapper {
+      width: 100%;
+    }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .right {
+    display: none;
+  }  
+}
+
 </style>
+
+<style lang="scss">
+.sub-modal {
+  padding: 0;
+
+  .ivu-modal-content {
+    overflow: hidden;
+  }
+
+  .ivu-modal-body {
+    padding: 0;
+  }
+
+  .ivu-modal-close .ivu-icon-ios-close {
+    color: #twWhite;
+  }
+}
+</style>  

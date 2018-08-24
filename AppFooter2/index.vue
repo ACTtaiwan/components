@@ -13,7 +13,7 @@
         <div class="column">
           <div class="column-title">Contact</div>
           <router-link :to="`/about`" class="column-item">About us</router-link>
-          <div class="column-item">Subscribe</div>
+          <div class="column-item" @click="showSubscription = true">Subscribe</div>
           <router-link :to="`/articles`" class="column-item">Articles</router-link>
           <a :href="DonorboxHelper.donateUrl" class="column-item custom-dbox-popup">Donate</a>
         </div>
@@ -40,14 +40,21 @@
         alt="g0v"
         data-reactid="77">
     </a>
+
+    <Subscription :show="showSubscription" @close="showSubscription = false"/>
+
   </footer>
 </template>
 
 <script>
 import { DonorboxHelper } from '@/plugins/utils'
 import waves from '~/assets/img/wave-white.svg'
+import Subscription from '~/components/Subscription'
 
 export default {
+  components: {
+    Subscription
+  },
   props: {
     copyright: {
       type: String,
@@ -61,7 +68,8 @@ export default {
   data () {
     return {
       waves,
-      DonorboxHelper
+      DonorboxHelper,
+      showSubscription: false
     }
   },
   computed: {
@@ -166,6 +174,7 @@ footer {
 
         .column-item {
           color: $twWhite;
+          cursor: pointer;
 
           &:hover {
             color: $twBlueLighter;
