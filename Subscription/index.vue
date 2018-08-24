@@ -259,7 +259,7 @@ $zoomScale: 1.07;
   }
 
   .ivu-modal-close .ivu-icon-ios-close {
-    color: #twWhite;
+    color: #fff;
   }
 }
 </style>  
