@@ -1,0 +1,24 @@
+{
+  "subscribeForm": {
+    "title": "Don’t fall behind",
+    "description": "<p>Don’t miss a single article or new Taiwan related bill in Congress. Join over 2,000 subscribers who keep up with U.S. Taiwan relations.</p><p>Delivered every 5-10 days, straight to your inbox.</p><p>You can unsubscribe at any time.</p>",
+    "form": {
+      "name": {
+        "placeholder": "full name",
+        "tooltip": "let us know what we should call you",
+        "requiredMessage": "The name cannot be empty"
+      },
+      "email": {
+        "placeholder": "email",
+        "tooltip": "enter your email address",
+        "requiredMessage": "Mailbox cannot be empty",
+        "invalidMessage": "Incorrect email format"
+      },
+      "submitBtn": {
+        "title": "Subscribe",
+        "titleSubmitting": "Saving...",
+        "titleSubmitted": "Thanks!"
+      }
+    }
+  }
+}

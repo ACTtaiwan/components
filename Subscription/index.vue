@@ -4,35 +4,49 @@
       <img :src="waves" class="bg-img"></img>
       <div class="content-wrapper" >
         <section class="left">
-          <div class="title">Don’t fall behind</div>
-          <div class="description">
-            <p>Don’t miss a single article or new Taiwan related bill in Congress. Join over 2,000 subscribers who keep up with U.S. Taiwan relations.</p>
-            <p>Delivered every 5-10 days, straight to your inbox.</p>
-            <p>You can unsubscribe at any time.</p>
-          </div>
-          <div class="box-wrapper">
-            <input v-model="name" :disabled="state === 'loading'" type="text" placeholder="full name" name="name" class="box box-name">
-            <Tooltip placement="top" maxWidth="300">
-              <TwButton class="help-btn" type="icon" icon="md-help"/>
-              <div slot="content">
-                <p>let us know what we should call you</p>
-              </div>
-            </Tooltip>
-          </div>
-          <div class="box-wrapper">
-            <input v-model="email" :disabled="state === 'loading'" type="email" placeholder="email" name="email" class="box box-email">
-            <Tooltip placement="top" maxWidth="300">
-              <TwButton class="help-btn" type="icon" icon="md-help"/>
-              <div slot="content">
-                <p>enter your email address</p>
-              </div>
-            </Tooltip>
-          </div>
-          <Button :loading="state === 'loading'" :icon="(state === 'done') ? 'checkmark-round' : null" type="primary" class="sub-btn" @click="toLoading">
-            <span v-if="state === 'none'">Subscribe</span>
-            <span v-if="state === 'loading'">Saving...</span>
-            <span v-if="state === 'done'">Thanks!</span>
-          </Button>
+          <div class="title">{{ $t('subscribeForm.title') }}</div>
+          <div class="description" v-html="$t('subscribeForm.description')"/>
+          <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="0">
+            <div class="box-wrapper">
+              <FormItem prop="name">
+                <Input 
+                  v-model="formValidate.name" 
+                  :disabled="state === 'loading'" 
+                  :placeholder="$t('subscribeForm.form.name.placeholder')" 
+                  class="box box-name">
+                </Input>
+              </FormItem>
+              <Tooltip placement="top" maxWidth="300">
+                <TwButton class="help-btn" type="icon" icon="md-help"/>
+                <div slot="content">
+                  <p>{{ $t('subscribeForm.form.name.tooltip') }}</p>
+                </div>
+              </Tooltip>
+            </div>
+            <div class="box-wrapper">
+              <FormItem prop="email">
+                <Input 
+                  v-model="formValidate.email" 
+                  :disabled="state === 'loading'" 
+                  :placeholder="$t('subscribeForm.form.email.placeholder')" 
+                  class="box box-email">
+                </Input>
+              </FormItem>
+              <Tooltip placement="top" maxWidth="300">
+                <TwButton class="help-btn" type="icon" icon="md-help"/>
+                <div slot="content">
+                  <p>{{ $t('subscribeForm.form.email.tooltip') }}</p>
+                </div>
+              </Tooltip>
+            </div>
+            <FormItem>
+              <Button :loading="state === 'loading'" :icon="(state === 'done') ? 'checkmark-round' : null" type="primary" class="sub-btn" @click="handleSubmit('formValidate')">
+                <span v-if="state === 'none'">{{ $t('subscribeForm.form.submitBtn.title') }}</span>
+                <span v-if="state === 'loading'">{{ $t('subscribeForm.form.submitBtn.titleSubmitting') }}</span>
+                <span v-if="state === 'done'">{{ $t('subscribeForm.form.submitBtn.titleSubmitted') }}</span>
+              </Button>
+            </FormItem>
+          </Form>
         </section>
         <section class="right">
           <img :src="emailMockup" class="email-img"></img>
@@ -63,8 +77,19 @@ export default {
       waves,
       emailMockup,
       state: 'none',
-      email: null,
-      name: null
+      formValidate: {
+        email: null,
+        name: null,
+      },
+      ruleValidate: {
+        name: [
+          { required: true, message: this.$t('subscribeForm.form.name.requiredMessage'), trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: this.$t('subscribeForm.form.email.requiredMessage'), trigger: 'blur' },
+          { type: 'email', message: this.$t('subscribeForm.form.email.invalidMessage'), trigger: 'blur' }
+        ],
+      }      
     }
   },
   computed: {
@@ -84,15 +109,21 @@ export default {
     }
   },
   methods: {
-    toLoading () {
-      this.state = 'loading';
-      setTimeout(() => {
-        this.state = 'done';
-        this.email = null;
-        setTimeout(() => {
-          this.state = 'none';
-        }, 1000);
-      }, 3000);
+    handleSubmit (name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.state = 'loading';
+          setTimeout(() => {
+            this.state = 'done';
+            this.formValidate.name = null;
+            this.formValidate.email = null;
+            setTimeout(() => {
+              this.showModal = false;
+              this.state = 'none';
+            }, 1000);
+          }, 3000);      
+        }
+      })
     }
   }
 }
@@ -155,18 +186,12 @@ $zoomScale: 1.07;
       line-height: 1.5em;
       letter-spacing: 1px;
       color: $twWhite;
-      padding: 40px 0 70px 0;
+      padding: 40px 0 80px 0;
       margin: auto;
-
-      > p + p {
-        margin-top: 20px;
-      }
     }
 
     .box-wrapper {
-      height: 32px;
       width: 70%;
-      overflow: hidden;
       display: flex;
 
       .help-btn {
@@ -174,7 +199,7 @@ $zoomScale: 1.07;
       }
 
       & + .box-wrapper {
-        margin-top: 20px;
+        margin-top: 30px;
       }
     }
 
@@ -187,14 +212,12 @@ $zoomScale: 1.07;
       width: 150px;
       padding: 0 12px;
       border-radius: 32px;
-      margin-top: 30px;
+      margin-top: 40px;
       box-shadow: 5px 10px 30px rgba(0, 0, 0, .3);
     }
 
     .box {
-      height: 32px;
       border-radius: 2px;
-      border: solid 1px #ffffff;
       background: transparent;
     }
 
@@ -204,28 +227,6 @@ $zoomScale: 1.07;
 
     .box-name {
       width: 100%;
-    }
-
-    .box-last-name {
-      margin-left: 20px;
-    }
-
-    input[type="email"],
-    input[type="text"] {
-      text-align: center;
-      color: white;
-      font-size: 18px;
-
-      &:focus {
-        outline: none;
-      }
-
-      &::placeholder {
-        color: #ffffff;
-        text-align: center;
-        opacity: 0.8;
-        font-size: 18px;
-      }
     }
   }
 
@@ -238,8 +239,14 @@ $zoomScale: 1.07;
   }
 }
 
+@media screen and (max-width: 1400px) {
+  .subscriptions .right {
+    margin: 0;
+  }  
+}
+
 @media screen and (max-width: 1200px) {
-  .right {
+  .subscriptions .right {
     display: none;
   }  
 }
@@ -247,8 +254,54 @@ $zoomScale: 1.07;
 </style>
 
 <style lang="scss">
+@import 'assets/css/colors';
+
+$errorColor: lighten($twRed, 20%);
+
 .sub-modal {
   padding: 0;
+
+  .subscriptions {
+    .description > p + p {
+      margin-top: 20px;
+    }
+  }
+
+  .ivu-form-item-error-tip {
+    color: $errorColor;
+  }
+
+  .ivu-form-item {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .ivu-form-item-error .ivu-input {
+    &:focus,
+    &:hover {
+      border: solid 1px $errorColor;
+    }
+  }
+
+  .ivu-input {
+    background: none;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    border: solid 1px #ffffff;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &::placeholder {
+      color: #ffffff;
+      text-align: center;
+      opacity: 0.8;
+      font-size: 18px;
+    }
+  }
 
   .ivu-modal-content {
     overflow: hidden;
