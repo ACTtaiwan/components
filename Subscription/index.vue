@@ -61,6 +61,7 @@ import Vue from 'vue'
 import waves from '~/assets/img/wave-white.svg'
 import emailMockup from '~/assets/img/email-mockup.png'
 import TwButton from '~/components/TwButton'
+import SubscribeNewsletter from '~/apollo/mutations/SubscribeNewsletter'
 
 export default {
   components: {
@@ -113,15 +114,27 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.state = 'loading';
-          setTimeout(() => {
-            this.state = 'done';
-            this.formValidate.name = null;
-            this.formValidate.email = null;
+          this.$apollo.mutate({
+            mutation: SubscribeNewsletter,
+            variables: { 
+              inputs: {
+                email: this.formValidate.email,
+                name: this.formValidate.name
+              }
+            }
+          }).then(data => {
+            console.log('[SUBSCRIBE] OK = ' + JSON.stringify(data, null, 2))
+          }).catch(error => {
+            console.log('[SUBSCRIBE] ERR = ' + JSON.stringify(error, null, 2))
+          }).finally(() => {
+            this.state = 'done'
+            this.formValidate.name = null
+            this.formValidate.email = null
             setTimeout(() => {
-              this.showModal = false;
-              this.state = 'none';
-            }, 1000);
-          }, 3000);      
+              this.showModal = false
+              this.state = 'none'
+            }, 1000)
+          })
         }
       })
     }
