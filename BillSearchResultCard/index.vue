@@ -74,7 +74,7 @@
             className="vertical-center-modal">
             <p slot="header" style="color:#3e57c1 ;text-align:center">
               <Icon type="ios-pricetag" />
-              <span> All tags</span>
+              <span>All tags</span>
             </p>
             <Tag
               v-for="tag in bill.tags"
@@ -110,25 +110,19 @@
           type="icon"
           style="light"/> -->
         <FbShareWrapper :url="`/bills/${bill.id}`">
-          <TwButton
-            class="social-button"
-            icon="md-share"
-            type="icon"
-            style="light"/>
+          <TwButton class="social-button" icon="md-share" type="icon" style="light"/>
         </FbShareWrapper>
       </div>
       <div>
-        <TwButton 
-          :icon="showPopVox ? 'md-arrow-dropdown' : 'md-arrow-dropright'"
-          class="action" 
-          label="Write Lawmaker" 
-          @press="showPopVox = !showPopVox"/>
+        <TwButton class="action" label="Write to lawmaker" @press="showPopVox = !showPopVox"/>
         <router-link :to="`/bills/${bill.id}`" class="action">
           <TwButton label="More"/>
         </router-link>
       </div>
     </div>
-    <POPVox v-if="showPopVox" :bill="bill" class="popvox"/>
+
+    <!-- POP Vox -->
+    <POPVox :show="showPopVox" :bill="bill" class="popvox" @close="showPopVox = false"/>
   </div>
 </template>
 <script>
@@ -353,11 +347,6 @@ export default {
 .action {
   margin-left: 10px;
 }
-
-.popvox {
-  margin-top: 20px;
-}
-
 </style>
 
 

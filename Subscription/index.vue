@@ -9,10 +9,10 @@
           <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="0">
             <div class="box-wrapper">
               <FormItem prop="name">
-                <Input 
-                  v-model="formValidate.name" 
-                  :disabled="state === 'loading'" 
-                  :placeholder="$t('subscribeForm.form.name.placeholder')" 
+                <Input
+                  v-model="formValidate.name"
+                  :disabled="state === 'loading'"
+                  :placeholder="$t('subscribeForm.form.name.placeholder')"
                   class="box box-name">
                 </Input>
               </FormItem>
@@ -25,10 +25,10 @@
             </div>
             <div class="box-wrapper">
               <FormItem prop="email">
-                <Input 
-                  v-model="formValidate.email" 
-                  :disabled="state === 'loading'" 
-                  :placeholder="$t('subscribeForm.form.email.placeholder')" 
+                <Input
+                  v-model="formValidate.email"
+                  :disabled="state === 'loading'"
+                  :placeholder="$t('subscribeForm.form.email.placeholder')"
                   class="box box-email">
                 </Input>
               </FormItem>
@@ -53,7 +53,7 @@
         </section>
       </div>
     </div>
-  </Modal>  
+  </Modal>
 </template>
 
 <script>
@@ -80,17 +80,15 @@ export default {
       state: 'none',
       formValidate: {
         email: null,
-        name: null,
+        name: null
       },
       ruleValidate: {
-        name: [
-          { required: true, message: this.$t('subscribeForm.form.name.requiredMessage'), trigger: 'blur' }
-        ],
+        name: [{ required: true, message: this.$t('subscribeForm.form.name.requiredMessage'), trigger: 'blur' }],
         email: [
           { required: true, message: this.$t('subscribeForm.form.email.requiredMessage'), trigger: 'blur' },
           { type: 'email', message: this.$t('subscribeForm.form.email.invalidMessage'), trigger: 'blur' }
-        ],
-      }      
+        ]
+      }
     }
   },
   computed: {
@@ -111,30 +109,34 @@ export default {
   },
   methods: {
     handleSubmit (name) {
-      this.$refs[name].validate((valid) => {
+      this.$refs[name].validate(valid => {
         if (valid) {
-          this.state = 'loading';
-          this.$apollo.mutate({
-            mutation: SubscribeNewsletter,
-            variables: { 
-              inputs: {
-                email: this.formValidate.email,
-                name: this.formValidate.name
+          this.state = 'loading'
+          this.$apollo
+            .mutate({
+              mutation: SubscribeNewsletter,
+              variables: {
+                inputs: {
+                  email: this.formValidate.email,
+                  name: this.formValidate.name
+                }
               }
-            }
-          }).then(data => {
-            console.log('[SUBSCRIBE] OK = ' + JSON.stringify(data, null, 2))
-          }).catch(error => {
-            console.log('[SUBSCRIBE] ERR = ' + JSON.stringify(error, null, 2))
-          }).finally(() => {
-            this.state = 'done'
-            this.formValidate.name = null
-            this.formValidate.email = null
-            setTimeout(() => {
-              this.showModal = false
-              this.state = 'none'
-            }, 1000)
-          })
+            })
+            .then(data => {
+              console.log('[SUBSCRIBE] OK = ' + JSON.stringify(data, null, 2))
+            })
+            .catch(error => {
+              console.log('[SUBSCRIBE] ERR = ' + JSON.stringify(error, null, 2))
+            })
+            .finally(() => {
+              this.state = 'done'
+              this.formValidate.name = null
+              this.formValidate.email = null
+              setTimeout(() => {
+                this.showModal = false
+                this.state = 'none'
+              }, 1000)
+            })
         }
       })
     }
@@ -158,13 +160,13 @@ $zoomScale: 1.07;
     position: absolute;
     height: 100%;
     left: 20%;
-    opacity: .4;
+    opacity: 0.4;
     pointer-events: none;
   }
 
   .email-img {
     width: 100%;
-    transition: transform .4s;
+    transition: transform 0.4s;
 
     &:hover {
       -ms-transform: scale($zoomScale); /* IE 9 */
@@ -226,7 +228,7 @@ $zoomScale: 1.07;
       padding: 0 12px;
       border-radius: 32px;
       margin-top: 40px;
-      box-shadow: 5px 10px 30px rgba(0, 0, 0, .3);
+      box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     .box {
@@ -255,9 +257,8 @@ $zoomScale: 1.07;
 @media screen and (max-width: 1200px) {
   .subscriptions .right {
     display: none;
-  }  
+  }
 }
-
 </style>
 
 <style lang="scss">
@@ -322,4 +323,4 @@ $errorColor: lighten($twRed, 20%);
     color: #fff;
   }
 }
-</style>  
+</style>
