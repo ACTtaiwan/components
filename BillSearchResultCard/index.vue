@@ -13,7 +13,7 @@
           :span="24"
           class="bill-card-info-block">
         <!-- Sponsor -->
-        <div class="bill-sponsor">
+        <div v-if="bill.sponsor" class="bill-sponsor">
           <img
             :class="avatarClass"
             :src="avatarSource"
@@ -94,8 +94,9 @@
           class="bill-card-info-block">
         <!-- Tracker -->
         <span class="label">Status</span>
-        <p class="value">{{ billLatestAction | trimConGovAction }}</p>
+        <p v-if="bill.actions" class="value">{{ billLatestAction | trimConGovAction }}</p>
         <BillTracker
+          v-if="bill.trackers"
           :steps="bill.trackers"
           :progress="billProgress"
           class="tracker"/>
@@ -170,17 +171,21 @@ export default {
     },
     avatarClass () {
       let color = ''
-      switch (this.bill.sponsor.party) {
-        case 'Republican':
-          color = 'red'
-          break
-        case 'Democrat':
-          color = 'blue'
-          break
-        default:
-          color = 'gray'
-          break
+
+      if (this.bill.sponsor) {
+        switch (this.bill.sponsor.party) {
+          case 'Republican':
+            color = 'red'
+            break
+          case 'Democrat':
+            color = 'blue'
+            break
+          default:
+            color = 'gray'
+            break
+        }
       }
+
       return color
     },
     memberArea () {

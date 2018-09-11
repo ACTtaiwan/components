@@ -1,28 +1,24 @@
 <template>
-  <div
-    class="action-card">
-    <a
-      @click="press">
-      <div class="card-img-wrapper">
-        <img
-          :src="card.imageUrl"
-          class="card-img">
+  <div class="action-card" @click="press">
+    <div class="card-img-wrapper">
+      <img
+        :src="card.imageUrl"
+        class="card-img">
         </img>
+    </div>
+    <div class="card-content">
+      <TwButton
+        v-if="showTitle && card.title"
+        :label="card.title"
+        fontSize="1.3em"
+        width="84%"
+        height="100%"
+        color="gray"
+        class="action-btn"/>
+      <div v-if="showSubtitle && card.subtitle" class="card-subtitle">
+        {{ card.subtitle }}
       </div>
-      <div class="card-content">
-        <TwButton 
-          v-if="showTitle && card.title"
-          :label="card.title"
-          fontSize="1.3em"
-          width="84%"
-          height="100%"
-          color="gray" 
-          class="action-btn"/>
-        <div v-if="showSubtitle && card.subtitle" class="card-subtitle">
-          {{ card.subtitle }}
-        </div>
-      </div>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -55,8 +51,7 @@ export default {
   data () {
     return {}
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     press () {
       this.$emit('press')
@@ -112,5 +107,4 @@ export default {
   color: $twGray;
   margin-top: 15px;
 }
-
 </style>
