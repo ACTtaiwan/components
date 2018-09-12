@@ -1,7 +1,7 @@
 <template>
   <Modal :width="760" v-model="showModal" :footerHide="true" :fullscreen="isPhone ? true : false">
     <div v-if="show" >
-      <h1 class="title">👍🏻 Be a friend of ACT </h1>
+      <h1 class="title">👍🏻 Be a Friend of ACT </h1>
       <div class="content">
         <div class="content-block donate-form">
           <script src="https://donorbox.org/widget.js" paypalExpress="false"/>
