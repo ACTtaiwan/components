@@ -6,12 +6,12 @@
         <div class="content-block donate-form">
           <script src="https://donorbox.org/widget.js" paypalExpress="false"/>
           <iframe
-            src="https://donorbox.org/embed/support-american-citizens-for-taiwan-foundation?hide_donation_meter=true" height="685px" width="100%" style="max-width:420px; min-width:310px; max-height:none!important" seamless="seamless" name="donorbox"
+            src="https://donorbox.org/embed/support-american-citizens-for-taiwan-foundation?default_interval=m" height="685px" width="100%" style="max-width:500px; min-width:310px; max-height:none!important" seamless="seamless" name="donorbox"
             frameborder="0" scrolling="no" allowpaymentrequest/>
         </div>
         <div class="content-block info-sec">
           <div class="text">
-            <p>Become a Friend of ACT by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</p>
+            <p>Become a <b>Friend of ACT</b> by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</b></b></p>
             <p>We are all volunteer staff, so we maximize your impact, every penny counts.</p>
           </div>
           <img :src="spendingChart" class="spending-chart">

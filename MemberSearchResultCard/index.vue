@@ -42,37 +42,21 @@
           <!-- Social Media -->
           <span class="label">Social Media</span>
           <p class="value">
-            <a
-              v-if="twitterLink"
-              :href="twitterLink"
-              target="_blank">
-              <img
-                :src="twitterLogo"
-                class="social twitter">
+            <a v-if="twitterLink" :href="twitterLink" target="_blank">
+              <img :src="twitterLogo" class="social twitter">
             </a>
-            <a
-              v-if="youtubeLink"
-              :href="youtubeLink"
-              target="_blank"><img
-                :src="youtubeLogo"
-                class="social youtube"></a>
-            <a
-              v-if="facebookLink"
-              :href="facebookLink"
-              target="_blank"><img
-                :src="facebookLogo"
-                class="social facebook"></a>
-            <a
-              v-if="cspanLink"
-              :href="cspanLink"
-              target="_blank"><img
-                :src="cspanLogo"
-                class="social cspan"></a>
+            <a v-if="youtubeLink" :href="youtubeLink" target="_blank">
+              <img :src="youtubeLogo" class="social youtube">
+            </a>
+            <a v-if="facebookLink" :href="facebookLink" target="_blank">
+              <img :src="facebookLogo" class="social facebook">
+            </a>
+            <a v-if="cspanLink" :href="cspanLink" target="_blank">
+              <img :src="cspanLogo" class="social cspan">
+            </a>
           </p>
         </i-col>
-        <i-col
-          :span="isDesktop ? 8 : 12"
-          class="member-card-info-block">
+        <i-col :span="isDesktop ? 8 : 12" class="member-card-info-block">
           <!-- Website -->
           <span class="label">Website</span>
           <a
@@ -80,10 +64,7 @@
             class="value link"
             target="_blank">{{ member.website }}</a>
         </i-col>
-        <i-col
-          v-if="lastSupportBill.time"
-          :span="24"
-          class="member-card-info-block">
+        <i-col v-if="lastSupportBill.time" :span="24" class="member-card-info-block">
           <!-- Last Support Bill -->
           <span class="label">Last supported bill</span>
           <p class="value">{{ lastSupportBill.bill.billCode }} - {{ lastSupportBill.bill.title | truncate(200) }}
@@ -237,6 +218,7 @@ export default {
   mounted () {
     const personBioGuideId = this.member.person.bioGuideId
     const personId = this.member.person.id
+
     this.fetchMemberRoles({ personIds: [personId] })
       .then(result => {
         let sponsored = []
@@ -244,9 +226,12 @@ export default {
         let latestBills = []
         let latestCongress = 0
 
+        console.log('@@@@@@', result)
+
         result.data.members.forEach(member => {
           const maxCongressNumber = _.max(member.congressNumbers)
           if (maxCongressNumber > latestCongress && (member.billIdCosponsored || member.billIdSponsored)) {
+            console.log('the max congress number: ', maxCongressNumber, member)
             latestCongress = _.max(member.congressNumbers)
             latestBills = []
             latestBills = member.billIdCosponsored ? [...latestBills, ...member.billIdCosponsored] : latestBills
@@ -262,6 +247,7 @@ export default {
         return this.fetchBills(latestBills)
       })
       .then(({ data }) => {
+        // console.log('UUUUU', data)
         let lastSupportBill = { role: '', time: null, bill: '' }
 
         data.bills.forEach(bill => {
