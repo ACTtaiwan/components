@@ -46,8 +46,9 @@ export default {
   color: $twBlack;
   margin-left: 10px;
   font-weight: $twSemiBold;
+  font-size: 1em;
   max-height: 40px;
-  line-height: 1em;
+  line-height: 1.1em;
   max-width: 130px;
 }
 

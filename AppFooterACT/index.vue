@@ -27,19 +27,8 @@
       </div>
     </div>
 
-    <span class="copyright">{{ copyright }}</span>
-    <a
-      class="powerBy"
-      target="_blank"
-      href="https://grants.g0v.tw/power/"
-      alt="power by g0v"
-      data-reactid="76">
-      <img
-        v-if="showPoweredby"
-        src="https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png"
-        alt="g0v"
-        data-reactid="77">
-    </a>
+    <p class="copyright">{{ copyright }}</p>
+
 
     <!-- Subscription -->
     <Subscription :show="showSubscription" @close="showSubscription = false"/>
@@ -95,16 +84,13 @@ export default {
 
 footer {
   .copyright {
-    margin-bottom: 3px;
-
-    height: $appFooterHeight;
+    height: $appCopyRightHeight;
     color: $twWhite;
-    background: $twGray;
+    background: darken($twGray, 5%);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1em;
-    // border-top: 1px solid $twGrayLight;
   }
 
   .powerBy {
@@ -128,7 +114,6 @@ footer {
 
   .content {
     background-color: $twGray;
-    font-size: 1.1em;
     position: relative;
     overflow: hidden;
 
@@ -167,11 +152,14 @@ footer {
           font-weight: $twBold;
           color: $twGrayLight;
           margin-bottom: 10px;
+          font-size: 1.3em;
         }
 
         .column-item {
           color: $twWhite;
           cursor: pointer;
+          font-size: 1.1em;
+          @extend .textFont;
 
           &:hover {
             color: $twBlueLighter;

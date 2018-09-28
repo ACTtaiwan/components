@@ -238,8 +238,8 @@ header {
   .ivu-menu-item,
   .ivu-menu-submenu-title {
     color: $twBlack;
-    font-weight: $twMedium;
-    font-size: 1.1em;
+    font-weight: $twSemiBold;
+    font-size: 1.3em;
 
     &:hover {
       border-bottom: none;
