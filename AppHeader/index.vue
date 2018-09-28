@@ -53,6 +53,14 @@
               :class="{'menu-item-selected': activeMenuItem === 'about'}"
               :to="`/about`"
               class="menu-item">
+              <MenuItem name="about">
+              {{ $t('site.menu.aboutItemText') }}
+              </MenuItem>
+            </router-link>
+            <!-- <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'about'}"
+              :to="`/about`"
+              class="menu-item">
               <Submenu name="about" class="menu-item">
                 <template slot="title">
                   <span class="ivu-menu-submenu-title">{{ $t('site.menu.aboutItemText') }}</span>
@@ -64,11 +72,11 @@
                       {{ $t('site.aboutItemDropdown[0].menuItemTitles[0]') }}
                       </MenuItem>
                     </router-link>
-                    <!-- <router-link :to="`/about#join`">
+                    <router-link :to="`/about#join`">
                       <MenuItem name="join">
                       {{ $t('site.aboutItemDropdown[0].menuItemTitles[1]') }}
                       </MenuItem>
-                    </router-link> -->
+                    </router-link>
                     <router-link :to="`/about#contact`">
                       <MenuItem name="contact">
                       {{ $t('site.aboutItemDropdown[0].menuItemTitles[2]') }}
@@ -88,15 +96,15 @@
                       {{ $t('site.aboutItemDropdown[1].menuItemTitles[0]') }}
                     </MenuItem>
                     </router-link>
-                    <!-- <router-link :to="`/about#methodology`">
+                    <router-link :to="`/about#methodology`">
                       <MenuItem name="methodology">
                       {{ $t('site.aboutItemDropdown[1].menuItemTitles[1]') }}
                     </MenuItem>
-                    </router-link> -->
+                    </router-link>
                   </MenuGroup>
                 </no-ssr>
               </Submenu>
-            </router-link>
+            </router-link> -->
           </div>
           <!-- INFO -->
           <div class="header-info">
