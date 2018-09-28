@@ -15,7 +15,7 @@
           <router-link :to="`/about`" class="column-item">About us</router-link>
           <div class="column-item" @click="showSubscription = true">Subscribe</div>
           <router-link :to="`/articles`" class="column-item">Articles</router-link>
-          <a :href="DonorboxHelper.donateUrl" class="column-item custom-dbox-popup">Donate</a>
+          <div class="column-item" @click="showDonorbox = true">Donate</div>
         </div>
         <div class="column">
           <div class="column-title">Social</div>
@@ -25,7 +25,7 @@
           <a class="column-item" href="mailto:feedback@acttaiwan.org">Email</a>
         </div>
       </div>
-    </div>  
+    </div>
 
     <span class="copyright">{{ copyright }}</span>
     <a
@@ -41,19 +41,26 @@
         data-reactid="77">
     </a>
 
+    <!-- Subscription -->
     <Subscription :show="showSubscription" @close="showSubscription = false"/>
+
+    <!-- Donorbox -->
+    <Donorbox :show="showDonorbox" @close="showDonorbox = false"/>
 
   </footer>
 </template>
 
 <script>
-import { DonorboxHelper } from '@/plugins/utils'
+// images
 import waves from '~/assets/img/wave-white.svg'
+// components
 import Subscription from '~/components/Subscription'
+import Donorbox from '~/components/Donorbox'
 
 export default {
   components: {
-    Subscription
+    Subscription,
+    Donorbox
   },
   props: {
     copyright: {
@@ -68,23 +75,13 @@ export default {
   data () {
     return {
       waves,
-      DonorboxHelper,
-      showSubscription: false
+      showSubscription: false,
+      showDonorbox: false
     }
   },
   computed: {
     isPhone () {
       return this.$store.getters.isPhone
-    }
-  },
-  mounted () {
-    if (!window.DonorBox) {
-      window.DonorBox = { widgetLinkClassName: 'custom-dbox-popup' }
-      var script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.src = 'https://donorbox.org/install-popup-button.js'
-      script.defer = true
-      window.document.head.appendChild(script)
     }
   },
   methods: {}
@@ -185,7 +182,7 @@ footer {
           }
         }
       }
-    }    
+    }
   }
 }
 
@@ -205,5 +202,4 @@ footer {
     justify-content: space-around;
   }
 }
-
 </style>
