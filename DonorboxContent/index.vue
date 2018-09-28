@@ -4,7 +4,7 @@
       <div class="content-block donate-form">
         <script src="https://donorbox.org/widget.js" paypalExpress="false"/>
         <iframe
-          src="https://donorbox.org/embed/support-american-citizens-for-taiwan-foundation?default_interval=m" height="685px" width="100%" style="max-width:500px; min-width:310px; max-height:none!important" seamless="seamless" name="donorbox"
+          src="https://donorbox.org/embed/support-american-citizens-for-taiwan-foundation?default_interval=m" height="400px" width="100%" style="max-width:400px; min-width:310px; max-height:590px!important" seamless="seamless" name="donorbox"
           frameborder="0" scrolling="no" allowpaymentrequest/>
       </div>
       <div class="content-block info-sec">
@@ -61,7 +61,7 @@ export default {
     text-align: center;
 
     .spending-chart {
-      width: 80%;
+      width: 70%;
       max-width: 300px;
     }
 
