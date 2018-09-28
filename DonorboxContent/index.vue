@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1 class="title">👍🏻 Be a Friend of ACT </h1>
+  <div class="content-wrapper">
     <div class="content">
       <div class="content-block donate-form">
         <script src="https://donorbox.org/widget.js" paypalExpress="false"/>
@@ -9,6 +8,7 @@
           frameborder="0" scrolling="no" allowpaymentrequest/>
       </div>
       <div class="content-block info-sec">
+        <h1 class="title">👍🏻 Be a Friend of ACT </h1>
         <div class="text">
           <p>Become a <b>Friend of ACT</b> by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</b></b></p>
           <p>We are all volunteer staff, so we maximize your impact, every penny counts.</p>
@@ -39,15 +39,15 @@ export default {
 @import 'assets/css/colors';
 
 .title {
-  margin: 10px 15px 25px;
-  font-size: 26px;
+  margin-bottom: 15px;
+  font-size: 20px;
   color: #111111;
   font-weight: 600;
   text-align: center;
 }
 
 .content {
-  margin: 0 15px;
+  margin: 15px;
   display: flex;
 
   .donate-form {
@@ -62,6 +62,7 @@ export default {
 
     .spending-chart {
       width: 80%;
+      max-width: 300px;
     }
 
     p {
