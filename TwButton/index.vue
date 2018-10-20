@@ -109,7 +109,7 @@ export default {
   font-size: 0.9em;
   padding: 6px 12px;
   border: none;
-  font-weight: $twSemiBold;
+  font-weight: $twRegular;
 }
 
 .iconButton {

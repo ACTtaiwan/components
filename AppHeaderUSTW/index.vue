@@ -58,11 +58,12 @@
               </MenuItem>
             </router-link>
           </div>
+          <!-- Donate -->
+          <div class="header-donate">
+            <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="1em" lineHeight="1.6em"/>
+          </div>
           <!-- INFO -->
-          <div class="header-right">
-            <div class="donate">
-              <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="1em" lineHeight="1.6em"/>
-            </div>
+          <div class="header-user">
             <UserInfo/>
           </div>
         </div>
@@ -125,7 +126,7 @@ header {
 .header-nav {
   flex: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .header-menu-hamburger {
@@ -187,33 +188,31 @@ header {
 }
 
 .header-menu {
-  display: flex;
-  justify-content: center;
-}
+  margin-right: 10px;
 
-.menu-item {
-  .ivu-menu-item,
-  .ivu-menu-submenu-title {
-    color: $twBlack;
-    font-weight: $twSemiBold;
-    font-size: 1.3em;
+  .menu-item {
+    .ivu-menu-item {
+      color: $twBlack;
+      font-weight: $twMedium;
+      font-size: 1.1em;
+      padding: 0 14px;
 
-    &:hover {
+      &:hover {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .menu-item-selected {
+    .ivu-menu-item {
+      color: $twBlue;
       border-bottom: none;
     }
   }
 }
 
-.menu-item-selected {
-  .ivu-menu-item {
-    color: $twBlue;
-    border-bottom: none;
-  }
-}
-
-.header-right {
-  display: flex;
-  justify-content: center;
+.header-donate {
+  line-height: $appHeaderHeight - 4px;
 }
 
 @media screen and (max-width: $mediumDeviceWidth - 1) {
