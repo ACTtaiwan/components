@@ -21,6 +21,7 @@
     {{ label }}
   </Button>
 </template>
+
 <script>
 export default {
   props: {
