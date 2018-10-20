@@ -60,7 +60,7 @@
           </div>
           <!-- Donate -->
           <div class="header-donate">
-            <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="1em" lineHeight="1.6em"/>
+            <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="14px" lineHeight="22px"/>
           </div>
           <!-- INFO -->
           <div class="header-user">
