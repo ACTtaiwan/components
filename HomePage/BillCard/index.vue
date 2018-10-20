@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="{ phone: isPhone }"
-    class="bill-card">
+  <div :class="{ phone: isPhone }" class="bill-card">
     <div class="bill-meta">
       <span class="bill-update-time">{{ billLatestActionDate | localTime }}</span>
       <span class="bill-code">{{ bill.billCode }}</span>
@@ -37,8 +35,8 @@
         <TwButton v-if="showSupportBtn" class="action" label="Support" @press="showSupportDialog = true"/>
         <Modal
           :width="768"
-          :footerHide="true" 
-          v-model="showSupportDialog" 
+          :footerHide="true"
+          v-model="showSupportDialog"
           class="modal-support-dialog">
           <POPVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
         </Modal>
@@ -91,7 +89,7 @@ export default {
       this.bill.trackers.forEach((step, index) => {
         if (step.selected) currentStep = index + 1
       })
-      return currentStep / totalSteps * 100
+      return (currentStep / totalSteps) * 100
     },
     billLatestAction () {
       let latestActionTime = 0
@@ -162,6 +160,7 @@ export default {
 }
 
 .bill-title {
+  @extend .textFont;
   font-size: 1.4em;
   color: $twGrayDark;
   font-weight: $twSemiBold;

@@ -13,6 +13,7 @@
       'font-size': fontSize,
       'width': width,
       'height': height,
+      'line-height': lineHeight,
     }"
     :class="buttonClass"
     shape="circle"
@@ -46,6 +47,10 @@ export default {
     fontSize: {
       type: String,
       default: '.9em'
+    },
+    lineHeight: {
+      type: String,
+      default: undefined
     },
     width: {
       type: String,
