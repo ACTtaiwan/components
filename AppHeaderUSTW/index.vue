@@ -34,19 +34,19 @@
               </MenuItem>
             </router-link>
             <router-link
-              :class="{'menu-item-selected': activeMenuItem === 'insights'}"
-              :to="`/insights`"
-              class="menu-item">
-              <MenuItem name="insights">
-              {{ $t('site.menu.insightsItemText') }}
-              </MenuItem>
-            </router-link>
-            <router-link
               :class="{'menu-item-selected': activeMenuItem === 'articles'}"
               :to="`/articles`"
               class="menu-item">
               <MenuItem name="articles">
               {{ $t('site.menu.articlesItemText') }}
+              </MenuItem>
+            </router-link>
+            <router-link
+              :class="{'menu-item-selected': activeMenuItem === 'insights'}"
+              :to="`/insights`"
+              class="menu-item">
+              <MenuItem name="insights">
+              {{ $t('site.menu.insightsItemText') }}
               </MenuItem>
             </router-link>
             <router-link
