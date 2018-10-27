@@ -1,10 +1,5 @@
 <template>
-  <Button
-    v-if="type === 'icon'"
-    :class="buttonClass"
-    :icon="icon"
-    shape="circle"
-    @click="press"/>
+  <Button v-if="type === 'icon'" :class="buttonClass" :icon="icon" shape="circle" @click="press"/>
   <Button
     v-else
     :icon="icon"

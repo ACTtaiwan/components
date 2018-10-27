@@ -46,8 +46,8 @@ export default {
   @extend .displayFont;
   color: $twBlack;
   margin-left: 10px;
-  font-weight: $twMedium;
-  letter-spacing: 1px;
+  font-weight: $twSemiBold;
+  letter-spacing: 0.5px;
   font-size: 1em;
   max-height: 40px;
   line-height: 1em;
