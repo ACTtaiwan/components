@@ -12,7 +12,7 @@
       <div class="bill-card-info-block">
 
         <div class="item-row">
-          <p class="item-label">提案人</p>
+          <p class="item-label">{{ $t('BillSimpleCard.sponsorLabel') }}</p>
           <p class="item-value">
             <router-link :to="`/members/${bill.sponsor.person.id}`">
               {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}
@@ -21,17 +21,20 @@
         </div>
 
         <div class="item-row">
-          <p class="item-label">連署人數</p>
+          <p class="item-label">{{ $t('BillSimpleCard.sponsorCountLabel') }}</p>
           <p class="item-value">30</p>
         </div>
 
         <div class="item-row">
-          <p class="item-label">最進動態</p>
-          <p v-line-clamp="3" class="item-value">{{ billLatestAction | trimConGovAction }} ({{ billLatestActionChamber }}, {{ billLatestActionDate | localTime }})</p>
+          <p class="item-label">{{ $t('BillSimpleCard.lastActionLabel') }}</p>
+          <p v-line-clamp="3" class="item-value">
+            {{ billLatestAction | trimConGovAction }}
+            ({{ $t('BillSimpleCard')[billLatestActionChamber] }}{{ $t('BillSimpleCard.dotNotation') }}{{ billLatestActionDate | localTime }})
+          </p>
         </div>
 
         <div class="item-row v-center">
-          <p class="item-label">法案進度</p>
+          <p class="item-label">{{ $t('BillSimpleCard.billProgressLabel') }}</p>
           <BillTracker :steps="bill.trackers" :progress="billProgress"/>
         </div>
 
@@ -46,7 +49,7 @@
       <div class="actions">
         <TwButton v-if="showSupportBtn" class="supportBtn" label="Support" @press="showSupportDialog = true"/>
         <router-link :to="`/bills/${bill.id}`">
-          <Button class="moreBtn" shape="circle">More</Button>
+          <Button class="moreBtn" shape="circle">{{ $t('BillSimpleCard.moreBtnLabel') }}</Button>
         </router-link>
       </div>
     </div>
@@ -135,11 +138,11 @@ export default {
     },
     updateLastActionChamber (lastActionChamber) {
       if (lastActionChamber.toLowerCase().indexOf('senate') >= 0) {
-        this.billLatestActionChamber = 'Senate'
+        this.billLatestActionChamber = 'senate'
       }
 
       if (lastActionChamber.toLowerCase().indexOf('house') >= 0) {
-        this.billLatestActionChamber = 'House'
+        this.billLatestActionChamber = 'house'
       }
     }
   }

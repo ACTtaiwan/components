@@ -1,0 +1,12 @@
+{
+  "BillSimpleCard": {
+    "sponsorLabel": "提案人",
+    "sponsorCountLabel": "連署人數",
+    "lastActionLabel": "最進動態",
+    "billProgressLabel": "法案進度",
+    "house": "眾議院",
+    "senate": "參議院",
+    "dotNotation": "，",
+    "moreBtnLabel": "更多"
+  }
+}
