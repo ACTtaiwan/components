@@ -48,10 +48,10 @@ export default {
 @import 'assets/css/colors';
 @import 'assets/css/typography';
 
-$bar-height: 14px;
+$bar-height: 9px;
 $bg: #393943;
 
-$button-size: $bar-height - 8;
+$button-size: $bar-height - 5;
 $button-offset: #{4}px;
 
 .stages {
@@ -103,8 +103,8 @@ $button-offset: #{4}px;
     width: $button-size;
     height: $button-size;
     float: right;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin-top: 3px;
+    margin-right: 3px;
     border-radius: $button-size / 2;
     box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.5);
   }

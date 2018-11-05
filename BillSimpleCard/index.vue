@@ -1,23 +1,40 @@
 <template>
-  <div :class="{ phone: isPhone }" class="bill-card">
+  <div class="bill-card">
     <div class="bill-meta">
+      <span class="bill-congress">{{ bill.congress }}th</span>
       <span class="bill-code">{{ bill.billCode }}</span>
       <span class="bill-type">{{ bill.billType.code | billType }}</span>
     </div>
     <router-link :to="`/bills/${bill.id}`">
-      <p v-line-clamp="2" class="bill-title">{{ bill.title | truncate(100) }}</p>
+      <p v-line-clamp="2" class="bill-title">{{ bill.title }}</p>
     </router-link>
     <div class="bill-info">
       <div class="bill-card-info-block">
-        <div class="label-row">
-          <span class="label">Latest Action</span>
-          <span class="label-note">({{ billLatestActionDate | localTime }})</span>
+
+        <div class="item-row">
+          <p class="item-label">提案人</p>
+          <p class="item-value">
+            <router-link :to="`/members/${bill.sponsor.person.id}`">
+              {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}
+            </router-link>
+            ({{ bill.introducedDate | localTime }})</p>
         </div>
-        <p class="value">{{ billLatestAction | trimConGovAction | truncate(200) }}</p>
-        <BillTracker
-          :steps="bill.trackers"
-          :progress="billProgress"
-          class="tracker"/>
+
+        <div class="item-row">
+          <p class="item-label">連署人數</p>
+          <p class="item-value">30</p>
+        </div>
+
+        <div class="item-row">
+          <p class="item-label">最進動態</p>
+          <p v-line-clamp="3" class="item-value">{{ billLatestAction | trimConGovAction }} ({{ billLatestActionChamber }}, {{ billLatestActionDate | localTime }})</p>
+        </div>
+
+        <div class="item-row v-center">
+          <p class="item-label">法案進度</p>
+          <BillTracker :steps="bill.trackers" :progress="billProgress"/>
+        </div>
+
       </div>
     </div>
     <div class="bill-footer">
@@ -26,34 +43,37 @@
           <Button class="fbShareBtn" icon="md-share" shape="circle"/>
         </FbShareWrapper>
       </div>
-      <div>
-        <TwButton v-if="showSupportBtn" class="action" label="Support" @press="showSupportDialog = true"/>
-        <Modal
-          :width="768"
-          :footerHide="true"
-          v-model="showSupportDialog"
-          class="modal-support-dialog">
-          <POPVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
-        </Modal>
+      <div class="actions">
+        <TwButton v-if="showSupportBtn" class="supportBtn" label="Support" @press="showSupportDialog = true"/>
         <router-link :to="`/bills/${bill.id}`">
           <Button class="moreBtn" shape="circle">More</Button>
         </router-link>
       </div>
     </div>
+
+    <!-- PopVox Modal -->
+    <Modal
+      :width="768"
+      :footerHide="true"
+      v-model="showSupportDialog"
+      class="modal-support-dialog">
+      <PopVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
+    </Modal>
+
   </div>
 </template>
 <script>
 import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
-import POPVox from '~/components/POPVox'
+import PopVox from '~/components/POPVox'
 
 export default {
   components: {
     BillTracker,
     TwButton,
     FbShareWrapper,
-    POPVox
+    PopVox
   },
   props: {
     bill: {
@@ -68,16 +88,11 @@ export default {
   data () {
     return {
       billLatestActionDate: '',
+      billLatestActionChamber: '',
       showSupportDialog: false
     }
   },
   computed: {
-    isDesktop () {
-      return this.$store.getters.isDesktop
-    },
-    isPhone () {
-      return this.$store.getters.isPhone
-    },
     billProgress () {
       const totalSteps = this.bill.trackers.length
       let currentStep
@@ -89,6 +104,7 @@ export default {
     billLatestAction () {
       let latestActionTime = 0
       let latestAction = ''
+
       this.bill.actionsAll.forEach(action => {
         if (action.datetime > latestActionTime) {
           latestAction = action.description
@@ -96,15 +112,35 @@ export default {
         }
       })
       this.updateLastActionTime(latestActionTime)
+
       // strip html tags from the string
-      var dom = document.createElement('DIV')
+      let dom = document.createElement('DIV')
       dom.innerHTML = latestAction
-      return dom.textContent || dom.innerText || ''
+
+      let result = dom.textContent || dom.innerText || ''
+
+      // strip "Action By"
+      // it will always be the last part
+      let matchStr = result.indexOf(' Action By') < 0 ? 'Action By' : ' Action By'
+      let action = result.split(matchStr)[0]
+      let chamber = result.split(matchStr)[1]
+      this.updateLastActionChamber(chamber)
+
+      return action
     }
   },
   methods: {
     updateLastActionTime (latestActionTime) {
       this.billLatestActionDate = latestActionTime
+    },
+    updateLastActionChamber (lastActionChamber) {
+      if (lastActionChamber.toLowerCase().indexOf('senate') >= 0) {
+        this.billLatestActionChamber = 'Senate'
+      }
+
+      if (lastActionChamber.toLowerCase().indexOf('house') >= 0) {
+        this.billLatestActionChamber = 'House'
+      }
     }
   }
 }
@@ -125,7 +161,7 @@ export default {
   align-items: center;
   margin-bottom: 10px;
 
-  .bill-code {
+  span {
     font-size: 12px;
     @extend .displayFont;
     font-weight: $twBold;
@@ -135,20 +171,11 @@ export default {
     padding: 1px 8px;
     margin-right: 5px;
   }
-  .bill-type {
-    font-size: 12px;
-    @extend .displayFont;
-    font-weight: $twBold;
-    color: $twGray;
-    background: $twGrayLight2;
-    border-radius: 10px;
-    padding: 1px 8px;
-  }
 }
 
 .bill-title {
   @extend .textFont;
-  font-size: 18px;
+  font-size: 16px;
   color: $twGrayDark;
   font-weight: $twSemiBold;
   line-height: 1.5em;
@@ -161,18 +188,8 @@ export default {
   }
 }
 
-.tracker {
-  margin-top: 15px;
-}
-
 .bill-card-info-block {
   @extend .card-info-block;
-
-  .value {
-    line-height: 1.5em;
-    height: 3em;
-    overflow: hidden;
-  }
 }
 
 .bill-footer {
@@ -181,48 +198,42 @@ export default {
   align-items: center;
 
   .social {
-    .social-button {
-      margin-right: 10px;
+    .fbShareBtn {
+      border: none;
+      color: $twWhite;
+      background: $twGreen;
+      font-size: 14px;
+      width: 32px;
+      height: 32px;
 
-      &:last-child {
-        margin-right: 0px;
+      &:hover {
+        background: darken($twGreen, 10%);
+      }
+    }
+  }
+
+  .actions {
+    .supportBtn {
+      margin-left: 10px;
+    }
+
+    .moreBtn {
+      @extend .textFont;
+      font-size: 12px;
+      font-weight: $twSemiBold;
+      padding: 6px 12px;
+      border: none;
+      color: $twWhite;
+      background: $twIndigo;
+
+      &:hover {
+        background: darken($twIndigo, 10%);
       }
     }
   }
 }
 
-.action {
-  margin-left: 10px;
-}
-
 .popvox {
   margin-top: 30px;
-}
-
-.fbShareBtn {
-  border: none;
-  color: $twWhite;
-  background: $twGreen;
-  font-size: 14px;
-  width: 32px;
-  height: 32px;
-
-  &:hover {
-    background: darken($twGreen, 10%);
-  }
-}
-
-.moreBtn {
-  @extend .textFont;
-  font-size: 12px;
-  font-weight: $twSemiBold;
-  padding: 6px 12px;
-  border: none;
-  color: $twWhite;
-  background: $twIndigo;
-
-  &:hover {
-    background: darken($twIndigo, 10%);
-  }
 }
 </style>
