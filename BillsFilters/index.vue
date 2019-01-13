@@ -66,10 +66,6 @@ export default {
     TwButton
   },
   props: {
-    categories: {
-      type: Array,
-      required: true
-    },
     loading: {
       type: Boolean,
       required: true
