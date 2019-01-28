@@ -42,6 +42,7 @@
 <script>
 // images
 import waves from '~/assets/img/wave-white.svg'
+
 // components
 import Subscription from '~/components/Subscription'
 import Donorbox from '~/components/Donorbox'

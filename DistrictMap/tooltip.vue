@@ -1,8 +1,6 @@
 <template>
   <div class="tooltip-card">
-    <p class="title">
-      HAHAHAHAH
-    </p>
+    <p class="title">HAHAHAHAH</p>
   </div>
 </template>
 <script>
@@ -43,7 +41,8 @@ export default {
   padding: 15px;
   line-height: 12px;
   background: #ffffff;
-  border: 2.5px solid #000000;
+  border: 1.5px solid #000000;
+  border-radius: 10px;
   pointer-events: none;
 
   .title {
