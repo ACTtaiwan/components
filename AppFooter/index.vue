@@ -1,5 +1,5 @@
 <template>
-  <footer :class="{ phone: isPhone}">
+  <footer>
     <!-- Background Images -->
     <img :src="waves" class="bg-img-l">
     <img :src="waves" class="bg-img-r">
@@ -86,11 +86,7 @@ export default {
       showDonorbox: false
     }
   },
-  computed: {
-    isPhone () {
-      return this.$store.getters.isPhone
-    }
-  },
+  computed: {},
   mounted () {
     if (!this.FB) {
       this.$initFbSdk()
@@ -116,22 +112,21 @@ footer {
   .bg-img-l,
   .bg-img-r {
     pointer-events: none;
-    height: calc(100% - $appCopyRightHeight);
-    // height: calc(100% - 0px);
+    height: 100%;
     position: absolute;
   }
 
   .bg-img-l {
-    left: -1000px;
+    left: -1200px;
   }
 
   .bg-img-r {
-    padding-left: 55%;
+    padding-left: 65%;
   }
 
   // header
   .footer-header {
-    margin: 24px 0;
+    padding-top: 30px;
 
     .footer-header-wrapper {
       @extend .pageWrapper-large;
@@ -165,15 +160,13 @@ footer {
 
       flex-wrap: wrap;
       display: flex;
+      flex: 1 1 auto;
 
       .column {
+        flex-basis: 160px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-
-        & + .column {
-          margin-left: 60px;
-        }
 
         .column-title {
           font-weight: $twBold;
@@ -202,7 +195,7 @@ footer {
 
   // copyright
   .footer-copyright {
-    height: $appCopyRightHeight;
+    padding: 10px 0;
     background: darken($twGray, 5%);
     color: $twWhite;
     display: flex;
@@ -221,11 +214,10 @@ footer {
     }
   }
 
-  &.phone {
-    flex-direction: column;
-
-    .powerBy {
-      margin-left: 0px;
+  // 1500 and below
+  @media screen and (max-width: 1500px) {
+    .bg-img-l {
+      display: none;
     }
   }
 
@@ -235,12 +227,18 @@ footer {
 
   // tablet
   @media screen and (max-width: $mediumDeviceWidth - 1) {
+    .bg-img-r {
+      display: none;
+    }
+
+    .content-wrapper {
+      justify-content: space-around;
+    }
   }
 
   // phone
   @media screen and (max-width: $smallDeviceWidth - 1) {
     .footer-header {
-      border-bottom: 1px solid $twGrayLight;
       .logo {
         margin-right: 20px;
         img {
@@ -248,23 +246,19 @@ footer {
         }
       }
     }
-  }
-}
 
-@media screen and (max-width: 1500px) {
-  .bg-img-l {
-    display: none;
-  }
-}
+    .footer-body {
+      margin: 30px 0 0 0;
 
-// tablet
-@media screen and (max-width: $mediumDeviceWidth - 1) {
-  .bg-img-r {
-    display: none;
-  }
+      .column {
+        flex-basis: 50%;
+        padding-bottom: 30px;
+      }
+    }
 
-  .content-wrapper {
-    justify-content: space-around;
+    .footer-copyright {
+      flex-direction: column;
+    }
   }
 }
 </style>
