@@ -104,6 +104,7 @@ footer {
     }
   }
 
+  // TODO: remove outdated css $appFooterHeightPhone
   &.phone {
     height: $appFooterHeightPhone;
     flex-direction: column;

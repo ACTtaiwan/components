@@ -7,44 +7,27 @@
     <section class="footer-header">
       <div class="footer-header-wrapper">
         <div class="logo">
-          <img :src="logoWhite" :alt="powerByImgAlt">
+          <img :src="logoSrc[logo]" :alt="logoImgAlt">
         </div>
-        <div
-          class="fb-like"
-          data-href="https://www.facebook.com/ustaiwanwatch"
-          data-layout="button_count"
-          data-action="like"
-          data-size="small"
-          data-show-faces="true"
-          data-share="false"
-        />
-        <a class="add-line-friend" href="https://line.me/R/ti/p/%40pfw3848l">
-          <img height="22" border="0" alt="加入好友" src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png">
-        </a>
+        <FbLikeBtnUSTW v-if="fbLikeBtn && fbLikeBtn === `ustw`"/>
+        <LineAddBtnUSTW v-if="lineAddBtn && lineAddBtn === `ustw`"/>
       </div>
     </section>
     <!-- Body -->
     <section class="footer-body">
       <div class="footer-body-wrapper">
-        <div class="column">
-          <div class="column-title">美國國會</div>
-          <router-link :to="`/bills`" class="column-item">法案</router-link>
-          <router-link :to="`/members`" class="column-item">議員</router-link>
-          <router-link :to="`/articles`" class="column-item">觀測文章</router-link>
-          <router-link :to="`/insights`" class="column-item">洞察資料</router-link>
-        </div>
-        <div class="column">
-          <div class="column-title">觀測站</div>
-          <router-link :to="`/about`" class="column-item">關於我們</router-link>
-          <a class="column-item" href="mailto:feedback@acttaiwan.org">聯絡我們</a>
-          <div class="column-item" @click="showSubscription = true">訂閱最新消息</div>
-          <div class="column-item" @click="showDonorbox = true">抖內✨</div>
-        </div>
-        <div class="column">
-          <div class="column-title">成為粉絲</div>
-          <a class="column-item" target="_blank" href="http://www.facebook.com/AmericanCitizensforTaiwan">Facebook</a>
-          <a class="column-item" target="_blank" href="http://twitter.com/actTaiwan">Twitter</a>
-          <a class="column-item" target="_blank" href="https://medium.com/american-citizens-for-taiwan">Medium</a>
+        <div v-for="(section, index) in sections" :key="index" class="column">
+          <div class="column-title">{{ section.title }}</div>
+          <template v-for="(item, index) in section.items">
+            <!-- router link -->
+            <router-link v-if="item.router" :key="index" :to="item.link" class="column-item">{{ item.text }}</router-link>
+            <!-- action link -->
+            <div v-else-if="item.action" :key="index" class="column-item" @click="item.action">{{ item.text }}</div>
+            <!-- new window link -->
+            <a v-else-if="item.target" :key="index" :href="item.link" target="_blank" class="column-item">{{ item.text }}</a>
+            <!-- normal hyperlink -->
+            <a v-else :key="index" :href="item.link" class="column-item">{{ item.text }}</a>
+          </template>
         </div>
       </div>
     </section>
@@ -61,9 +44,17 @@
 <script>
 // images
 import waves from '~/assets/img/wave-white.svg'
-import logoWhite from '~/assets/img/logo-white.png'
+import logoUSTW from '~/assets/img/logo-white.png'
+import logoACT from '~/assets/img/logo-white.png'
+
+import FbLikeBtnUSTW from '~/components/FbLikeBtnUSTW'
+import LineAddBtnUSTW from '~/components/LineAddBtnUSTW'
 
 export default {
+  components: {
+    FbLikeBtnUSTW,
+    LineAddBtnUSTW
+  },
   props: {
     copyright: {
       type: String,
@@ -72,18 +63,39 @@ export default {
     showPoweredby: {
       type: Boolean,
       default: true
+    },
+    logo: {
+      type: String,
+      default: ''
+    },
+    logoImgAlt: {
+      type: String,
+      default: ''
+    },
+    fbLikeBtn: {
+      type: String,
+      default: ''
+    },
+    lineAddBtn: {
+      type: String,
+      default: ''
+    },
+    sections: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
       waves,
-      logoWhite,
+      logoSrc: {
+        ustw: logoUSTW,
+        act: logoACT
+      },
       powerByTarget: 'https://grants.g0v.tw/power/',
       powerByTargetAlt: 'power by g0v',
       powerByImgAlt: 'g0v',
-      powerByImgSrc: 'https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png',
-      showSubscription: false,
-      showDonorbox: false
+      powerByImgSrc: 'https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png'
     }
   },
   computed: {},
