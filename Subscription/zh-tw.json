@@ -1,0 +1,24 @@
+{
+  "subscribeForm": {
+    "title": "別錯過最新消息",
+    "description": "<p>不要錯過最新台美相關新聞，和國會最新台灣相關法案。在這裡，我們會精選觀測站臉書粉絲團的文章，也會隨時更新美國國會台灣相關法案最新消息，讓你迅速掌握台美動態。</p><p>每週不定期更新，你也可以隨時取消訂閱。</p>",
+    "form": {
+      "name": {
+        "placeholder": "名字",
+        "tooltip": "讓我們知道如何稱呼你",
+        "requiredMessage": "此為必填欄位"
+      },
+      "email": {
+        "placeholder": "email",
+        "tooltip": "輸入你電子信箱地址",
+        "requiredMessage": "此為必填欄位",
+        "invalidMessage": "電子信箱地址格式錯誤"
+      },
+      "submitBtn": {
+        "title": "訂閱",
+        "titleSubmitting": "處理中 ...",
+        "titleSubmitted": "感謝訂閱！"
+      }
+    }
+  }
+}
