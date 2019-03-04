@@ -31,45 +31,25 @@
         </router-link>
         <Row>
           <Col
-            :span="getIsDesktop() ? 6 : 12"
+            :span="getIsDesktop() ? 8 : 12"
             class="sponsored-bills-card-info-block">
           <!-- Congress -->
           <span class="label">Congress</span>
           <p class="value" >{{ bill.congress }}</p>
           </Col>
           <Col
-            :span="getIsDesktop() ? 6 : 12"
+            :span="getIsDesktop() ? 8 : 12"
             class="sponsored-bills-card-info-block">
           <!-- Cosponsors -->
           <span class="label">Cosponsors</span>
           <p class="value" >{{ bill.cosponsors.length }}</p>
           </Col>
           <Col
-            :span="getIsDesktop() ? 6 : 12"
+            :span="getIsDesktop() ? 8 : 12"
             class="sponsored-bills-card-info-block">
           <!-- Introduced Date -->
           <span class="label">Introduced</span>
           <p class="value">{{ bill.introducedDate | localTime }}</p>
-          </Col>
-          <Col
-            :span="getIsDesktop() ? 6 : 12"
-            class="sponsored-bills-card-info-block">
-          <!-- Categories -->
-          <span class="label">Categories</span>
-          <div
-            v-if="bill.categories"
-            class="categories">
-            <Tooltip
-              v-for="category in bill.categories"
-              :key="category.id"
-              :content="category.name"
-              class="value category">
-              <img :src="categoryMap[category.code]">
-            </Tooltip>
-          </div>
-          <span
-            v-else
-            class="value">none</span>
           </Col>
           <Col
             :span="24"

@@ -8,13 +8,13 @@
         <!-- {{cosponsor.role.person.id}} -->
         <router-link
           v-for="cosponsor in bill.cosponsors"
-          :key="cosponsor.role.id"
-          :to="`/members/${cosponsor.role.person.id}`">
+          :key="cosponsor.member.id"
+          :to="`/members/${cosponsor.member.id}`">
           <Tag
-            :name="cosponsor.role.id"
+            :name="cosponsor.id"
             :color="{Republican: 'error', Democrat: 'primary'}[cosponsor.role.party]"
             type="dot">
-            {{ `${cosponsor.role.person.firstname} ${cosponsor.role.person.lastname} (${cosponsor.role.state})` }}
+            {{ `${cosponsor.member.firstName} ${cosponsor.member.lastName} (${cosponsor.role.state})` }}
           </Tag>
         </router-link>
 
@@ -87,11 +87,11 @@ export default {
     },
     sponsors () {
       const sponsor = this.bill.sponsor
-      const cosponsors = this.bill.cosponsors
+      const cosponsors = _.map(this.bill.cosponsors, co => ({ ...co.member, role: co.role }));
       const hasCosponsors = cosponsors && cosponsors.length > 0
       const mainSponsorArray = [sponsor]
       const sponsors = hasCosponsors
-        ? mainSponsorArray.concat(cosponsors.map(cosponsor => cosponsor.role))
+        ? mainSponsorArray.concat(cosponsors)
         : mainSponsorArray
       return sponsors
     }

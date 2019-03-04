@@ -51,6 +51,7 @@ import cosponsorCountMapBkgd from '~/assets/img/sponsorCountMapBkgd.png'
 import queryMapUtils from '~/apollo/queries/mapUtils'
 import PrefetchBillsByCongressQuery from '~/apollo/queries/Analytics/PrefetchBillsByCongress'
 import BillCosponsorQuery from '~/apollo/queries/Analytics/BillCosponsor'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -63,9 +64,10 @@ export default {
     return {
       isChartLoading: true,
       isInitiated: false,
-      congressRange: [114, 115],
+      congressRange: [this.$store.state.currentCongress-1, this.$store.state.currentCongress],
       mapUtils: null,
       bills: null,
+      billsFetched: {},
       cosponsorCountMapStyle: `background-image: url("${cosponsorCountMapBkgd}"); background-size: cover;`
     }
   },
@@ -116,33 +118,49 @@ export default {
         variables: { lang: this.locale, ids: ids }
       })
     },
-    async asyncForEach (array, callback) {
-      for (let index = 0; index < array.length; index++) {
-        await callback(array[index], index, array)
-      }
-    },
-    getChunckedArray (array, chunckSize = 10) {
-      let chunck = 0
-      const chunckedIds = []
-      for (var i = 0; i < array.length; i += chunckSize) {
-        chunckedIds[chunck] = array.slice(i, i + chunckSize)
-        chunck++
-      }
-      return chunckedIds
+    computeRoleOnBill (bills) {
+      _.each(bills, bill => {
+        if (bill.cosponsors) {
+          // filter out cosponsors without dateCosponsored
+          bill.cosponsors = _.filter(bill.cosponsors, co => !!co.dateCosponsored)
+
+          // find correlated co-sponsor role
+          _.each(bill.cosponsors, cosponsor => {
+            const roles = cosponsor.member.congressRoles
+            const sortCngrRoles = _.orderBy(roles, 'endDate', 'desc')
+            const cosponsoredTime = Number(cosponsor.dateCosponsored)
+            cosponsor.role = _.find(sortCngrRoles, r => cosponsoredTime >= r.startDate && cosponsoredTime < r.endDate)
+            delete cosponsor.congressRoles
+          });
+        }
+      })
     },
     async updateChart () {
       this.isChartLoading = true
 
       let response = await this.prefetchBillIds({ congress: this.congress })
       let billIds = response.data.bills[0].prefetchIds
-      let bills = []
-      await this.asyncForEach(this.getChunckedArray(billIds, 40), async idsSubset => {
-        let result = await this.fetchBills(idsSubset)
-        bills = [...bills, ...result.data.bills]
-      })
 
+      let fetchedBillIds = _.keys(this.billsFetched)
+      let newBillIds = _.difference(billIds, fetchedBillIds)
+
+      let chunckedIds = _.chunk(newBillIds, 20)
+      let promises = chunckedIds.map(idsSubset => this.fetchBills(idsSubset))
+      let apiResult = await Promise.all(promises)
+      let newBills = _.cloneDeep(_.flatten(_.map(apiResult, r => r.data.bills)))
+      this.computeRoleOnBill(newBills)
+      let billNoRole = _.filter(newBills, bill => bill.cosponsors && _.some(bill.cosponsors, co => !co.role))
+      _.each(billNoRole, b => {
+        let coNoRole = _.filter(b.cosponsors, co => !co.role)
+      })      
+
+      let cachedBillIds = _.intersection(billIds, fetchedBillIds)
+      let cachedBills = _.values(_.pick(this.billsFetched, cachedBillIds))
+      this.bills = [...cachedBills, ...newBills]
+
+      // update cache
+      this.billsFetched = _.merge(this.billsFetched, _.keyBy(newBills, 'id'))
       this.isChartLoading = false
-      this.bills = bills
     }
   },
   apollo: {

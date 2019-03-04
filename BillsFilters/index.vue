@@ -75,8 +75,8 @@ export default {
     console.log(this.loading)
     return {
       filterData: {
-        congressFrom: 115,
-        congressTo: 115,
+        congressFrom: this.$store.state.currentCongress,
+        congressTo: this.$store.state.currentCongress,
         selectedCategories: [],
         selectedSponsorId: ''
       },

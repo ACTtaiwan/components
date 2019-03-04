@@ -19,8 +19,8 @@
             :src="avatarSource"
             :style="avatarStyle"
             class="avatar" >
-          <router-link :to="`/members/${bill.sponsor.person.id}`">
-            <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
+          <router-link :to="`/members/${bill.sponsor.id}`">
+            <p class="name">{{ sponsorRole.title }} {{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}</p>
           </router-link>
           <p class="area">{{ memberArea }} </p>
         </div>
@@ -132,6 +132,7 @@ import BillTracker from '~/components/BillTracker'
 import TwButton from '~/components/TwButton'
 import FbShareWrapper from '~/components/FbShareWrapper'
 import POPVox from '~/components/POPVox'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -159,7 +160,7 @@ export default {
     },
     avatarSource () {
       console.log('!!!', this.bill)
-      const pictures = this.bill.sponsor.person.profilePictures
+      const pictures = this.bill.sponsor.profilePictures
       return pictures.tiny ? pictures.tiny : defaultAvatar
     },
     avatarStyle () {
@@ -169,11 +170,18 @@ export default {
         height: ${this.size}px;
       `
     },
+    sponsorRole () {
+      const roles = this.bill.sponsor.congressRoles;
+      const sortCngrRoles = _.orderBy(roles, 'endDate', 'desc')
+      const sponsoredTime = parseInt(this.bill.introducedDate)
+      return _.find(sortCngrRoles, r => sponsoredTime >= r.startDate && sponsoredTime < r.endDate)
+    },
     avatarClass () {
       let color = ''
 
       if (this.bill.sponsor) {
-        switch (this.bill.sponsor.party) {
+        let party = this.sponsorRole.party || '';
+        switch (party) {
           case 'Republican':
             color = 'red'
             break
@@ -189,10 +197,10 @@ export default {
       return color
     },
     memberArea () {
-      if (this.bill.sponsor.district) {
-        return `, ${this.bill.sponsor.state}-${this.bill.sponsor.district}`
+      if (this.sponsorRole.district) {
+        return `, ${this.sponsorRole.state}-${this.sponsorRole.district}`
       } else {
-        return `, ${this.bill.sponsor.state}`
+        return `, ${this.sponsorRole.state}`
       }
     },
     billType () {
