@@ -54,22 +54,9 @@
           <Col
             :span="getIsDesktop() ? 6 : 12"
             class="cosponsored-bills-card-info-block">
-          <!-- Categories -->
-          <span class="label">Categories</span>
-          <div
-            v-if="bill.categories"
-            class="categories">
-            <Tooltip
-              v-for="category in bill.categories"
-              :key="category.id"
-              :content="category.name"
-              class="value category">
-              <img :src="categoryMap[category.code]">
-            </Tooltip>
-          </div>
-          <span
-            v-else
-            class="value">none</span>
+          <!-- Cosponsored Date -->
+          <span class="label">Cosponsored</span>
+          <p class="value">{{ bill.dateCosponsored | localTime }}</p>
           </Col>
           <Col
             :span="24"

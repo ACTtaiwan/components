@@ -99,18 +99,17 @@ export default {
         const state = this.fipsToState[fips]
         name = `${state}`
       }
-      console.log('000', id, name)
       return name
     },
 
     getColorFromSponsor (sponsor) {
       let color = 'gray'
 
-      if (sponsor.party === 'Republican') {
+      if (sponsor.role.party === 'Republican') {
         color = 'red'
       }
 
-      if (sponsor.party === 'Democrat') {
+      if (sponsor.role.party === 'Democrat') {
         color = 'blue'
       }
 
@@ -126,14 +125,14 @@ export default {
     },
 
     getGeoIdFromSponsor (sponsor) {
-      const fips = this.getFipsFromStateCode(sponsor.state)
+      const fips = this.getFipsFromStateCode(sponsor.role.state)
       const formattedFips = this.getFormattedNumber(fips)
 
-      if (!sponsor.district) {
+      if (!sponsor.role.district) {
         return formattedFips
       }
 
-      const formattedDistrict = this.getFormattedNumber(sponsor.district)
+      const formattedDistrict = this.getFormattedNumber(sponsor.role.district)
       const geoId = `${formattedFips}${formattedDistrict}`
 
       return geoId
@@ -147,7 +146,7 @@ export default {
       let self = this
       const path = d3.geoPath().projection(this.projection)
       const tooltip = d3.select('#tooltip')
-      const showDistrict = !!this.sponsors[0].district
+      const showDistrict = !!this.sponsors[0].role.district
       const congress = this.congressMap
 
       this.svg
@@ -220,13 +219,13 @@ export default {
       this.sponsors.forEach(s => {
         const geoId = self.getGeoIdFromSponsor(s)
         const selectedId = self.getId(geoId)
-        const name = `${s.person.firstname} ${s.person.lastname}`
+        const name = `${s.firstName} ${s.lastName}`
         const color = this.getColorFromSponsor(s)
         const isDuplicate = Object.keys(checkedStateOrDistrict).indexOf(geoId) > -1
 
         const sponsor = {
           id: s.id,
-          party: s.party,
+          party: s.role.party,
           name,
           color
         }
