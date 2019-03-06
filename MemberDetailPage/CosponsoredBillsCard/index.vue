@@ -52,6 +52,7 @@
           <p class="value">{{ bill.introducedDate | localTime }}</p>
           </Col>
           <Col
+            v-if="bill.dateCosponsored"
             :span="getIsDesktop() ? 6 : 12"
             class="cosponsored-bills-card-info-block">
           <!-- Cosponsored Date -->
