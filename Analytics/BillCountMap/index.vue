@@ -83,10 +83,10 @@ export default {
       this.bills.forEach(bill => {
         // sponsor
         if (bill.sponsor) {
-          if (!stateHashmap[bill.sponsor.state]) {
-            stateHashmap[bill.sponsor.state] = 0
+          if (!stateHashmap[bill.sponsor.role.state]) {
+            stateHashmap[bill.sponsor.role.state] = 0
           }
-          stateHashmap[bill.sponsor.state]++
+          stateHashmap[bill.sponsor.role.state]++
         }
         // cosponsor
         if (bill.cosponsors) {

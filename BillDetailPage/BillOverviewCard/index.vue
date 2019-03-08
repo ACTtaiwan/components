@@ -20,50 +20,32 @@
           :src="avatarSource"
           :style="avatarStyle"
           class="avatar" >
-        <p class="name">{{ bill.sponsor.title }} {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}</p>
+        <router-link v-if="bill.sponsor" :to="`/members/${bill.sponsor.id}`">
+          <p class="name">{{ bill.sponsor.role.title }} {{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}</p>
+        </router-link>
         <p class="area">{{ memberArea }} </p>
       </div>
       </Col>
       <Col
-        :span="isDesktop ? 6 : 12"
+        :span="isDesktop ? 8 : 12"
         class="overview-card-info-block">
       <!-- Congress -->
       <span class="label">Congress</span>
       <p class="value">{{ bill.congress }}th</p>
       </Col>
       <Col
-        :span="isDesktop ? 6 : 12"
+        :span="isDesktop ? 8 : 12"
         class="overview-card-info-block">
       <!-- Introduced Date -->
       <span class="label">Introduced</span>
       <p class="value">{{ bill.introducedDate | localTime }}</p>
       </Col>
       <Col
-        :span="isDesktop ? 6 : 12"
+        :span="isDesktop ? 8 : 12"
         class="overview-card-info-block">
       <!-- Cosponsors -->
       <span class="label">Cosponsors</span>
       <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
-      </Col>
-      <Col
-        :span="isDesktop ? 6 : 12"
-        class="overview-card-info-block">
-      <!-- Categories -->
-      <span class="label">Categories</span>
-      <div
-        v-if="bill.categories"
-        class="categories">
-        <Tooltip
-          v-for="category in bill.categories"
-          :key="category.id"
-          :content="category.name"
-          class="value category">
-          <img :src="categoryMap[category.code]">
-        </Tooltip>
-      </div>
-      <span
-        v-else
-        class="value">none</span>
       </Col>
       <Col
         :span="24"
@@ -136,7 +118,7 @@ export default {
       `
     },
     avatarSource () {
-      const pictures = this.bill.sponsor.person.profilePictures
+      const pictures = this.bill.sponsor && this.bill.sponsor.profilePictures
       return pictures && pictures.tiny ? pictures.tiny : defaultAvatar
     },
     avatarStyle () {
@@ -148,7 +130,10 @@ export default {
     },
     avatarClass () {
       let color = ''
-      switch (this.bill.sponsor.party) {
+      if (!this.bill.sponsor || !this.bill.sponsor.role) {
+        return 'gray'
+      }
+      switch (this.bill.sponsor.role.party) {
         case 'Republican':
           color = 'red'
           break
@@ -162,13 +147,21 @@ export default {
       return color
     },
     memberArea () {
-      if (this.bill.sponsor.district) {
-        return `, ${this.bill.sponsor.state}-${this.bill.sponsor.district}`
+      if (!this.bill.sponsor || !this.bill.sponsor.role) {
+        return ''
+      }
+
+      if (this.bill.sponsor.role.district) {
+        return `, ${this.bill.sponsor.role.state}-${this.bill.sponsor.role.district}`
       } else {
-        return `, ${this.bill.sponsor.state}`
+        return `, ${this.bill.sponsor.role.state}`
       }
     },
     billProgress () {
+      if (_.isEmpty(this.bill.trackers)) {
+        return 0
+      }
+
       const totalSteps = this.bill.trackers.length
       let currentStep
       this.bill.trackers.forEach((step, index) => {
@@ -179,12 +172,14 @@ export default {
     billLatestAction (a, b, c) {
       let latestActionTime = 0
       let latestAction = ''
-      this.bill.actions.forEach(action => {
-        if (action.datetime > latestActionTime) {
-          latestAction = action.description
-          latestActionTime = action.datetime
-        }
-      })
+      if (!_.isEmpty(this.bill.actions)) {
+        this.bill.actions.forEach(action => {
+          if (action.datetime > latestActionTime) {
+            latestAction = action.description
+            latestActionTime = action.datetime
+          }
+        })
+      }
       if (process.browser) {
         // strip html tags from the string
         var dom = document.createElement('DIV')
@@ -296,6 +291,9 @@ export default {
     font-size: 1em;
     color: $twGrayDark;
     // font-weight: $twSemiBold;
+    &:hover {
+      color: $twIndigo;
+    }
   }
 
   .area {

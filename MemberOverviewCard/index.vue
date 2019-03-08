@@ -5,7 +5,7 @@
     <h1 class="overview-card-title">Overview</h1>
     <div class="member-meta">
       <span class="member-meta-info">{{ memberAreaCode }}</span>
-      <span class="member-meta-info">{{ members[0].party }}</span>
+      <span class="member-meta-info">{{ members[0].latestRole.party }}</span>
       <span
         v-if="isInCongress"
         class="member-meta-info success">
@@ -19,7 +19,7 @@
         :style="avatarStyle"
         class="avatar" >
       <div class="member-name-title">
-        <h1 class="member-name">{{ members[0].title }} {{ members[0].person.firstname }} {{ members[0].person.middlename }} {{ members[0].person.lastname }}</h1>
+        <h1 class="member-name">{{ members[0].latestRole.title }} {{ members[0].firstName }} {{ members[0].middleName }} {{ members[0].lastName }}</h1>
         <p class="member-title">{{ memberTitle }} </p>
       </div>
     </div>
@@ -37,7 +37,7 @@
           :trigger="isPhone ? 'click' : 'hover'"
           class="poptip"
           placement="right">
-          <Icon type="information-circled"/>
+          <Icon type="md-information-circle"/>
           <div
             slot="content"
             class="poptip-content">
@@ -64,7 +64,7 @@
           class="poptip"
           trigger="hover"
           placement="right">
-          <Icon type="information-circled"/>
+          <Icon type="md-information-circle"/>
           <div
             slot="content"
             class="poptip-content">
@@ -165,7 +165,7 @@ export default {
       return this.$store.state.currentCongress
     },
     avatarSource () {
-      const pictures = this.members[0].person.profilePictures
+      const pictures = this.members[0].profilePictures
       return pictures && pictures.medium ? pictures.medium : defaultAvatar
     },
     avatarStyle () {
@@ -177,7 +177,7 @@ export default {
     },
     avatarClass () {
       let color = ''
-      switch (this.members[0].party) {
+      switch (this.members[0].latestRole.party) {
         case 'Republican':
           color = 'red'
           break
@@ -191,25 +191,17 @@ export default {
       return color
     },
     memberAreaCode () {
-      if (this.members[0].district) {
-        return `${this.members[0].state}-${this.members[0].district}`
+      if (this.members[0].latestRole.district) {
+        return `${this.members[0].latestRole.state}-${this.members[0].latestRole.district}`
       } else {
-        return `${this.members[0].state}`
+        return `${this.members[0].latestRole.state}`
       }
     },
     terms () {
       return this.ppMember.roles.map(role => role.congress)
     },
     isInCongress () {
-      let isInCongress = false
-      this.ppMember.roles.forEach(role => {
-        const roleEndDate = new Date(role.end_date).getTime()
-        const now = new Date().getTime()
-        if (roleEndDate >= now) {
-          isInCongress = true
-        }
-      })
-      return isInCongress
+      return !!this.members[0].currentRole
     }
   }
 }

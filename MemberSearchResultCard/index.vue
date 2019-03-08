@@ -4,7 +4,7 @@
     class="member-card">
     <div class="member-meta">
       <span class="member-meta-info">{{ memberAreaCode }}</span>
-      <span class="member-meta-info">{{ member.party }}</span>
+      <span class="member-meta-info">{{ member.currentRole.party }}</span>
     </div>
     <div class="member-profile">
       <img
@@ -13,8 +13,8 @@
         :style="avatarStyle"
         class="avatar" >
       <div class="member-name-title">
-        <router-link :to="`/members/${member.person.id}`">
-          <h1 class="member-name">{{ member.title }} {{ member.person.firstname }} {{ member.person.middlename }} {{ member.person.lastname }}</h1>
+        <router-link :to="`/members/${member.id}`">
+          <h1 class="member-name">{{ member.title }} {{ member.firstName }} {{ member.middleName }} {{ member.lastName }}</h1>
         </router-link>
         <p class="area">{{ memberTitle }} </p>
       </div>
@@ -27,14 +27,14 @@
           class="member-card-info-block">
           <!-- Sponsored -->
           <span class="label">Sponsored bills</span>
-          <p class="value">{{ billIdSponsored }}</p>
+          <p class="value">{{ member.billIdSponsored.length }}</p>
         </i-col>
         <i-col
           :span="isDesktop ? 8 : 12"
           class="member-card-info-block">
           <!-- Cosponsored -->
           <span class="label">Cosponsored bills</span>
-          <p class="value">{{ billIdCosponsored }}</p>
+          <p class="value">{{ member.billIdCosponsored.length }}</p>
         </i-col>
         <i-col
           :span="isDesktop ? 8 : 12"
@@ -80,7 +80,7 @@
           icon="md-bookmark"
           type="icon"
           style="light"/> -->
-        <FbShareWrapper :url="`/members/${member.person.id}`">
+        <FbShareWrapper :url="`/members/${member.id}`">
           <TwButton
             class="social-button"
             icon="md-share"
@@ -88,7 +88,7 @@
             style="light"/>
         </FbShareWrapper>
       </div>
-      <router-link :to="`/members/${member.person.id}`">
+      <router-link :to="`/members/${member.id}`">
         <TwButton label="More"/>
       </router-link>
     </div>
@@ -108,7 +108,6 @@ import youtubeLogo from '~/assets/img/youtube_logo.svg'
 import twitterLogo from '~/assets/img/twitter_logo.svg'
 
 // Queries
-import RolesQuery from '~/apollo/queries/MemberLandingPage/Roles'
 import BillsQuery from '~/apollo/queries/MemberLandingPage/Bills'
 
 export default {
@@ -136,8 +135,6 @@ export default {
       twitterLogo,
       ppMember: null,
       size: 50,
-      billIdCosponsored: 0,
-      billIdSponsored: 0,
       lastSupportBill: false
     }
   },
@@ -152,7 +149,7 @@ export default {
       return this.$store.getters.isPhone
     },
     avatarSource () {
-      const pictures = this.member.person.profilePictures
+      const pictures = this.member.profilePictures
       return pictures && pictures.tiny ? pictures.tiny : defaultAvatar
     },
     avatarStyle () {
@@ -164,7 +161,7 @@ export default {
     },
     avatarClass () {
       let color = ''
-      switch (this.member.party) {
+      switch (this.member.currentRole.party) {
         case 'Republican':
           color = 'red'
           break
@@ -178,10 +175,10 @@ export default {
       return color
     },
     memberAreaCode () {
-      if (this.member.district) {
-        return `${this.member.state}-${this.member.district}`
+      if (this.member.currentRole.district) {
+        return `${this.member.currentRole.state}-${this.member.currentRole.district}`
       } else {
-        return `${this.member.state}`
+        return `${this.member.currentRole.state}`
       }
     },
     memberTitle () {
@@ -189,11 +186,11 @@ export default {
 
       if (!this.states) return ''
       if (this.member.district) {
-        return `${this.member.titleLong} for ${this.states[this.member.state][lang]}'s ${
+        return `${this.member.currentRole.titleLong} for ${this.states[this.member.currentRole.state][lang]}'s ${
           this.member.district
         }th district`
       } else {
-        return `${this.member.titleLong} for ${this.states[this.member.state][lang]}`
+        return `${this.member.currentRole.titleLong} for ${this.states[this.member.currentRole.state][lang]}`
       }
     },
     twitterLink () {
@@ -216,69 +213,45 @@ export default {
     }
   },
   mounted () {
-    const personBioGuideId = this.member.person.bioGuideId
-    const personId = this.member.person.id
+    const personBioGuideId = this.member.bioGuideId
+    const personId = this.member.id
 
-    this.fetchMemberRoles({ personIds: [personId] })
-      .then(result => {
-        let sponsored = []
-        let cosponsored = []
-        let latestBills = []
-        let latestCongress = 0
+    Promise.all([
+      this.fetchBills(this.member.billIdSponsored),
+      this.fetchBills(this.member.billIdCosponsored)
+    ])
+    .then(results => {
+      let sponsoredBills = results[0].data.bills;
+      let cosponsoredBills = results[1].data.bills;
 
-        console.log('@@@@@@', result)
+      let lastSupportBill = { role: '', time: null, bill: '' }
 
-        result.data.members.forEach(member => {
-          const maxCongressNumber = _.max(member.congressNumbers)
-          if (maxCongressNumber > latestCongress && (member.billIdCosponsored || member.billIdSponsored)) {
-            console.log('the max congress number: ', maxCongressNumber, member)
-            latestCongress = _.max(member.congressNumbers)
-            latestBills = []
-            latestBills = member.billIdCosponsored ? [...latestBills, ...member.billIdCosponsored] : latestBills
-            latestBills = member.billIdSponsored ? [...latestBills, ...member.billIdSponsored] : latestBills
-          }
-          cosponsored = member.billIdCosponsored ? [...cosponsored, ...member.billIdCosponsored] : cosponsored
-          sponsored = member.billIdSponsored ? [...sponsored, ...member.billIdSponsored] : sponsored
-        })
+      _.each(sponsoredBills, bill => {
+        if (Number(bill.introducedDate) > lastSupportBill.time) {
+          lastSupportBill.role = 'sponsored'
+          lastSupportBill.time = Number(bill.introducedDate)
+          lastSupportBill.bill = bill
+        }
+      });
 
-        this.billIdCosponsored = cosponsored.length
-        this.billIdSponsored = sponsored.length
+      let m = _.keyBy(this.member.cosponsorProperty, 'billId')
+      _.each(cosponsoredBills, bill => {
+        let dateCosponsored = m[bill.id].dateCosponsored
+        if (Number(dateCosponsored) > lastSupportBill.time) {
+          lastSupportBill.role = 'cosponsored'
+          lastSupportBill.time = Number(dateCosponsored)
+          lastSupportBill.bill = bill
+        }
+      });
+      this.lastSupportBill = lastSupportBill
+    })
+    .catch(error => {
+      console.log('get all roles data error -->', error)
+    })
 
-        return this.fetchBills(latestBills)
-      })
-      .then(({ data }) => {
-        // console.log('UUUUU', data)
-        let lastSupportBill = { role: '', time: null, bill: '' }
-
-        data.bills.forEach(bill => {
-          if (bill.sponsor.person.id === personId && Number(bill.introducedDate) > lastSupportBill.time) {
-            lastSupportBill.role = 'sponsored'
-            lastSupportBill.time = Number(bill.introducedDate)
-            lastSupportBill.bill = bill
-          }
-          bill.cosponsors.forEach(cosponsor => {
-            if (cosponsor.role.person.id === personId && Number(cosponsor.dateCosponsored) > lastSupportBill.time) {
-              lastSupportBill.role = 'cosponsored'
-              lastSupportBill.time = Number(cosponsor.dateCosponsored)
-              lastSupportBill.bill = bill
-            }
-          })
-        })
-
-        this.lastSupportBill = lastSupportBill
-      })
-      .catch(error => {
-        console.log('get all roles data error -->', error)
-      })
     this.fetchProPublicaMember(personBioGuideId)
   },
   methods: {
-    fetchMemberRoles ({ personIds }) {
-      return this.$apollo.query({
-        query: RolesQuery,
-        variables: { lang: this.locale, personIds }
-      })
-    },
     fetchBills (ids) {
       return this.$apollo.query({
         query: BillsQuery,
