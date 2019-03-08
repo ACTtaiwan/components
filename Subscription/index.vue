@@ -118,7 +118,8 @@ export default {
               variables: {
                 inputs: {
                   email: this.formValidate.email,
-                  name: this.formValidate.name
+                  name: this.formValidate.name,
+                  list: 'ustw'
                 }
               }
             })
