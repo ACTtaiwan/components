@@ -14,8 +14,8 @@
         <div class="item-row">
           <p class="item-label">{{ $t('BillSimpleCard.sponsorLabel') }}</p>
           <p class="item-value">
-            <router-link :to="`/members/${bill.sponsor.person.id}`">
-              {{ bill.sponsor.person.firstname }} {{ bill.sponsor.person.lastname }}
+            <router-link :to="`/members/${bill.sponsor.id}`">
+              {{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}
             </router-link>
             ({{ bill.introducedDate | localTime }})</p>
         </div>
@@ -29,7 +29,8 @@
           <p class="item-label">{{ $t('BillSimpleCard.lastActionLabel') }}</p>
           <p v-line-clamp="3" class="item-value">
             {{ billLatestAction | trimConGovAction }}
-            ({{ $t('BillSimpleCard')[billLatestActionChamber] }}{{ $t('BillSimpleCard.dotNotation') }}{{ billLatestActionDate | localTime }})
+            <span v-if="billLatestActionChamber">({{ $t('BillSimpleCard')[billLatestActionChamber] }}{{ $t('BillSimpleCard.dotNotation') }}{{ billLatestActionDate | localTime }})</span>
+            <span v-if="!billLatestActionChamber">({{ billLatestActionDate | localTime }})</span>
           </p>
         </div>
 
@@ -127,7 +128,7 @@ export default {
       let matchStr = result.indexOf(' Action By') < 0 ? 'Action By' : ' Action By'
       let action = result.split(matchStr)[0]
       let chamber = result.split(matchStr)[1]
-      this.updateLastActionChamber(chamber)
+      chamber && this.updateLastActionChamber(chamber)
 
       return action
     }

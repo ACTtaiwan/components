@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       isChartLoading: true,
-      congressRange: [114, 115],
+      congressRange: [this.$store.state.currentCongress-1, this.$store.state.currentCongress],
       billIdsByCategory: {},
       chartOptions: {
         layout: {

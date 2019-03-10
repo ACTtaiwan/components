@@ -6,7 +6,7 @@
         <section class="left">
           <div class="title">{{ $t('subscribeForm.title') }}</div>
           <div class="description" v-html="$t('subscribeForm.description')"/>
-          <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="0">
+          <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :labelWidth="0">
             <div class="box-wrapper">
               <FormItem prop="name">
                 <Input
@@ -71,6 +71,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    list: {
+      type: String,
+      default: 'act'
     }
   },
   data () {
@@ -118,7 +122,8 @@ export default {
               variables: {
                 inputs: {
                   email: this.formValidate.email,
-                  name: this.formValidate.name
+                  name: this.formValidate.name,
+                  list: this.list
                 }
               }
             })

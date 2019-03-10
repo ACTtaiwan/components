@@ -1,7 +1,7 @@
 <template>
   <header>
     <Menu
-      :active-name="activeMenuItem"
+      :activeName="activeMenuItem"
       mode="horizontal"
       theme="light">
       <div class="header-wrapper">
