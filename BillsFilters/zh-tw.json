@@ -1,0 +1,8 @@
+{
+  "BillsFilters": {
+    "labelSearchTitle": "國會屆數",
+    "labelFrom": "從",
+    "labelTo": "到",
+    "btnTitleSearch": "搜尋"
+  }
+}

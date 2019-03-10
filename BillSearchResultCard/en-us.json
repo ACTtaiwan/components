@@ -1,5 +1,20 @@
 {
   "BillSearchResultCard": {
-    "tagsFieldTitle": "Tags"
+    "labelCongress": "Congress",
+    "labelIntroducedDate": "Introduced",
+    "labelCosponsors": "Cosponsors",
+    "labelTags": "Tags",
+    "labelStatus": "Status",
+    "btnTitleMore": "More",
+    "billType": {
+      "s": "Bill",
+      "hr": "Bill",
+      "hconres": "Concurrent Resolution",
+      "sconres": "Concurrent Resolution",
+      "hres": "Resolution",
+      "sres": "Resolution",
+      "hjres": "Joint Resolution",
+      "sjres": "Joint Resolution"
+    }
   }
 }
