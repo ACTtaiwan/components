@@ -10,14 +10,12 @@
     </router-link>
     <div class="bill-info">
       <div class="bill-card-info-block">
-
         <div class="item-row">
           <p class="item-label">{{ $t('BillSimpleCard.sponsorLabel') }}</p>
           <p class="item-value">
-            <router-link :to="`/members/${bill.sponsor.id}`">
-              {{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}
-            </router-link>
-            ({{ bill.introducedDate | localTime }})</p>
+            <router-link :to="`/members/${bill.sponsor.id}`">{{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}</router-link>
+            ({{ bill.introducedDate | localTime }})
+          </p>
         </div>
 
         <div class="item-row">
@@ -29,7 +27,9 @@
           <p class="item-label">{{ $t('BillSimpleCard.lastActionLabel') }}</p>
           <p v-line-clamp="3" class="item-value">
             {{ billLatestAction | trimConGovAction }}
-            <span v-if="billLatestActionChamber">({{ $t('BillSimpleCard')[billLatestActionChamber] }}{{ $t('BillSimpleCard.dotNotation') }}{{ billLatestActionDate | localTime }})</span>
+            <span
+              v-if="billLatestActionChamber"
+            >({{ $t('BillSimpleCard')[billLatestActionChamber] }}{{ $t('BillSimpleCard.dotNotation') }}{{ billLatestActionDate | localTime }})</span>
             <span v-if="!billLatestActionChamber">({{ billLatestActionDate | localTime }})</span>
           </p>
         </div>
@@ -38,7 +38,6 @@
           <p class="item-label">{{ $t('BillSimpleCard.billProgressLabel') }}</p>
           <BillTracker :steps="bill.trackers" :progress="billProgress"/>
         </div>
-
       </div>
     </div>
     <div class="bill-footer">
@@ -56,14 +55,9 @@
     </div>
 
     <!-- PopVox Modal -->
-    <Modal
-      :width="768"
-      :footerHide="true"
-      v-model="showSupportDialog"
-      class="modal-support-dialog">
+    <Modal :width="768" :footerHide="true" v-model="showSupportDialog" class="modal-support-dialog">
       <PopVox v-if="showSupportDialog" :bill="bill" class="popvox"/>
     </Modal>
-
   </div>
 </template>
 <script>
