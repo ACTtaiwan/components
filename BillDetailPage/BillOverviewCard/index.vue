@@ -2,7 +2,7 @@
   <div
     :class="{ phone: isPhone }"
     class="overview-card">
-    <h1 class="overview-card-title">Overview</h1>
+    <h1 class="overview-card-title">{{ $t('BillOverviewCard.labelTitle') }}</h1>
     <div class="bill-meta">
       <span class="bill-meta-info">{{ bill.billCode }}</span>
       <span class="bill-meta-info">{{ bill.billType.code | billType }}</span>
@@ -13,7 +13,7 @@
         :span="24"
         class="overview-card-info-block">
       <!-- Sponsor -->
-      <span class="label">Sponsor</span>
+      <span class="label">{{ $t('BillOverviewCard.labelSponsor') }}</span>
       <div class="bill-sponsor">
         <img
           :class="avatarClass"
@@ -30,28 +30,28 @@
         :span="isDesktop ? 8 : 12"
         class="overview-card-info-block">
       <!-- Congress -->
-      <span class="label">Congress</span>
+      <span class="label">{{ $t('BillOverviewCard.labelCongress') }}</span>
       <p class="value">{{ bill.congress }}th</p>
       </Col>
       <Col
         :span="isDesktop ? 8 : 12"
         class="overview-card-info-block">
       <!-- Introduced Date -->
-      <span class="label">Introduced</span>
+      <span class="label">{{ $t('BillOverviewCard.labelIntroducedDate') }}</span>
       <p class="value">{{ bill.introducedDate | localTime }}</p>
       </Col>
       <Col
         :span="isDesktop ? 8 : 12"
         class="overview-card-info-block">
       <!-- Cosponsors -->
-      <span class="label">Cosponsors</span>
+      <span class="label">{{ $t('BillOverviewCard.labelCosponsors') }}</span>
       <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
       </Col>
       <Col
         :span="24"
         class="overview-card-info-block">
       <!-- Tracker -->
-      <span class="label">Status</span>
+      <span class="label">{{ $t('BillOverviewCard.labelStatus') }}</span>
       <p class="value">{{ billLatestAction | trimConGovAction }}</p>
       <BillTracker
         :steps="bill.trackers"

@@ -2,7 +2,7 @@
   <div
     :class="{ phone: isPhone }"
     class="sponsors-map-card">
-    <h1 class="sponsors-map-card-title">Sponsors Map</h1>
+    <h1 class="sponsors-map-card-title">{{ $t('BillSponsorsMapCard.cardTitle') }}</h1>
     <div class="sponsors-map-card-body">
       <div class="sponsors">
         <!-- {{cosponsor.role.person.id}} -->
@@ -26,7 +26,8 @@
         :usMap="usMap"
         :stateToFips="stateToFips"
         :fipsToState="fipsToState"
-        :congressMap="congressMap"/>
+        :congressMap="congressMap"
+        :statesNameLookup="statesNameLookup"/>
     </div>
   </div>
 
@@ -35,6 +36,7 @@
 <script>
 import queryMapUtils from '~/apollo/queries/mapUtils'
 import queryCdMap from '~/apollo/queries/cdMap'
+import StateListQuery from '~/apollo/queries/StateList'
 import SponsorsMap from '~/components/SponsorsMap'
 import Spinner from '~/components/Spinner'
 
@@ -47,6 +49,11 @@ export default {
     bill: {
       type: Object,
       required: true
+    },
+    mapLocale: {
+      type: String,
+      required: false,
+      default: 'en'
     }
   },
   data () {
@@ -94,6 +101,10 @@ export default {
         ? mainSponsorArray.concat(cosponsors)
         : mainSponsorArray
       return sponsors
+    },
+    statesNameLookup () {
+      const m = _.mapValues(this.states, o => o[this.mapLocale])
+      return m
     }
   },
   apollo: {
@@ -120,6 +131,16 @@ export default {
       },
       update (data) {
         return data.maps[0].cdMap
+      }
+    },
+    states: {
+      query: StateListQuery,
+      fetchPolicy: 'cache-and-network',
+      variables () {
+        return { lang: this.locale, stateList: true }
+      },
+      update (data) {
+        return JSON.parse(data.maps[0].states)
       }
     }
   },

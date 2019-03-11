@@ -2,7 +2,7 @@
   <div
     :class="{ phone: isPhone }"
     class="actions-card">
-    <h1 class="actions-card-title">Actions</h1>
+    <h1 class="actions-card-title">{{ $t('BillActionsCard.cardTitle') }}</h1>
     <div class="actions-card-body">
       <Timeline>
         <TimelineItem

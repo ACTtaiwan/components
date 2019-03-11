@@ -3,7 +3,7 @@ import { localTime } from '@/plugins/filters'
 const columnRenderer = vm => {
   return [
     {
-      title: 'Version',
+      title: vm.$t('BillVersionsCard.columns.titleVersions'),
       key: 'version',
       className: 'version-col table-col',
       width: 200,
@@ -19,7 +19,7 @@ const columnRenderer = vm => {
       }
     },
     {
-      title: 'Date',
+      title: vm.$t('BillVersionsCard.columns.titleDate'),
       key: 'date',
       className: 'date-col table-col',
       width: 120,
@@ -29,7 +29,7 @@ const columnRenderer = vm => {
       }
     },
     {
-      title: 'Description',
+      title: vm.$t('BillVersionsCard.columns.titleDescription'),
       key: 'description',
       className: 'description-col table-col',
       render: (h, params) => {

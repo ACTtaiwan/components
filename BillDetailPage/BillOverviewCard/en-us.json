@@ -1,0 +1,10 @@
+{
+  "BillOverviewCard": {
+    "labelTitle": "Overview",
+    "labelSponsor": "Sponsor",
+    "labelCongress": "Congress",
+    "labelIntroducedDate": "Introduced",
+    "labelCosponsors": "Cosponsors",
+    "labelStatus": "Status"
+  }
+}
