@@ -4,7 +4,7 @@
     class="member-card">
     <div class="member-meta">
       <span class="member-meta-info">{{ memberAreaCode }}</span>
-      <span class="member-meta-info">{{ member.currentRole.party }}</span>
+      <span class="member-meta-info">{{ memberParty }}</span>
     </div>
     <div class="member-profile">
       <img
@@ -26,21 +26,21 @@
           :span="isDesktop ? 8 : 12"
           class="member-card-info-block">
           <!-- Sponsored -->
-          <span class="label">Sponsored bills</span>
+          <span class="label">{{ $t('MemberSearchResultCard.labelSponsored') }}</span>
           <p class="value">{{ member.billIdSponsored.length }}</p>
         </i-col>
         <i-col
           :span="isDesktop ? 8 : 12"
           class="member-card-info-block">
           <!-- Cosponsored -->
-          <span class="label">Cosponsored bills</span>
+          <span class="label">{{ $t('MemberSearchResultCard.labelCosponsored') }}</span>
           <p class="value">{{ member.billIdCosponsored.length }}</p>
         </i-col>
         <i-col
           :span="isDesktop ? 8 : 12"
           class="member-card-info-block">
           <!-- Social Media -->
-          <span class="label">Social Media</span>
+          <span class="label">{{ $t('MemberSearchResultCard.labelSocialMedia') }}</span>
           <p class="value">
             <a v-if="twitterLink" :href="twitterLink" target="_blank">
               <img :src="twitterLogo" class="social twitter">
@@ -58,7 +58,7 @@
         </i-col>
         <i-col :span="isDesktop ? 8 : 12" class="member-card-info-block">
           <!-- Website -->
-          <span class="label">Website</span>
+          <span class="label">{{ $t('MemberSearchResultCard.labelWebsite') }}</span>
           <a
             :href="member.website"
             class="value link"
@@ -66,9 +66,9 @@
         </i-col>
         <i-col v-if="lastSupportBill.time" :span="24" class="member-card-info-block">
           <!-- Last Support Bill -->
-          <span class="label">Last supported bill</span>
+          <span class="label">{{ $t('MemberSearchResultCard.labelLastSupport') }}</span>
           <p class="value">{{ lastSupportBill.bill.billCode }} - {{ lastSupportBill.bill.title | truncate(200) }}
-            <span class="support-bill">({{ lastSupportBill.role }} on <span class="date">{{ lastSupportBill.time | localTime }}</span>)</span>
+            <span class="support-bill">{{ $t('MemberSearchResultCard.lastSupportSuffix', { action: lastSupportBill.role, date: lastSupportBill.time }) }}</span>
           </p>
         </i-col>
       </Row>
@@ -89,7 +89,7 @@
         </FbShareWrapper>
       </div>
       <router-link :to="`/members/${member.id}`">
-        <TwButton label="More"/>
+        <TwButton :label="$t('MemberSearchResultCard.btnTitleMore')"/>
       </router-link>
     </div>
   </div>
@@ -182,16 +182,28 @@ export default {
       }
     },
     memberTitle () {
-      const lang = 'en'
+      const lang = this.locale === 'zh-tw' ? 'zh' : 'en'
 
       if (!this.states) return ''
-      if (this.member.district) {
-        return `${this.member.currentRole.titleLong} for ${this.states[this.member.currentRole.state][lang]}'s ${
-          this.member.district
-        }th district`
+      const title = this.member.currentRole.titleLong
+      const state = this.states[this.member.currentRole.state][lang]
+      const hasDistrict = !!this.member.currentRole.district
+      if (hasDistrict) {
+        const district = this.member.currentRole.district
+        return this.$t('MemberSearchResultCard.memberTitleWithDistrict', { title, state, district })
       } else {
-        return `${this.member.currentRole.titleLong} for ${this.states[this.member.currentRole.state][lang]}`
+        return this.$t('MemberSearchResultCard.memberTitle', { title, state })
       }
+    },
+    memberParty () {
+      const party = this.member.currentRole.party
+      const partyTrans = {
+        'zh-tw': {
+          'Republican': '共和黨',
+          'Democrat': '民主黨'
+        }
+      }[this.locale];
+      return (partyTrans && partyTrans[party]) || party
     },
     twitterLink () {
       return this.ppMember && this.ppMember.twitter_account
@@ -228,8 +240,8 @@ export default {
 
       _.each(sponsoredBills, bill => {
         if (Number(bill.introducedDate) > lastSupportBill.time) {
-          lastSupportBill.role = 'sponsored'
-          lastSupportBill.time = Number(bill.introducedDate)
+          lastSupportBill.role = this.$t('MemberSearchResultCard.lastSupportSponsored')
+          lastSupportBill.time = this.$options.filters.localTime(Number(bill.introducedDate))
           lastSupportBill.bill = bill
         }
       });
@@ -238,8 +250,8 @@ export default {
       _.each(cosponsoredBills, bill => {
         let dateCosponsored = m[bill.id].dateCosponsored
         if (Number(dateCosponsored) > lastSupportBill.time) {
-          lastSupportBill.role = 'cosponsored'
-          lastSupportBill.time = Number(dateCosponsored)
+          lastSupportBill.role = this.$t('MemberSearchResultCard.lastSupportCosponsored')
+          lastSupportBill.time = this.$options.filters.localTime(Number(dateCosponsored))
           lastSupportBill.bill = bill
         }
       });
