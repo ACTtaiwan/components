@@ -1,0 +1,15 @@
+{
+  "MemberSearchResultCard": {
+    "labelSponsored": "Sponsored bills",
+    "labelCosponsored": "Cosponsored bills",
+    "labelSocialMedia": "Social Media",
+    "labelWebsite": "Website",
+    "labelLastSupport": "Last supported bill",
+    "btnTitleMore": "More",
+    "memberTitle": "{title} for {state}",
+    "memberTitleWithDistrict": "{title} for {state}'s {district}th district",
+    "lastSupportSuffix": "({action} on {date})",
+    "lastSupportSponsored": "sponsored",
+    "lastSupportCosponsored": "cosponsored"
+  }
+}

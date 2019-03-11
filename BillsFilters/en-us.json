@@ -1,0 +1,8 @@
+{
+  "BillsFilters": {
+    "labelSearchTitle": "Congress",
+    "labelFrom": "from",
+    "labelTo": "to",
+    "btnTitleSearch": "Search"
+  }
+}

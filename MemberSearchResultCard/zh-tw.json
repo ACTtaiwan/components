@@ -1,0 +1,15 @@
+{
+  "MemberSearchResultCard": {
+    "labelSponsored": "提案數",
+    "labelCosponsored": "共同連署",
+    "labelSocialMedia": "社群媒體",
+    "labelWebsite": "網站",
+    "labelLastSupport": "最新支持法案",
+    "btnTitleMore": "查看更多",
+    "memberTitle": "{state}{title}",
+    "memberTitleWithDistrict": "{state}第{district}區{title}",
+    "lastSupportSuffix": "（於{date}{action}）",
+    "lastSupportSponsored": "提案",
+    "lastSupportCosponsored": "共同連署"
+  }
+}

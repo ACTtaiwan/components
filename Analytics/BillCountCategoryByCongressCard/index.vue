@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       isChartLoading: true,
-      congressRange: [112, 115],
+      congressRange: [112, this.$store.state.currentCongress],
       billIdsByCongress: [],
       categoryColorMap: {
         // International Participation

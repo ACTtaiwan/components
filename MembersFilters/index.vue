@@ -12,7 +12,7 @@
           v-for="state in stateList"
           :value="state.code"
           :key="state.code">
-          {{ state.en }}
+          {{ state.display }}
         </Option>
       </Select>
     </i-col>
@@ -60,8 +60,7 @@ export default {
       if (this.states) {
         stateList = Object.keys(this.states).map(code => ({
           code: code,
-          en: this.states[code].en,
-          zh: this.states[code].zh
+          display: this.locale === 'zh-tw' ? this.states[code].zh : this.states[code].en
         }))
       }
       return stateList

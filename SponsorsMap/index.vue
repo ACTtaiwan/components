@@ -43,6 +43,11 @@ export default {
       type: Object,
       required: false,
       default: () => ({})
+    },
+    statesNameLookup: {
+      type: Object,
+      required: false,
+      default: () => ({})
     }
   },
   data () {
@@ -75,6 +80,9 @@ export default {
         .append('g')
         .call(zoom)
         .append('g')
+    },
+    fipsToStateCode () {
+      return _.invert(this.stateToFips)
     }
   },
 
@@ -92,12 +100,14 @@ export default {
       if (id.length >= 4) {
         const district = id.slice(-2)
         const fips = id.slice(-4, -2)
-        const state = this.fipsToState[fips]
-        name = `${state}, ${district}`
+        const stateCode = this.fipsToStateCode[fips]
+        const i18nState = this.statesNameLookup[stateCode] || this.fipsToState[fips]
+        name = `${i18nState}, ${district}`
       } else {
         const fips = id.slice(-2)
-        const state = this.fipsToState[fips]
-        name = `${state}`
+        const stateCode = this.fipsToStateCode[fips]
+        const i18nState = this.statesNameLookup[stateCode] || this.fipsToState[fips]
+        name = `${i18nState}`
       }
       return name
     },

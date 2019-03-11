@@ -1,0 +1,10 @@
+{
+  "BillOverviewCard": {
+    "labelTitle": "法案基本資訊",
+    "labelSponsor": "提案人",
+    "labelCongress": "國會屆數",
+    "labelIntroducedDate": "提案日期",
+    "labelCosponsors": "連署人數",
+    "labelStatus": "最新狀態"
+  }
+}

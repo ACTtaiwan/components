@@ -1,0 +1,10 @@
+{
+  "BillVersionsCard": {
+    "cardTitle": "Versions",
+    "columns": {
+      "titleVersions": "Version",
+      "titleDate": "Date",
+      "titleDescription": "Description"
+    }
+  }
+}

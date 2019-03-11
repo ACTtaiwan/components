@@ -1,10 +1,10 @@
 <template>
   <Row :gutter="20">
     <i-col :xs="{ span: 24 }" class="filter-block">
-      <h2 class="filter-title">Congress</h2>
+      <h2 class="filter-title">{{ $t('BillsFilters.labelSearchTitle') }}</h2>
       <div class="filter-field-block">
         <div class="filter-field">
-          <span class="filter-field-title">from</span>
+          <span class="filter-field-title">{{ $t('BillsFilters.labelFrom') }}</span>
           <InputNumber
             v-model="filterData.congressFrom"
             :min="congressMin"
@@ -13,7 +13,7 @@
             @on-change="clearErros"/>
         </div>
         <div class="filter-field">
-          <span class="filter-field-title">to</span>
+          <span class="filter-field-title">{{ $t('BillsFilters.labelTo') }}</span>
           <InputNumber
             v-model="filterData.congressTo"
             :min="congressMin"
@@ -52,7 +52,7 @@
       class="filter-block">
       <TwButton
         :loading="loading"
-        label="Search"
+        :label="$t('BillsFilters.btnTitleSearch')"
         @press="submit"/>
     </i-col>
   </Row>

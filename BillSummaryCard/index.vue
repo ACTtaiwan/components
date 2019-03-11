@@ -1,6 +1,6 @@
 <template>
   <div :class="{ phone: isPhone }" class="summary-card">
-    <h1 class="summary-card-title">Summary</h1>
+    <h1 class="summary-card-title">{{ $t('BillSummaryCard.cardTitle') }}</h1>
     <div class="summary-card-body">
       <p v-for="(paragraph, index) in paragraphs" :key="index" class="paragraph">{{ paragraph }}</p>
     </div>

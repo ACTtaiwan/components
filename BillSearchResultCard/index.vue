@@ -29,28 +29,28 @@
           :span="isDesktop ? 6 : 12"
           class="bill-card-info-block">
         <!-- Congress -->
-        <span class="label">Congress</span>
+        <span class="label">{{ $t('BillSearchResultCard.labelCongress') }}</span>
         <p class="value">{{ bill.congress }}th</p>
         </Col>
         <Col
           :span="isDesktop ? 6 : 12"
           class="bill-card-info-block">
         <!-- Introduced Date -->
-        <span class="label">Introduced</span>
+        <span class="label">{{ $t('BillSearchResultCard.labelIntroducedDate') }}</span>
         <p class="value">{{ bill.introducedDate | localTime }}</p>
         </Col>
         <Col
           :span="isDesktop ? 6 : 12"
           class="bill-card-info-block">
         <!-- Cosponsors -->
-        <span class="label">Cosponsors</span>
+        <span class="label">{{ $t('BillSearchResultCard.labelCosponsors') }}</span>
         <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
         </Col>
         <Col
           :span="isDesktop ? 6 : 12"
           class="bill-card-info-block">
         <!-- Tags -->
-        <span class="label">{{ $t('BillSearchResultCard.tagsFieldTitle') }}</span>
+        <span class="label">{{ $t('BillSearchResultCard.labelTags') }}</span>
         <div
           v-if="bill.tags"
           class="tags">
@@ -93,7 +93,7 @@
           :span="24"
           class="bill-card-info-block">
         <!-- Tracker -->
-        <span class="label">Status</span>
+        <span class="label">{{ $t('BillSearchResultCard.labelStatus') }}</span>
         <p v-if="bill.actions" class="value">{{ billLatestAction | trimConGovAction }}</p>
         <BillTracker
           v-if="bill.trackers"
@@ -115,9 +115,9 @@
         </FbShareWrapper>
       </div>
       <div>
-        <TwButton class="action" label="Write to lawmaker" @press="showPopVox = !showPopVox"/>
+        <TwButton v-if="enableBtnOfPopVox" class="action" label="Write to lawmaker" @press="showPopVox = !showPopVox"/>
         <router-link :to="`/bills/${bill.id}`" class="action">
-          <TwButton label="More"/>
+          <TwButton :label="$t('BillSearchResultCard.btnTitleMore')"/>
         </router-link>
       </div>
     </div>
@@ -145,6 +145,11 @@ export default {
     bill: {
       type: Object,
       required: true
+    },
+    enableBtnOfPopVox: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -204,16 +209,7 @@ export default {
       }
     },
     billType () {
-      return {
-        s: 'Bill',
-        hr: 'Bill',
-        hconres: 'Concurrent Resolution',
-        sconres: 'Concurrent Resolution',
-        hres: 'Resolution',
-        sres: 'Resolution',
-        hjres: 'Joint Resolution',
-        sjres: 'Joint Resolution'
-      }[this.bill.billType.code]
+      return this.$t('BillSearchResultCard.billType')[this.bill.billType.code]
     },
     billProgress () {
       const totalSteps = this.bill.trackers.length

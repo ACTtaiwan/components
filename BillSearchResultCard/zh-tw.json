@@ -1,0 +1,20 @@
+{
+  "BillSearchResultCard": {
+    "labelCongress": "國會屆數",
+    "labelIntroducedDate": "提案日期",
+    "labelCosponsors": "連署人數",
+    "labelTags": "標籤",
+    "labelStatus": "最新狀態",
+    "btnTitleMore": "查看更多",
+    "billType": {
+      "s": "法案",
+      "hr": "法案",
+      "hconres": "共同決議案",
+      "sconres": "共同決議案",
+      "hres": "決議案",
+      "sres": "決議案",
+      "hjres": "聯合決議案",
+      "sjres": "聯合決議案"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "BillVersionsCard": {
+    "cardTitle": "法案全文",
+    "columns": {
+      "titleVersions": "版本",
+      "titleDate": "日期",
+      "titleDescription": "版本敘述"
+    }
+  }
+}
