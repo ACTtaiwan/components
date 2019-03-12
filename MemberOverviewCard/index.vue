@@ -198,7 +198,7 @@ export default {
       }
     },
     memberParty () {
-      const party = this.members[0].currentRole.party
+      const party = this.members[0].latestRole.party
       const partyTrans = {
         'zh-tw': {
           'Republican': '共和黨',
