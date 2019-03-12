@@ -1,0 +1,14 @@
+{
+  "MemberSimpleCard": {
+    "labelSponsored": "Sponsored bills",
+    "labelCosponsored": "Cosponsored bills",
+    "labelSocialMedia": "Social Media",
+    "labelLastSupport": "Last supported bill",
+    "btnTitleMore": "More",
+    "memberTitle": "{title} for {state}",
+    "memberTitleWithDistrict": "{title} for {state}'s {district}th district",
+    "lastSupportSuffix": "({action} on {date})",
+    "lastSupportSponsored": "sponsored",
+    "lastSupportCosponsored": "cosponsored"
+  }
+}

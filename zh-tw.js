@@ -15,6 +15,7 @@ import zhTwContactCard from './MemberDetailPage/ContactCard/zh-tw'
 
 import zhSubscription from './Subscription/zh-tw'
 import zhTwBillSimpleCard from './BillSimpleCard/zh-tw'
+import zhTwMemberSimpleCard from './MemberSimpleCard/zh-tw'
 
 const locale = {
   ...zhTwBillsFilters,
@@ -31,7 +32,8 @@ const locale = {
   ...zhTwCosponsoredBillsCard,
   ...zhTwContactCard,
   ...zhSubscription,
-  ...zhTwBillSimpleCard
+  ...zhTwBillSimpleCard,
+  ...zhTwMemberSimpleCard
 }
 
 export default locale
