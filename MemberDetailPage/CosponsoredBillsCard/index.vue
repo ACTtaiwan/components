@@ -2,7 +2,7 @@
   <div
     :class="{ phone: isPhone }"
     class="cosponsored-bills-card">
-    <h1 class="cosponsored-bills-card-title">Cosponsored Bills ({{ cosponsoredBills.length }})</h1>
+    <h1 class="cosponsored-bills-card-title">{{ $t('CosponsoredBillsCard.cardTitle', {length: cosponsoredBills.length}) }}</h1>
     <div class="cosponsored-bills-card-body">
       <!-- <Row class="cosponsored-bills-card-charts">
         <Col
@@ -34,21 +34,21 @@
             :span="getIsDesktop() ? 6 : 12"
             class="cosponsored-bills-card-info-block">
           <!-- Congress -->
-          <span class="label">Congress</span>
+          <span class="label">{{ $t('CosponsoredBillsCard.labelCongress') }}</span>
           <p class="value" >{{ bill.congress }}</p>
           </Col>
           <Col
             :span="getIsDesktop() ? 6 : 12"
             class="cosponsored-bills-card-info-block">
           <!-- Cosponsors -->
-          <span class="label">Cosponsors</span>
+          <span class="label">{{ $t('CosponsoredBillsCard.labelCosponsors') }}</span>
           <p class="value" >{{ bill.cosponsors.length }}</p>
           </Col>
           <Col
             :span="getIsDesktop() ? 6 : 12"
             class="cosponsored-bills-card-info-block">
           <!-- Introduced Date -->
-          <span class="label">Introduced</span>
+          <span class="label">{{ $t('CosponsoredBillsCard.labelIntroducedDate') }}</span>
           <p class="value">{{ bill.introducedDate | localTime }}</p>
           </Col>
           <Col
@@ -56,14 +56,14 @@
             :span="getIsDesktop() ? 6 : 12"
             class="cosponsored-bills-card-info-block">
           <!-- Cosponsored Date -->
-          <span class="label">Cosponsored</span>
+          <span class="label">{{ $t('CosponsoredBillsCard.labelCosponsoredDate') }}</span>
           <p class="value">{{ bill.dateCosponsored | localTime }}</p>
           </Col>
           <Col
             :span="24"
             class="cosponsored-bills-card-info-block">
           <!-- Tracker -->
-          <span class="label">Status</span>
+          <span class="label">{{ $t('CosponsoredBillsCard.labelStatus') }}</span>
           <p class="value">{{ getBillLatestAction(bill) | trimConGovAction }}</p>
           <BillTracker
             :steps="bill.trackers"
@@ -75,7 +75,7 @@
           <router-link
             :to="`/bills/${bill.id}`"
             class="more-btn">
-            <TwButton label="More"/>
+            <TwButton :label="$t('CosponsoredBillsCard.btnTitleMore')"/>
           </router-link>
         </div>
       </div>

@@ -1,0 +1,10 @@
+{
+  "SponsoredBillsCard": {
+    "cardTitle": "Sponsored Bills ({length})",
+    "labelCongress": "Congress",
+    "labelIntroducedDate": "Introduced",
+    "labelCosponsors": "Cosponsors",
+    "labelStatus": "Status",
+    "btnTitleMore": "More"
+  }
+}

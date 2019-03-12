@@ -1,0 +1,10 @@
+{
+  "ContactCard": {
+    "cardTitle": "聯絡資訊",
+    "labelWebsite": "網站",
+    "labelSocial": "社群媒體",
+    "labelPhone": "電話",
+    "labelFax": "傳真",
+    "labelOffice": "辦公室地址"
+  }
+}

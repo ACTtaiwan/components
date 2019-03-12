@@ -8,6 +8,10 @@ import enBillActionsCard from './BillActionsCard/en-us'
 
 import enMembersFilters from './MembersFilters/en-us'
 import enMemberSearchResultCard from './MemberSearchResultCard/en-us'
+import enMemberOverviewCard from './MemberOverviewCard/en-us'
+import enSponsoredBillsCard from './MemberDetailPage/SponsoredBillsCard/en-us'
+import enCosponsoredBillsCard from './MemberDetailPage/CosponsoredBillsCard/en-us'
+import enContactCard from './MemberDetailPage/ContactCard/en-us'
 
 import enSubscription from './Subscription/en-us'
 
@@ -21,6 +25,10 @@ const locale = {
   ...enBillActionsCard,
   ...enMembersFilters,
   ...enMemberSearchResultCard,
+  ...enMemberOverviewCard,
+  ...enSponsoredBillsCard,
+  ...enCosponsoredBillsCard,
+  ...enContactCard,
   ...enSubscription
 }
 

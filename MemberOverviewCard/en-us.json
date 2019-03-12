@@ -1,0 +1,13 @@
+{
+  "MemberOverviewCard": {
+    "cardTitle": "Overview",
+    "pillInCongress": "In Congress",
+    "labelTerms": "Terms",
+    "labelVote": "Vote with party",
+    "labelSponsored": "Sponsored bills",
+    "labelCosponsored": "Cosponsored bills",
+    "labelCommittees": "Current Committees",
+    "poptipCongress": "{term}th",
+    "poptipVote": "This is calculated for {congress}th Congress"
+  }
+}

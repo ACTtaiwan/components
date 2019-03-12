@@ -2,14 +2,14 @@
   <div
     :class="{ phone: isPhone }"
     class="overview-card">
-    <h1 class="overview-card-title">Overview</h1>
+    <h1 class="overview-card-title">{{ $t('MemberOverviewCard.cardTitle') }}</h1>
     <div class="member-meta">
       <span class="member-meta-info">{{ memberAreaCode }}</span>
-      <span class="member-meta-info">{{ members[0].latestRole.party }}</span>
+      <span class="member-meta-info">{{ memberParty }}</span>
       <span
         v-if="isInCongress"
         class="member-meta-info success">
-        In Congress
+        {{ $t('MemberOverviewCard.pillInCongress') }}
       </span>
     </div>
     <div class="member-profile">
@@ -28,7 +28,7 @@
         :span="isDesktop ? 6 : 12"
         class="overview-card-info-block">
       <!-- Terms -->
-      <span class="label">Terms</span>
+      <span class="label">{{ $t('MemberOverviewCard.labelTerms') }}</span>
       <div
         v-if="terms"
         class="poptip-block">
@@ -43,7 +43,7 @@
             class="poptip-content">
             <p
               v-for="term in terms"
-              :key="term">{{ term }}th</p>
+              :key="term">{{ $t('MemberOverviewCard.poptipCongress', {term}) }}</p>
           </div>
         </Poptip>
       </div>
@@ -55,7 +55,7 @@
         :span="isDesktop ? 6 : 12"
         class="overview-card-info-block">
       <!-- Vote with party -->
-      <span class="label">Vote with party</span>
+      <span class="label">{{ $t('MemberOverviewCard.labelVote') }}</span>
       <div
         v-if="ppMember"
         class="poptip-block">
@@ -68,7 +68,7 @@
           <div
             slot="content"
             class="poptip-content">
-            <p>This is calculated for {{ ppMember.roles[0].congress }}th Congress</p>
+            <p>{{ $t('MemberOverviewCard.poptipVote', {congress: ppMember.roles[0].congress}) }}</p>
           </div>
         </Poptip>
       </div>
@@ -80,7 +80,7 @@
         :span="isDesktop ? 6 : 12"
         class="overview-card-info-block">
       <!-- Sponsored -->
-      <span class="label">Sponsored bills</span>
+      <span class="label">{{ $t('MemberOverviewCard.labelSponsored') }}</span>
       <p
         v-if="sponsoredBills"
         class="value stats">{{ sponsoredBills.length }}</p>
@@ -92,7 +92,7 @@
         :span="isDesktop ? 6 : 12"
         class="overview-card-info-block">
       <!-- Cosponsored -->
-      <span class="label">Cosponsored bills</span>
+      <span class="label">{{ $t('MemberOverviewCard.labelCosponsored') }}</span>
       <p
         v-if="cosponsoredBills"
         class="value stats">{{ cosponsoredBills.length }}</p>
@@ -104,7 +104,7 @@
         :span="24"
         class="overview-card-info-block">
       <!-- Committees -->
-      <span class="label">Current Committees</span>
+      <span class="label">{{ $t('MemberOverviewCard.labelCommittees') }}</span>
       <p
         v-for="committee in ppMember.roles[0].committees"
         :key="committee.code"
@@ -196,6 +196,16 @@ export default {
       } else {
         return `${this.members[0].latestRole.state}`
       }
+    },
+    memberParty () {
+      const party = this.members[0].currentRole.party
+      const partyTrans = {
+        'zh-tw': {
+          'Republican': '共和黨',
+          'Democrat': '民主黨'
+        }
+      }[this.locale];
+      return (partyTrans && partyTrans[party]) || party
     },
     terms () {
       return this.ppMember.roles.map(role => role.congress)

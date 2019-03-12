@@ -1,0 +1,10 @@
+{
+  "ContactCard": {
+    "cardTitle": "Contact",
+    "labelWebsite": "Website",
+    "labelSocial": "Social Media",
+    "labelPhone": "Phone",
+    "labelFax": "Fax",
+    "labelOffice": "Office"
+  }
+}

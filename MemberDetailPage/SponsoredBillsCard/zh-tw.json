@@ -1,0 +1,10 @@
+{
+  "SponsoredBillsCard": {
+    "cardTitle": "提案列表（共{length}案）",
+    "labelCongress": "國會屆數",
+    "labelIntroducedDate": "提案日期",
+    "labelCosponsors": "連署人數",
+    "labelStatus": "最新狀態",
+    "btnTitleMore": "查看更多"
+  }
+}

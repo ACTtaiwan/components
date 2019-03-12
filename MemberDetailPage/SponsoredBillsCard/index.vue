@@ -2,7 +2,7 @@
   <div
     :class="{ phone: isPhone }"
     class="sponsored-bills-card">
-    <h1 class="sponsored-bills-card-title">Sponsored Bills ({{ sponsoredBills.length }})</h1>
+    <h1 class="sponsored-bills-card-title">{{ $t('SponsoredBillsCard.cardTitle', {length: sponsoredBills.length}) }}</h1>
     <div class="sponsored-bills-card-body">
       <!-- <Row class="sponsored-bills-card-charts">
         <Col
@@ -34,28 +34,28 @@
             :span="getIsDesktop() ? 8 : 12"
             class="sponsored-bills-card-info-block">
           <!-- Congress -->
-          <span class="label">Congress</span>
+          <span class="label">{{ $t('SponsoredBillsCard.labelCongress') }}</span>
           <p class="value" >{{ bill.congress }}</p>
           </Col>
           <Col
             :span="getIsDesktop() ? 8 : 12"
             class="sponsored-bills-card-info-block">
           <!-- Cosponsors -->
-          <span class="label">Cosponsors</span>
+          <span class="label">{{ $t('SponsoredBillsCard.labelCosponsors') }}</span>
           <p class="value" >{{ bill.cosponsors.length }}</p>
           </Col>
           <Col
             :span="getIsDesktop() ? 8 : 12"
             class="sponsored-bills-card-info-block">
           <!-- Introduced Date -->
-          <span class="label">Introduced</span>
+          <span class="label">{{ $t('SponsoredBillsCard.labelIntroducedDate') }}</span>
           <p class="value">{{ bill.introducedDate | localTime }}</p>
           </Col>
           <Col
             :span="24"
             class="sponsored-bills-card-info-block">
           <!-- Tracker -->
-          <span class="label">Status</span>
+          <span class="label">{{ $t('SponsoredBillsCard.labelStatus') }}</span>
           <p class="value">{{ getBillLatestAction(bill) | trimConGovAction }}</p>
           <BillTracker
             :steps="bill.trackers"
@@ -67,7 +67,7 @@
           <router-link
             :to="`/bills/${bill.id}`"
             class="more-btn">
-            <TwButton label="More"/>
+            <TwButton :label="$t('SponsoredBillsCard.btnTitleMore')"/>
           </router-link>
         </div>
       </div>

@@ -2,7 +2,7 @@
   <div
     :class="{ phone: isPhone }"
     class="contact-card">
-    <h1 class="contact-card-title">Contact</h1>
+    <h1 class="contact-card-title">{{ $t('ContactCard.cardTitle') }}</h1>
     <div class="contact-card-body">
       <Row>
         <i-col
@@ -10,7 +10,7 @@
           :span="24"
           class="contact-card-info-block">
           <!-- Website -->
-          <span class="label">Website</span>
+          <span class="label">{{ $t('ContactCard.labelWebsite') }}</span>
           <a
             :href="member.url"
             target="_blank"
@@ -20,7 +20,7 @@
           :span="24"
           class="contact-card-info-block">
           <!-- Socail Media -->
-          <span class="label">Social Media</span>
+          <span class="label">{{ $t('ContactCard.labelSocial') }}</span>
           <p class="value">
             <a
               v-if="twitterLink"
@@ -58,7 +58,7 @@
           :span="24"
           class="contact-card-info-block">
           <!-- Phone -->
-          <span class="label">Phone</span>
+          <span class="label">{{ $t('ContactCard.labelPhone') }}</span>
           <p class="value" >{{ member.roles[0].phone }}</p>
         </i-col>
         <i-col
@@ -66,7 +66,7 @@
           :span="24"
           class="contact-card-info-block">
           <!-- Fax -->
-          <span class="label">Fax</span>
+          <span class="label">{{ $t('ContactCard.labelFax') }}</span>
           <p class="value" >{{ member.roles[0].fax }}</p>
         </i-col>
         <i-col
@@ -74,7 +74,7 @@
           :span="24"
           class="contact-card-info-block">
           <!-- Office -->
-          <span class="label">Office</span>
+          <span class="label">{{ $t('ContactCard.labelOffice') }}</span>
           <p class="value" >{{ member.roles[0].office }}</p>
         </i-col>
       </Row>

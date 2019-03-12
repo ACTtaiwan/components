@@ -1,0 +1,13 @@
+{
+  "MemberOverviewCard": {
+    "cardTitle": "議員基本資訊",
+    "pillInCongress": "現任議員",
+    "labelTerms": "屆數",
+    "labelVote": "與同黨一致投票率",
+    "labelSponsored": "提案數",
+    "labelCosponsored": "共同連署",
+    "labelCommittees": "委員會",
+    "poptipCongress": "第{term}屆",
+    "poptipVote": "根據第{congress}屆國會所計算"
+  }
+}
