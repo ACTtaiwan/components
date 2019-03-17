@@ -60,7 +60,7 @@
           </div>
           <!-- Donate -->
           <div class="header-donate">
-            <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="14px" lineHeight="22px"/>
+            <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="14px" lineHeight="22px" @click.native="onClickDonateButton" />
           </div>
           <!-- INFO -->
           <div class="header-user">
@@ -99,6 +99,9 @@ export default {
   methods: {
     onHamburgerClick (event) {
       this.isMenuOpen = !this.isMenuOpen
+    },
+    onClickDonateButton (event) {
+      this.$store.commit('SET_DONATION', true)
     }
   }
 }
