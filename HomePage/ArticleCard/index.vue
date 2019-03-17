@@ -30,6 +30,8 @@
   </div>
 </template>
 <script>
+import appConfig from '~/config/app.json'
+
 export default {
   components: {},
   props: {
@@ -60,7 +62,7 @@ export default {
   },
   data () {
     return {
-      imgStyle: `background-image: url("${this.article.imageUrl}"); background-size: cover;`
+      imgStyle: `background-image: url("${this.article.imageUrl}"), url("${appConfig.assets.baseUrl}/article-card-default-img-bg.svg"); background-size: cover;`
     }
   },
   computed: {
