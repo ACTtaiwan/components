@@ -1,7 +1,7 @@
 <template>
   <Modal :width="760" v-model="showModal" :footerHide="true" :fullscreen="isPhone ? true : false">
     <div v-if="show" >
-      <DonorboxContent />
+      <DonorboxContent :config="config" />
     </div>
   </Modal>
 </template>
@@ -18,6 +18,11 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    config: {
+      type: String,
+      required: false,
+      default: 'act'
     }
   },
   computed: {
