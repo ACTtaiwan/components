@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="{ phone: isPhone }"
-    class="cosponsored-bills-card">
+  <div :class="{ phone: isPhone }" class="cosponsored-bills-card">
     <h1 class="cosponsored-bills-card-title">{{ $t('CosponsoredBillsCard.cardTitle', {length: cosponsoredBills.length}) }}</h1>
     <div class="cosponsored-bills-card-body">
       <!-- <Row class="cosponsored-bills-card-charts">
@@ -16,12 +14,8 @@
             class="chart"/>
         </div>
         </Col>
-      </Row> -->
-      <div
-        v-for="bill in cosponsoredBills"
-        :key="bill.id"
-        :vm="this"
-        class="sponsored-bill-block">
+      </Row>-->
+      <div v-for="bill in cosponsoredBills" :key="bill.id" :vm="this" class="sponsored-bill-block">
         <div class="bill-meta">
           <span class="bill-code">{{ bill.billCode }}</span>
           <span class="bill-type">{{ bill.billType.code | billType }}</span>
@@ -30,51 +24,35 @@
           <h1 class="bill-title">{{ bill.title }}</h1>
         </router-link>
         <Row>
-          <Col
-            :span="getIsDesktop() ? 6 : 12"
-            class="cosponsored-bills-card-info-block">
+          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
           <!-- Congress -->
           <span class="label">{{ $t('CosponsoredBillsCard.labelCongress') }}</span>
-          <p class="value" >{{ bill.congress }}</p>
+          <p class="value">{{ bill.congress }}</p>
           </Col>
-          <Col
-            :span="getIsDesktop() ? 6 : 12"
-            class="cosponsored-bills-card-info-block">
+          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
           <!-- Cosponsors -->
           <span class="label">{{ $t('CosponsoredBillsCard.labelCosponsors') }}</span>
-          <p class="value" >{{ bill.cosponsors.length }}</p>
+          <p class="value">{{ bill.cosponsors.length }}</p>
           </Col>
-          <Col
-            :span="getIsDesktop() ? 6 : 12"
-            class="cosponsored-bills-card-info-block">
+          <Col :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
           <!-- Introduced Date -->
           <span class="label">{{ $t('CosponsoredBillsCard.labelIntroducedDate') }}</span>
           <p class="value">{{ bill.introducedDate | localTime }}</p>
           </Col>
-          <Col
-            v-if="bill.dateCosponsored"
-            :span="getIsDesktop() ? 6 : 12"
-            class="cosponsored-bills-card-info-block">
+          <Col v-if="bill.dateCosponsored" :span="getIsDesktop() ? 6 : 12" class="cosponsored-bills-card-info-block">
           <!-- Cosponsored Date -->
           <span class="label">{{ $t('CosponsoredBillsCard.labelCosponsoredDate') }}</span>
           <p class="value">{{ bill.dateCosponsored | localTime }}</p>
           </Col>
-          <Col
-            :span="24"
-            class="cosponsored-bills-card-info-block">
+          <Col :span="24" class="cosponsored-bills-card-info-block">
           <!-- Tracker -->
           <span class="label">{{ $t('CosponsoredBillsCard.labelStatus') }}</span>
           <p class="value">{{ getBillLatestAction(bill) | trimConGovAction }}</p>
-          <BillTracker
-            :steps="bill.trackers"
-            :progress="getBillProgress(bill)"
-            class="tracker"/>
+          <BillTracker :steps="bill.trackers" :progress="getBillProgress(bill)" class="tracker"/>
           </Col>
         </Row>
         <div class="bill-footer">
-          <router-link
-            :to="`/bills/${bill.id}`"
-            class="more-btn">
+          <router-link :to="`/bills/${bill.id}`" class="more-btn">
             <TwButton :label="$t('CosponsoredBillsCard.btnTitleMore')"/>
           </router-link>
         </div>
@@ -91,16 +69,6 @@ import cspanLogo from '~/assets/img/cspan_logo.svg'
 import facebookLogo from '~/assets/img/facebook_logo.svg'
 import youtubeLogo from '~/assets/img/youtube_logo.svg'
 import twitterLogo from '~/assets/img/twitter_logo.svg'
-
-// categories icons
-import catAppropriation from '~/assets/img/cat-appropriation.svg'
-import catArms from '~/assets/img/cat-arms.svg'
-import catUsTw from '~/assets/img/cat-ustaiwan.svg'
-import catDemocracy from '~/assets/img/cat-democracy.svg'
-import catTrade from '~/assets/img/cat-trade.svg'
-import catInternational from '~/assets/img/cat-international.svg'
-import catDefense from '~/assets/img/cat-defense.svg'
-import catOther from '~/assets/img/cat-other.svg'
 
 // components
 import BillTracker from '~/components/BillTracker'
@@ -127,17 +95,6 @@ export default {
       facebookLogo,
       youtubeLogo,
       twitterLogo,
-      categoryMap: {
-        arm: catArms,
-        int: catInternational,
-        trade: catTrade,
-        other: catOther,
-        dem: catDemocracy,
-        ustw: catUsTw,
-        appn: catAppropriation,
-        def: catDefense,
-        tra: catAppropriation
-      },
       chartOptions: {
         legend: {
           display: true,
@@ -202,12 +159,13 @@ export default {
     chartData () {
       let map = {}
       this.cosponsoredBills.forEach(bill => {
-        bill.categories && bill.categories.forEach(category => {
-          if (!map[category.id]) {
-            map[category.id] = { name: category.name, count: 0 }
-          }
-          map[category.id].count++
-        })
+        bill.categories &&
+          bill.categories.forEach(category => {
+            if (!map[category.id]) {
+              map[category.id] = { name: category.name, count: 0 }
+            }
+            map[category.id].count++
+          })
       })
       let categories = _.map(map, (value, prop) => ({ id: prop, value: value }))
       const dataSet = {
@@ -249,7 +207,7 @@ export default {
       bill.trackers.forEach((step, index) => {
         if (step.selected) currentStep = index + 1
       })
-      return currentStep / totalSteps * 100
+      return (currentStep / totalSteps) * 100
     }
   }
 }

@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="{ phone: isPhone }"
-    class="overview-card">
+  <div :class="{ phone: isPhone }" class="overview-card">
     <h1 class="overview-card-title">{{ $t('BillOverviewCard.labelTitle') }}</h1>
     <div class="bill-meta">
       <span class="bill-meta-info">{{ bill.billCode }}</span>
@@ -9,73 +7,45 @@
     </div>
     <h1 class="bill-title">{{ bill.title }}</h1>
     <Row>
-      <Col
-        :span="24"
-        class="overview-card-info-block">
+      <Col :span="24" class="overview-card-info-block">
       <!-- Sponsor -->
       <span class="label">{{ $t('BillOverviewCard.labelSponsor') }}</span>
       <div class="bill-sponsor">
-        <img
-          :class="avatarClass"
-          :src="avatarSource"
-          :style="avatarStyle"
-          class="avatar" >
+        <img :class="avatarClass" :src="avatarSource" :style="avatarStyle" class="avatar">
         <router-link v-if="bill.sponsor" :to="`/members/${bill.sponsor.id}`">
           <p class="name">{{ bill.sponsor.role.title }} {{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}</p>
         </router-link>
-        <p class="area">{{ memberArea }} </p>
+        <p class="area">{{ memberArea }}</p>
       </div>
       </Col>
-      <Col
-        :span="isDesktop ? 8 : 12"
-        class="overview-card-info-block">
+      <Col :span="isDesktop ? 8 : 12" class="overview-card-info-block">
       <!-- Congress -->
       <span class="label">{{ $t('BillOverviewCard.labelCongress') }}</span>
       <p class="value">{{ bill.congress }}th</p>
       </Col>
-      <Col
-        :span="isDesktop ? 8 : 12"
-        class="overview-card-info-block">
+      <Col :span="isDesktop ? 8 : 12" class="overview-card-info-block">
       <!-- Introduced Date -->
       <span class="label">{{ $t('BillOverviewCard.labelIntroducedDate') }}</span>
       <p class="value">{{ bill.introducedDate | localTime }}</p>
       </Col>
-      <Col
-        :span="isDesktop ? 8 : 12"
-        class="overview-card-info-block">
+      <Col :span="isDesktop ? 8 : 12" class="overview-card-info-block">
       <!-- Cosponsors -->
       <span class="label">{{ $t('BillOverviewCard.labelCosponsors') }}</span>
       <p class="value">{{ bill.cosponsors ? bill.cosponsors.length : 0 }}</p>
       </Col>
-      <Col
-        :span="24"
-        class="overview-card-info-block">
+      <Col :span="24" class="overview-card-info-block">
       <!-- Tracker -->
       <span class="label">{{ $t('BillOverviewCard.labelStatus') }}</span>
       <p class="value">{{ billLatestAction | trimConGovAction }}</p>
-      <BillTracker
-        :steps="bill.trackers"
-        :progress="billProgress"
-        class="bill-tracker"/>
+      <BillTracker :steps="bill.trackers" :progress="billProgress" class="bill-tracker"/>
       </Col>
     </Row>
   </div>
-
 </template>
 
 <script>
 import BillTracker from '~/components/BillTracker'
 import defaultAvatar from '~/assets/img/tw-logo-color.png'
-
-// categories icons
-import catAppropriation from '~/assets/img/cat-appropriation.svg'
-import catArms from '~/assets/img/cat-arms.svg'
-import catUsTw from '~/assets/img/cat-ustaiwan.svg'
-import catDemocracy from '~/assets/img/cat-democracy.svg'
-import catTrade from '~/assets/img/cat-trade.svg'
-import catInternational from '~/assets/img/cat-international.svg'
-import catDefense from '~/assets/img/cat-defense.svg'
-import catOther from '~/assets/img/cat-other.svg'
 
 export default {
   components: {
@@ -89,18 +59,7 @@ export default {
   },
   data () {
     return {
-      avatarSize: 40,
-      categoryMap: {
-        arm: catArms,
-        int: catInternational,
-        trade: catTrade,
-        other: catOther,
-        dem: catDemocracy,
-        ustw: catUsTw,
-        appn: catAppropriation,
-        def: catDefense,
-        tra: catAppropriation
-      }
+      avatarSize: 40
     }
   },
   computed: {
@@ -167,7 +126,7 @@ export default {
       this.bill.trackers.forEach((step, index) => {
         if (step.selected) currentStep = index + 1
       })
-      return currentStep / totalSteps * 100
+      return (currentStep / totalSteps) * 100
     },
     billLatestAction (a, b, c) {
       let latestActionTime = 0
