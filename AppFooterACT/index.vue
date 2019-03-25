@@ -1,8 +1,8 @@
 <template>
   <footer :class="{ phone: isPhone}">
     <div class="content">
-      <img :src="waves" class="bg-img-l"></img>
-      <img :src="waves" class="bg-img-r"></img>
+      <img :src="wavesImgUrl" class="bg-img-l"></img>
+      <img :src="wavesImgUrl" class="bg-img-r"></img>
       <div class="content-wrapper">
         <div class="column">
           <div class="column-title">Congressional</div>
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-// images
-import waves from '~/assets/img/wave-white.svg'
+// libraries
+import appConfig from '~/config/app.json'
 
 // components
 import Subscription from '~/components/Subscription'
@@ -64,7 +64,7 @@ export default {
   },
   data () {
     return {
-      waves,
+      wavesImgUrl: `${appConfig.assets.baseUrl}/wave-white.svg`,
       showSubscription: false,
       showDonorbox: false
     }

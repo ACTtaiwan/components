@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="{ phone: isPhone }"
-    class="analytic-card">
+  <div :class="{ phone: isPhone }" class="analytic-card">
     <h1 class="analytic-card-title">Sponsorship of bills by states</h1>
     <div class="analytic-card-body">
       <div class="analytic-card-info-block">
@@ -14,7 +12,8 @@
           class="slider"
           showStops
           range
-          @on-change="updateChart"/>
+          @on-change="updateChart"
+        />
       </div>
       <div class="chart-container">
         <BillCountMap
@@ -24,39 +23,32 @@
           :usMap="usMap"
           :stateToFips="stateToFips"
           :fipsToState="fipsToState"
-          mapId="sponsored-bill-count-map"/>
+          mapId="sponsored-bill-count-map"
+        />
         <!-- loader -->
-        <div
-          v-if="isChartLoading && isInitiated"
-          class="overlay-container">
+        <div v-if="isChartLoading && isInitiated" class="overlay-container">
           <div class="overlay-block">
             <Spinner/>
           </div>
         </div>
         <!-- Initializer -->
-        <div
-          v-if="!isInitiated"
-          :style="sponsorCountMapStyle"
-          class="overlay-container">
+        <div v-if="!isInitiated" :style="sponsorCountMapStyle" class="overlay-container">
           <div class="overlay-block">
-            <TwButton
-              label="Start Analysis"
-              color="gray-light"
-              @press="onInitChart"/>
+            <TwButton label="Start Analysis" color="gray-light" @press="onInitChart"/>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
+// libraries
+import appConfig from '~/config/app.json'
+
 import Spinner from '~/components/Spinner'
 import TwButton from '~/components/TwButton'
 import BillCountMap from '~/components/Analytics/BillCountMap'
-// Images
-import sponsorCountMapBkgd from '~/assets/img/sponsorCountMapBkgd.png'
 // Queries
 import queryMapUtils from '~/apollo/queries/mapUtils'
 import PrefetchBillsByCongressQuery from '~/apollo/queries/Analytics/PrefetchBillsByCongress'
@@ -74,11 +66,13 @@ export default {
     return {
       isChartLoading: true,
       isInitiated: false,
-      congressRange: [this.$store.state.currentCongress-1, this.$store.state.currentCongress],
+      congressRange: [this.$store.state.currentCongress - 1, this.$store.state.currentCongress],
       mapUtils: null,
       bills: null,
       billsFetched: {},
-      sponsorCountMapStyle: `background-image: url("${sponsorCountMapBkgd}"); background-size: cover;`
+      sponsorCountMapStyle: `background-image: url("${
+        appConfig.assets.baseUrl
+      }/sponsorCountMapBkgd.png"); background-size: cover;`
     }
   },
   computed: {

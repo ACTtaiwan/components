@@ -1,8 +1,8 @@
 <template>
   <footer>
     <!-- Background Images -->
-    <img :src="waves" class="bg-img-l">
-    <img :src="waves" class="bg-img-r">
+    <img :src="wavesImgUrl" class="bg-img-l">
+    <img :src="wavesImgUrl" class="bg-img-r">
     <!-- Header -->
     <section class="footer-header">
       <div class="footer-header-wrapper">
@@ -42,8 +42,10 @@
 </template>
 
 <script>
+// libraries
+import appConfig from '~/config/app.json'
+
 // images
-import waves from '~/assets/img/wave-white.svg'
 import logoUSTW from '~/assets/img/logo-white.png'
 import logoACT from '~/assets/img/logo-white.png'
 
@@ -87,7 +89,7 @@ export default {
   },
   data () {
     return {
-      waves,
+      wavesImgUrl: `${appConfig.assets.baseUrl}/wave-white.svg`,
       logoSrc: {
         ustw: logoUSTW,
         act: logoACT

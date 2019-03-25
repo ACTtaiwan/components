@@ -5,8 +5,15 @@
       <div class="analytic-card-info-block">
         <span class="label">Congress ({{ congressRange[0] }} - {{ congressRange[1] }})</span>
         <Slider
-          v-model="congressRange" :step="1" :min="congressMin" :max="congressMax"
-          class="slider" showStops range @on-change="updateChart"/>
+          v-model="congressRange"
+          :step="1"
+          :min="congressMin"
+          :max="congressMax"
+          class="slider"
+          showStops
+          range
+          @on-change="updateChart"
+        />
       </div>
       <div class="chart-container">
         <BillCountMap
@@ -16,7 +23,8 @@
           :usMap="usMap"
           :stateToFips="stateToFips"
           :fipsToState="fipsToState"
-          mapId="cosponsored-bill-count-map"/>
+          mapId="cosponsored-bill-count-map"
+        />
         <!-- loader -->
         <div v-if="isChartLoading && isInitiated" class="overlay-container">
           <div class="overlay-block">
@@ -24,29 +32,23 @@
           </div>
         </div>
         <!-- Initializer -->
-        <div
-          v-if="!isInitiated"
-          :style="cosponsorCountMapStyle"
-          class="overlay-container">
+        <div v-if="!isInitiated" :style="cosponsorCountMapStyle" class="overlay-container">
           <div class="overlay-block">
-            <TwButton
-              label="Start Analysis"
-              color="gray-light"
-              @press="onInitChart"/>
+            <TwButton label="Start Analysis" color="gray-light" @press="onInitChart"/>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
+// libraries
+import appConfig from '~/config/app.json'
+
 import Spinner from '~/components/Spinner'
 import TwButton from '~/components/TwButton'
 import BillCountMap from '~/components/Analytics/BillCountMap'
-// Images
-import cosponsorCountMapBkgd from '~/assets/img/sponsorCountMapBkgd.png'
 // Queries
 import queryMapUtils from '~/apollo/queries/mapUtils'
 import PrefetchBillsByCongressQuery from '~/apollo/queries/Analytics/PrefetchBillsByCongress'
@@ -64,11 +66,13 @@ export default {
     return {
       isChartLoading: true,
       isInitiated: false,
-      congressRange: [this.$store.state.currentCongress-1, this.$store.state.currentCongress],
+      congressRange: [this.$store.state.currentCongress - 1, this.$store.state.currentCongress],
       mapUtils: null,
       bills: null,
       billsFetched: {},
-      cosponsorCountMapStyle: `background-image: url("${cosponsorCountMapBkgd}"); background-size: cover;`
+      cosponsorCountMapStyle: `background-image: url("${
+        appConfig.assets.baseUrl
+      }/sponsorCountMapBkgd.png"); background-size: cover;`
     }
   },
   computed: {
@@ -131,7 +135,7 @@ export default {
             const cosponsoredTime = Number(cosponsor.dateCosponsored)
             cosponsor.role = _.find(sortCngrRoles, r => cosponsoredTime >= r.startDate && cosponsoredTime < r.endDate)
             delete cosponsor.congressRoles
-          });
+          })
         }
       })
     },
@@ -152,7 +156,7 @@ export default {
       let billNoRole = _.filter(newBills, bill => bill.cosponsors && _.some(bill.cosponsors, co => !co.role))
       _.each(billNoRole, b => {
         let coNoRole = _.filter(b.cosponsors, co => !co.role)
-      })      
+      })
 
       let cachedBillIds = _.intersection(billIds, fetchedBillIds)
       let cachedBills = _.values(_.pick(this.billsFetched, cachedBillIds))

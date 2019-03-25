@@ -1,7 +1,7 @@
 <template>
   <Modal :width="`60vw`" :footerHide="true" v-model="showModal" class="sub-modal">
     <div :class="{ 'phone': isPhone, 'tablet': isTablet }" class="subscriptions">
-      <img :src="waves" class="bg-img"></img>
+      <img :src="wavesImgUrl" class="bg-img"></img>
       <div class="content-wrapper" >
         <section class="left">
           <div class="title">{{ $t('subscribeForm.title') }}</div>
@@ -49,7 +49,7 @@
           </Form>
         </section>
         <section class="right">
-          <img :src="emailMockup" class="email-img"></img>
+          <img :src="emailMockupImgUrl" class="email-img"></img>
         </section>
       </div>
     </div>
@@ -57,9 +57,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import waves from '~/assets/img/wave-white.svg'
-import emailMockup from '~/assets/img/email-mockup.png'
+// libraries
+import appConfig from '~/config/app.json'
+
 import TwButton from '~/components/TwButton'
 import SubscribeNewsletter from '~/apollo/mutations/SubscribeNewsletter'
 
@@ -79,8 +79,8 @@ export default {
   },
   data () {
     return {
-      waves,
-      emailMockup,
+      wavesImgUrl: `${appConfig.assets.baseUrl}/wave-white.svg`,
+      emailMockupImgUrl: `${appConfig.assets.baseUrl}/email-mockup.png`,
       state: 'none',
       formValidate: {
         email: null,

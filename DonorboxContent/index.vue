@@ -13,7 +13,7 @@
           <p>Become a <b>Friend of ACT</b> by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</b></b></p>
           <p>We are all volunteer staff, so we maximize your impact, every penny counts.</p>
         </div>
-        <img :src="spendingChart" class="spending-chart">
+        <img :src="spendingChartUrl" class="spending-chart">
       </div>
       <div v-if="config === 'ustw'" class="content-block info-sec">
         <h1 class="title">👍🏻謝謝您成為我們的朋友 </h1>
@@ -32,7 +32,9 @@
 </template>
 
 <script>
-import spendingChart from '~/assets/img/spending-2017.png'
+// libraries
+import appConfig from '~/config/app.json'
+
 import ustwImage from '~/assets/img/donation-ustw.png'
 import ustwImage2 from '~/assets/img/donation-ustw-2.png'
 
@@ -46,7 +48,7 @@ export default {
   },
   data () {
     return {
-      spendingChart,
+      spendingChartUrl: `${appConfig.assets.baseUrl}/act-spending-2017.png`,
       ustwImage,
       ustwImage2,
       configSettings: {
