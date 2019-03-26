@@ -33,10 +33,15 @@
     </section>
     <!-- Copyright -->
     <section class="footer-copyright">
-      <p>{{ copyright }}</p>
-      <a v-if="showPoweredby" :href="powerByTarget" :alt="powerByTargetAlt" class="powerBy" target="_blank">
-        <img :src="powerByImgSrc" :alt="powerByImgAlt">
-      </a>
+      <p class="copyright">{{ copyright }}</p>
+      <p class="powerBy">
+        <a v-if="showPoweredby" :href="powerByTarget" :alt="powerByTargetAlt" target="_blank">
+          <img :src="powerByActImgUrl" :alt="powerByImgActAlt">
+        </a>
+        <a v-if="showPoweredby" :href="powerByTarget" :alt="powerByTargetAlt" target="_blank">
+          <img :src="powerByG0vImgUrl" :alt="powerByImgG0vAlt">
+        </a>
+      </p>
     </section>
   </footer>
 </template>
@@ -96,8 +101,10 @@ export default {
       },
       powerByTarget: 'https://grants.g0v.tw/power/',
       powerByTargetAlt: 'power by g0v',
-      powerByImgAlt: 'g0v',
-      powerByImgSrc: 'https://s3.amazonaws.com/taiwanwatch-static/assets/poweredby-g0v-long.png'
+      powerByImgActAlt: 'ACT',
+      powerByImgG0vAlt: 'g0v',
+      powerByG0vImgUrl: `${appConfig.assets.baseUrl}/poweredby-g0v-long.png`,
+      powerByActImgUrl: `${appConfig.assets.baseUrl}/act-logo-footer.png`
     }
   },
   computed: {},
@@ -213,6 +220,7 @@ footer {
     background: darken($twGray, 5%);
     color: $twWhite;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: 0.9em;
@@ -221,10 +229,15 @@ footer {
   .powerBy {
     display: flex;
     align-items: center;
-    margin-left: 14px;
+    margin-top: 10px;
 
-    img {
-      width: 160px;
+    a {
+      &:first-child {
+        margin-right: 15px;
+      }
+      img {
+        height: 20px;
+      }
     }
   }
 
