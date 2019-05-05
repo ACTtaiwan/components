@@ -7,19 +7,19 @@
     "currencyDisplay": "NT$",
     "plans": {
       "basic": {
-        "amount": "10",
+        "amount": "50",
         "amountText": "NT$50",
         "content": "幫工程師買咖啡",
         "acceptBtnText": "好喔"
       },
       "better": {
-        "amount": "50",
+        "amount": "500",
         "amountText": "NT$500",
         "content": "多來幾篇好文章",
         "acceptBtnText": "沒問題"
       },
       "good": {
-        "amount": "100",
+        "amount": "1000",
         "amountText": "NT$1000",
         "content": "讓網站更猛更快",
         "acceptBtnText": "衝啊"
