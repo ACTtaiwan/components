@@ -1,0 +1,35 @@
+{
+  "donation": {
+    "title": "支持我們",
+    "description": "<span class='underscore'><span>美國國會台灣觀測站（U.S. Taiwan Watch）</span></span>是一個開源（open source）專案，所有國會資料皆取自於公開授權平台，而我們網站上的資料，乃至於原始碼也都會是開源，以回饋社群。我們的團隊由一群工程師、設計師、以及政治研究學者組成，目前都是用義務兼職的方式貢獻專案。如果你支持我們的專案，卻不知該如何貢獻，捐款會是對我們直接的鼓勵，讓網站可以持續營運下去，並在未來產出更多實用和有影響力的內容。",
+    "source": "U.S. Taiwan Watch",
+    "currency": "twd",
+    "currencyDisplay": "NT$",
+    "plans": {
+      "basic": {
+        "amount": "10",
+        "amountText": "NT$50",
+        "content": "幫工程師買咖啡",
+        "acceptBtnText": "好喔"
+      },
+      "better": {
+        "amount": "50",
+        "amountText": "NT$500",
+        "content": "多來幾篇好文章",
+        "acceptBtnText": "沒問題"
+      },
+      "good": {
+        "amount": "100",
+        "amountText": "NT$1000",
+        "content": "讓網站更猛更快",
+        "acceptBtnText": "衝啊"
+      },
+      "custom": {
+        "amount": "",
+        "amountText": "",
+        "content": "你自己決定好了(NT$50以上)",
+        "acceptBtnText": "看我的"
+      }
+    }
+  }
+}
