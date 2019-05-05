@@ -20,7 +20,7 @@
 
         <div class="item-row">
           <p class="item-label">{{ $t('BillSimpleCard.sponsorCountLabel') }}</p>
-          <p class="item-value">30</p>
+          <p class="item-value">{{ bill.cosponsors.length }}</p>
         </div>
 
         <div class="item-row">

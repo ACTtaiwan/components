@@ -155,6 +155,9 @@ export default {
   },
   asyncComputed: {},
   computed: {
+    locale () {
+      return this.$store.state.locale
+    },
     isDesktop () {
       return this.$store.getters.isDesktop
     },
