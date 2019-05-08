@@ -184,7 +184,7 @@ export default {
     memberTitle () {
       const lang = this.locale === 'zh-tw' ? 'zh' : 'en'
 
-      if (!this.states) return ''
+      if (_.isEmpty(this.states)) return ''
       const title = this.member.currentRole.titleLong
       const state = this.states[this.member.currentRole.state][lang]
       const hasDistrict = !!this.member.currentRole.district
