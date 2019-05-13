@@ -14,7 +14,7 @@ import zhTwCosponsoredBillsCard from './MemberDetailPage/CosponsoredBillsCard/zh
 import zhTwContactCard from './MemberDetailPage/ContactCard/zh-tw'
 
 import zhSubscription from './Subscription/zh-tw'
-import zhDonation from './Donation/zh-tw'
+import zhStripeContent from './StripeContent/zh-tw'
 import zhTwBillSimpleCard from './BillSimpleCard/zh-tw'
 import zhTwMemberSimpleCard from './MemberSimpleCard/zh-tw'
 
@@ -33,7 +33,7 @@ const locale = {
   ...zhTwCosponsoredBillsCard,
   ...zhTwContactCard,
   ...zhSubscription,
-  ...zhDonation,
+  ...zhStripeContent,
   ...zhTwBillSimpleCard,
   ...zhTwMemberSimpleCard
 }

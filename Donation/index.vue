@@ -1,278 +1,193 @@
 <template>
-  <Modal :width="760" v-model="showModal" :footerHide="true">
-    <div v-if="show">
-      <div class="support-block">
-        <h1 class="title">{{ $t('donation.title') }}</h1>
-        <img :src="supportImg">
-        <div class="content">
-          <p v-html="$t('donation.description')"/>
-        </div>
-        <div class="donate">
-          <div class="option">
-            <h1>{{ $t('donation.plans.basic.amountText') }}</h1>
-            <p>{{ $t('donation.plans.basic.content') }}</p>
-            <TwButton
-              :label="$t('donation.plans.basic.acceptBtnText')"
-              fontSize="14px"
-              lineHeight="22px"
-              class="actionBtn"
-              @press="checkout($t('donation.plans.basic.amount'))"
-            />
-          </div>
-          <div class="option">
-            <h1>{{ $t('donation.plans.better.amountText') }}</h1>
-            <p>{{ $t('donation.plans.better.content') }}</p>
-            <TwButton
-              :label="$t('donation.plans.better.acceptBtnText')"
-              fontSize="14px"
-              lineHeight="22px"
-              class="actionBtn"
-              @press="checkout($t('donation.plans.better.amount'))"
-            />
-          </div>
-          <div class="option">
-            <h1>{{ $t('donation.plans.good.amountText') }}</h1>
-            <p>{{ $t('donation.plans.good.content') }}</p>
-            <TwButton
-              :label="$t('donation.plans.good.acceptBtnText')"
-              fontSize="14px"
-              lineHeight="22px"
-              class="actionBtn"
-              @press="checkout($t('donation.plans.good.amount'))"
-            />
-          </div>
-          <div class="option">
-            <div class="custom">
-              <h1>{{ $t('donation.currencyDisplay') }}</h1>
-              <InputNumber :min="50" v-model="customValue" :precision="0" class="amount"/>
-            </div>
-            <p>{{ $t('donation.plans.custom.content') }}</p>
-            <TwButton
-              :label="$t('donation.plans.custom.acceptBtnText')"
-              fontSize="14px"
-              lineHeight="22px"
-              class="actionBtn"
-              @press="checkout(customValue)"
-            />
-          </div>
-        </div>
+  <div class="content-wrapper">
+    <div class="content">
+      <div v-if="config === 'act'" class="content-block donate-form">
+        <script src="https://donorbox.org/widget.js" paypalExpress="false"/>
+        <iframe
+          :src="url" height="400px" width="100%" style="max-width:400px; min-width:310px; max-height:590px!important" seamless="seamless" name="donorbox"
+          frameborder="0" scrolling="no" allowpaymentrequest/>
       </div>
-      <vue-stripe-checkout
-        ref="checkoutRef"
-        :image="checkoutOpts.image"
-        :name="checkoutOpts.name"
-        :description="checkoutOpts.description"
-        :currency="checkoutOpts.currency"
-        :amount="checkoutOpts.amount"
-        :allowRememberMe="false"
-        @done="done"
-        @opened="opened"
-        @closed="closed"
-        @canceled="canceled"
-      />
+      <div v-if="config === 'act'" class="content-block info-sec">
+        <h1 class="title">👍🏻 Be a Friend of ACT </h1>
+        <div class="text">
+          <p>Become a <b>Friend of ACT</b> by supporting with a recurring monthly donation of your choosing, between a cup of tea and a good dinner, to help American Citizens for Taiwan educate Americans about Taiwan and continue to press our government to strengthen U.S.-Taiwan relations and be fully supportive of Taiwan’s right to self-determination.</b></b></p>
+          <p>We are all volunteer staff, so we maximize your impact, every penny counts.</p>
+        </div>
+        <img :src="spendingChartUrl" class="spending-chart">
+      </div>
+      <div v-if="config === 'ustw'" class="content-block info-sec">
+        <StripeContent :config="stripeConfig"/>
+        <!-- <h1 class="title">👍🏻謝謝您成為我們的朋友 </h1>
+        <img :src="ustwImage2" class="spending-chart ustw-img">
+        <div class="text">
+          <p><b>美國國會台灣觀測站（U.S. Taiwan Watch）</b>是一個開源（open source）專案，所有國會資料皆取自於公開授權平台，而我們網站上的資料，乃至於原始碼也都會是開源，以回饋社群。</p>
+          <p>我們的團隊由一群工程師、設計師、以及政治研究學者組成，目前都是用義務兼職的方式貢獻專案。如果你支持我們的專案，卻不知該如何貢獻，捐款會是對我們直接的鼓勵，讓網站可以持續營運下去，並在未來產出更多實用和有影響力的內容。</p>
+        </div>
+        <img :src="ustwImage" class="spending-chart ustw-img"> -->
+      </div>
     </div>
-  </Modal>
+    <div class="legal">
+      <p>{{ legal }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
+// libraries
+import appConfig from '~/config/app.json'
+
+import ustwImage from '~/assets/img/donation-ustw.png'
+import ustwImage2 from '~/assets/img/donation-ustw-2.png'
+
 // components
-import TwButton from '~/components/TwButton'
-// images
-import twlogo from '~/assets/img/tw-logo-color.png'
-import supportImg from '~/assets/img/donation-ustw.png'
-// graphql
-import DonateMutation from '~/apollo/mutations/Donate'
+import StripeContent from '~/components/StripeContent'
 
 export default {
   components: {
-    TwButton
+    StripeContent
   },
   props: {
-    show: {
-      type: Boolean,
-      default: false
+    config: {
+      type: String,
+      required: false,
+      default: 'act'
+    },
+    stripeConfig: {
+      type: Object,
+      required: false,
+      default: undefined
     }
   },
   data () {
     return {
-      checkoutOpts: {
-        image: twlogo,
-        name: '美國國會台灣觀測站',
-        description: '',
-        currency: this.$t('donation.currency'),
-        amount: 100
-      },
-      supportImg,
-      customValue: null
+      spendingChartUrl: `${appConfig.assets.baseUrl}/act-spending-2017.png`,
+      ustwImage,
+      ustwImage2,
+      configSettings: {
+        'act': {
+          legal: 'American Citizens for Taiwan Foundation is exempt from federal income taxes under Section 501(c)(3) of the Internal Revenue Code, therefore your gift is tax-deductible to the full extent provided by law. Our federal tax identification number is 90-1025980. You should consult your financial planner or tax adviser to determine the exact tax advantages of any gift you are considering. We provide a receipt for all online gifts that can be used to claim a tax deduction.',
+          url: 'https://donorbox.org/embed/support-american-citizens-for-taiwan-foundation?default_interval=m'
+        },
+        'ustw': {
+          legal: '美國國會台灣觀測站（U.S. Taiwan Watch）為美台會（American Citizens for Taiwan, ACT）管理之專案，捐款收據開立方為美台會，所以屆時收據上American Citizens for Taiwan。 美台會根據《國內稅收法》第501(c)(3)條免除聯邦所得稅，因此您的禮物可在法律規定的全部範圍內免稅。我們的聯邦稅號為90-1025980。您應諮詢您的理財規劃師或稅務顧問，以確定您正在考慮的任何禮品的確切稅收優惠。我們提供可用於申請減稅的所有在線禮品的收據。',
+          url: 'https://donorbox.org/embed/ustw?default_interval=m'
+        }
+      }
     }
   },
   computed: {
-    showModal: {
-      get () {
-        return this.show
-      },
-      set (val) {
-        !val && this.$emit('close')
-      }
-    }
-  },
-  methods: {
-    async checkout (donateAmount) {
-      // token - is the token object
-      // args - is an object containing the billing and shipping address if enabled
-      this.checkoutOpts.amount = donateAmount * 100
-      this.$nextTick(() => {
-        this.$refs.checkoutRef.open()
-      })
+    legal () {
+      return this.configSettings[this.config].legal
     },
-    genInput ({ id, email, card, type, client_ip, created }) {
-      return {
-        token: id,
-        email: email,
-        amount: this.checkoutOpts.amount,
-        currency: this.checkoutOpts.currency,
-        description: `Donate $${this.checkoutOpts.amount / 100} USD to ${this.$t('donation.source')} via the website.`
-      }
-    },
-    done ({ token, args }) {
-      // token - is the token object
-      // args - is an object containing the billing and shipping address if enabled
-      // do stuff...
-      console.log('!!!!!', token, args)
-
-      this.$apollo
-        .mutate({
-          mutation: DonateMutation,
-          variables: {
-            inputs: this.genInput(token)
-          }
-        })
-        .then(data => {
-          console.log('[DONATE] OK = ' + JSON.stringify(data, null, 2))
-        })
-        .catch(error => {
-          console.log('[DONATE] ERR = ' + JSON.stringify(error, null, 2))
-        })
-        .finally(() => {
-          this.showModal = false
-        })
-    },
-    opened () {
-      // do stuff
-    },
-    closed () {
-      // do stuff
-    },
-    canceled () {
-      // do stuff
+    url () {
+      return this.configSettings[this.config].url
     }
   }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
+@import 'assets/css/app';
 @import 'assets/css/colors';
 
-.ivu-input-number-input {
-  color: $twGrayDark;
+.title {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #111111;
+  font-weight: 600;
+  text-align: center;
 }
 
-.underscore {
-  line-height: 0.5em;
-  vertical-align: 0.5em;
-  border-bottom: 0.6em solid transparent;
-  border-color: #f4e30b;
-  border-image-slice: 1;
+.content {
+  margin: 15px;
+  display: flex;
 
-  span {
-    vertical-align: -0.5em;
+  .donate-form {
+    flex: 1;
+    text-align: center;
+  }
+
+  .info-sec {
+    margin-left: 30px;
+    flex: 1;
+    text-align: center;
+
+    .spending-chart {
+      width: 70%;
+      max-width: 300px;
+    }
+
+    p {
+      text-align: left;
+      font-size: 14px;
+      color: #111111;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.legal {
+  border-top: $twGrayLighter 2px solid;
+  margin: 0 15px;
+  padding: 15px 0 10px;
+  font-size: 12px;
+  color: $twGrayLight;
+}
+
+.ustw-img {
+  padding: 15px 0;
+}
+
+// tablet
+@media screen and (max-width: $mediumDeviceWidth - 1) {
+  .content {
+    flex-direction: column;
+
+    .info-sec {
+      margin-left: 0;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .text {
+        max-width: 420px;
+      }
+
+      .spending-chart {
+        max-width: 340px;
+      }
+    }
+  }
+}
+
+// phone
+@media screen and (max-width: $smallDeviceWidth - 1) {
+  .content {
+    margin: 25px 0 0 0;
+
+    .info-sec {
+      margin-left: 0;
+      padding: 0;
+      margin-bottom: 30px;
+    }
+  }
+  .legal {
+    margin: 0;
   }
 }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import 'assets/css/app';
 @import 'assets/css/typography';
 @import 'assets/css/colors';
 
-.support-block {
-  text-align: center;
-  padding: 20px;
-
-  .title {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    color: #000000;
-  }
-
-  img {
-    width: 80%;
-  }
-
-  .content {
-    color: $twGrayDark;
-    margin-top: 20px;
-    text-align: left;
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  .donate {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 5px;
-    margin-left: -10px;
-    margin-right: -10px;
-
-    .option {
-      position: relative;
-      flex: 1;
-      flex-basis: 140px;
-      display: flex;
-      flex-direction: column;
-      background: $twGrayLighter;
-      border: 1px solid $twGrayLight;
-      border-radius: 5px;
-      margin-right: 5px;
-      margin-left: 5px;
-      margin-bottom: 10px;
-      padding: 10px;
-
-      h1 {
-        color: $twGrayDark;
-        @extend .displayFont;
-      }
-
-      p {
-        @extend .textFont;
-        font-size: 14px;
-        color: $twGrayDark;
-        margin-bottom: 10px;
-      }
-
-      .actionBtn {
-        width: auto;
-        margin: auto auto 0;
-        // margin-top: auto;
-      }
-
-      .custom {
-        display: flex;
-        margin: 0 auto;
-
-        h1 {
-          margin-right: 5px;
-        }
-
-        .amount {
-          font-size: 24px;
-          color: $twGrayDark;
-          width: 80px;
-        }
-      }
-    }
+// phone
+@media screen and (max-width: $smallDeviceWidth - 1) {
+  .ivu-modal {
+    width: 100% !important;
+    margin: 0;
   }
 }
 </style>

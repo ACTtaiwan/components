@@ -1,18 +1,18 @@
 <template>
   <Modal :width="760" v-model="showModal" :footerHide="true" :fullscreen="isPhone ? true : false">
     <div v-if="show" >
-      <DonorboxContent :config="config" />
+      <Donation :config="config" />
     </div>
   </Modal>
 </template>
 
 <script>
 // components
-import DonorboxContent from '~/components/DonorboxContent'
+import Donation from '~/components/Donation'
 
 export default {
   components: {
-    DonorboxContent
+    Donation
   },
   props: {
     show: {

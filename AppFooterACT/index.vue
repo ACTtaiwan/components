@@ -33,8 +33,8 @@
     <!-- Subscription -->
     <Subscription :show="showSubscription" @close="showSubscription = false"/>
 
-    <!-- Donorbox -->
-    <Donorbox :show="showDonorbox" @close="showDonorbox = false"/>
+    <!-- Donation Popup -->
+    <DonationPopup :show="showDonorbox" @close="showDonorbox = false"/>
 
   </footer>
 </template>
