@@ -36,8 +36,8 @@
 // libraries
 import appConfig from '~/config/app.json'
 
-import ustwImage from '~/assets/img/donation-ustw.png'
-import ustwImage2 from '~/assets/img/donation-ustw-2.png'
+// import ustwImage from '~/assets/img/donation-ustw.png'
+// import ustwImage2 from '~/assets/img/donation-ustw-2.png'
 
 // components
 import StripeContent from '~/components/StripeContent'
@@ -61,8 +61,8 @@ export default {
   data () {
     return {
       spendingChartUrl: `${appConfig.assets.baseUrl}/act-spending-2017.png`,
-      ustwImage,
-      ustwImage2,
+      // ustwImage,
+      // ustwImage2,
       configSettings: {
         'act': {
           legal: 'American Citizens for Taiwan Foundation is exempt from federal income taxes under Section 501(c)(3) of the Internal Revenue Code, therefore your gift is tax-deductible to the full extent provided by law. Our federal tax identification number is 90-1025980. You should consult your financial planner or tax adviser to determine the exact tax advantages of any gift you are considering. We provide a receipt for all online gifts that can be used to claim a tax deduction.',

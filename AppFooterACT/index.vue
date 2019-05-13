@@ -45,12 +45,12 @@ import appConfig from '~/config/app.json'
 
 // components
 import Subscription from '~/components/Subscription'
-import Donorbox from '~/components/Donorbox'
+import DonationPopup from '~/components/DonationPopup'
 
 export default {
   components: {
     Subscription,
-    Donorbox
+    DonationPopup
   },
   props: {
     copyright: {
