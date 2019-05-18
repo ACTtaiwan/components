@@ -56,19 +56,21 @@
         </div>
       </div>
     </div>
-    <vue-stripe-checkout
-      ref="checkoutRef"
-      :image="checkoutOpts.image"
-      :name="checkoutOpts.name"
-      :description="checkoutOpts.description"
-      :currency="checkoutOpts.currency"
-      :amount="checkoutOpts.amount"
-      :allowRememberMe="false"
-      @done="done"
-      @opened="opened"
-      @closed="closed"
-      @canceled="canceled"
-    />
+    <no-ssr>
+      <vue-stripe-checkout
+        ref="checkoutRef"
+        :image="checkoutOpts.image"
+        :name="checkoutOpts.name"
+        :description="checkoutOpts.description"
+        :currency="checkoutOpts.currency"
+        :amount="checkoutOpts.amount"
+        :allowRememberMe="false"
+        @done="done"
+        @opened="opened"
+        @closed="closed"
+        @canceled="canceled"
+      />
+    </no-ssr>
   </div>
 </template>
 
