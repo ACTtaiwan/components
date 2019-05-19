@@ -172,18 +172,6 @@ export default {
 .ivu-input-number-input {
   color: $twGrayDark;
 }
-
-.underscore {
-  line-height: 0.5em;
-  vertical-align: 0.5em;
-  border-bottom: 0.6em solid transparent;
-  border-color: #f4e30b;
-  border-image-slice: 1;
-
-  span {
-    vertical-align: -0.5em;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
