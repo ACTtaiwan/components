@@ -1,7 +1,7 @@
 <template>
   <Modal :width="760" v-model="showModal" :footerHide="true" :fullscreen="isPhone ? true : false">
-    <div v-if="show" >
-      <Donation :config="config" />
+    <div v-if="show">
+      <Donation :config="config"/>
     </div>
   </Modal>
 </template>

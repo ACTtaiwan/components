@@ -56,6 +56,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Stripe Checkout -->
     <no-ssr>
       <vue-stripe-checkout
         ref="checkoutRef"
@@ -71,10 +73,38 @@
         @canceled="canceled"
       />
     </no-ssr>
+
+    <!-- Success Popup -->
+    <Modal :width="500" v-model="showSuccess" :footerHide="true" :fullscreen="isPhone ? true : false" class="donateResultPopup">
+      <div :style="successImgBlockStyle" class="content">
+        <div class="title success">
+          <Icon class="icon" type="md-checkmark-circle"/>
+          <p>{{ $t('donation.successTitle') }}</p>
+        </div>
+        <div class="body">
+          <p v-html="$t('donation.successDescription')"/>
+        </div>
+      </div>
+    </Modal>
+
+    <!-- Fail Popup -->
+    <Modal :width="500" v-model="showFail" :footerHide="true" :fullscreen="isPhone ? true : false" class="donateResultPopup">
+      <div :style="failImgBlockStyle" class="content">
+        <div class="title fail">
+          <Icon class="icon" type="md-close-circle"/>
+          <p>{{ $t('donation.failTitle') }}</p>
+        </div>
+        <div class="body">
+          <p v-html="$t('donation.failDescription')"/>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import appConfig from '~/config/app.json'
+
 // components
 import TwButton from '~/components/TwButton'
 // images
@@ -104,10 +134,21 @@ export default {
         amount: 100
       },
       supportImg,
-      customValue: null
+      customValue: null,
+      showSuccess: false,
+      showFail: false,
+      successImgBlockStyle: `background-image: url("${
+        appConfig.assets.baseUrl
+      }/donate-bird-3.png"); background-repeat: no-repeat; background-size: 200px; background-position: right bottom;`,
+      failImgBlockStyle: `background-image: url("${
+        appConfig.assets.baseUrl
+      }/donate-bird-1.png"); background-repeat: no-repeat; background-size: 160px; background-position: right bottom;`
     }
   },
   computed: {
+    isPhone () {
+      return this.$store.getters.isPhone
+    },
     showTitle () {
       if (this.config && this.config.showTitle !== undefined) {
         return !!this.config.showTitle
@@ -137,7 +178,6 @@ export default {
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       // do stuff...
-      console.log('!!!!!', token, args)
 
       this.$apollo
         .mutate({
@@ -147,9 +187,15 @@ export default {
           }
         })
         .then(data => {
+          if (data.data.donate.isSuccess) {
+            this.showSuccess = true
+          } else {
+            this.showFail = true
+          }
           console.log('[STRIPECONTENT] OK = ' + JSON.stringify(data, null, 2))
         })
         .catch(error => {
+          this.showFail = true
           console.log('[STRIPECONTENT] ERR = ' + JSON.stringify(error, null, 2))
         })
     },
@@ -171,6 +217,17 @@ export default {
 
 .ivu-input-number-input {
   color: $twGrayDark;
+}
+
+// make the modal vertically centered
+.ivu-modal-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal {
+    top: 0;
+  }
 }
 </style>
 
@@ -255,6 +312,47 @@ export default {
           color: $twGrayDark;
           width: 80px;
         }
+      }
+    }
+  }
+}
+
+.donateResultPopup {
+  .content {
+    text-align: center;
+    padding: 20px;
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 10px;
+
+      &.success {
+        color: $twGreen;
+      }
+
+      &.fail {
+        color: $twRed;
+      }
+
+      .icon {
+        margin-right: 5px;
+      }
+    }
+
+    .body {
+      padding: 10px;
+      height: 200px;
+
+      p {
+        color: $twGrayDark;
+        margin-top: 20px;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 400;
       }
     }
   }
