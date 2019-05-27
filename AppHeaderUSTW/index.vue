@@ -188,9 +188,6 @@ header {
 
 .header-donate {
   line-height: $appHeaderHeight - 4px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
 }
 
 @media screen and (max-width: $mediumDeviceWidth - 1) {
@@ -229,6 +226,12 @@ header {
     .ivu-menu-item {
       font-size: 1.15em;
     }
+  }
+
+  .header-donate {
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 }
 
