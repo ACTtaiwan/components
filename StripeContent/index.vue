@@ -42,7 +42,7 @@
         </div>
         <div class="option">
           <div class="custom">
-            <h1>{{ $t('donation.currencyDisplay') }}</h1>
+            <h1>{{ $t('donation.currencyLabel') }}</h1>
             <InputNumber :min="50" v-model="customValue" :precision="0" class="amount"/>
           </div>
           <p>{{ $t('donation.plans.custom.content') }}</p>
@@ -171,7 +171,9 @@ export default {
         email: email,
         amount: this.checkoutOpts.amount,
         currency: this.checkoutOpts.currency,
-        description: `Donate $${this.checkoutOpts.amount / 100} USD to ${this.$t('donation.source')} via the website.`
+        description: `Donate $${this.checkoutOpts.amount / 100} ${this.$t('donation.currencyDisplay')} to ${this.$t(
+          'donation.source'
+        )} via the website.`
       }
     },
     done ({ token, args }) {
