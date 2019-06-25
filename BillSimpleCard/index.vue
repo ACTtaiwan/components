@@ -10,7 +10,7 @@
     </router-link>
     <div class="bill-info">
       <div class="bill-card-info-block">
-        <div class="item-row">
+        <div v-if="bill.sponsor" class="item-row">
           <p class="item-label">{{ $t('BillSimpleCard.sponsorLabel') }}</p>
           <p class="item-value">
             <router-link :to="`/members/${bill.sponsor.id}`">{{ bill.sponsor.firstName }} {{ bill.sponsor.lastName }}</router-link>
