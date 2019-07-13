@@ -1,11 +1,6 @@
 <template>
-  <nuxt-link
-    :to="`/`"
-    class="logo">
-    <img
-      :src="logo"
-      class="logo-img"
-      alt="logo" >
+  <nuxt-link :to="`/`" class="logo">
+    <img :src="logo" class="logo-img" alt="logo">
     <span class="logo-text">{{ this.$t('site.logoTitle') }}</span>
   </nuxt-link>
 </template>
@@ -29,7 +24,7 @@ export default {
 @import 'assets/css/typography';
 
 .logo {
-  width: 300px;
+  width: 220px;
   height: 40px;
   position: relative;
   top: 10px;

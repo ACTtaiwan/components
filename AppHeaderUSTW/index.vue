@@ -1,66 +1,38 @@
 <template>
   <header>
-    <Menu
-      :activeName="activeMenuItem"
-      mode="horizontal"
-      theme="light">
+    <Menu :activeName="activeMenuItem" mode="horizontal" theme="light">
       <div class="header-wrapper">
-        <div
-          :class="{isMenuOpen: isMenuOpen}"
-          class="header-menu-hamburger"
-          @click="onHamburgerClick">
+        <div :class="{isMenuOpen: isMenuOpen}" class="header-menu-hamburger" @click="onHamburgerClick">
           <span/>
         </div>
         <Logo/>
-        <div
-          :class="{isMenuOpen: isMenuOpen}"
-          class="header-nav">
+        <div :class="{isMenuOpen: isMenuOpen}" class="header-nav">
           <!-- MENU -->
           <div class="header-menu">
-            <router-link
-              :class="{'menu-item-selected': activeMenuItem === 'bills'}"
-              :to="`/bills`"
-              class="menu-item">
-              <MenuItem name="bills" >
-              {{ $t('site.menu.billItemText') }}
-              </MenuItem>
+            <router-link :class="{'menu-item-selected': activeMenuItem === 'bills'}" :to="`/bills`" class="menu-item">
+              <MenuItem name="bills">{{ $t('site.menu.billItemText') }}</MenuItem>
             </router-link>
-            <router-link
-              :class="{'menu-item-selected': activeMenuItem === 'members'}"
-              :to="`/members`"
-              class="menu-item">
-              <MenuItem name="members">
-              {{ $t('site.menu.congressMemberItemText') }}
-              </MenuItem>
+            <router-link :class="{'menu-item-selected': activeMenuItem === 'members'}" :to="`/members`" class="menu-item">
+              <MenuItem name="members">{{ $t('site.menu.congressMemberItemText') }}</MenuItem>
             </router-link>
-            <router-link
-              :class="{'menu-item-selected': activeMenuItem === 'articles'}"
-              :to="`/articles`"
-              class="menu-item">
-              <MenuItem name="articles">
-              {{ $t('site.menu.articlesItemText') }}
-              </MenuItem>
+            <router-link :class="{'menu-item-selected': activeMenuItem === 'articles'}" :to="`/articles`" class="menu-item">
+              <MenuItem name="articles">{{ $t('site.menu.articlesItemText') }}</MenuItem>
             </router-link>
-            <router-link
-              :class="{'menu-item-selected': activeMenuItem === 'insights'}"
-              :to="`/insights`"
-              class="menu-item">
-              <MenuItem name="insights">
-              {{ $t('site.menu.insightsItemText') }}
-              </MenuItem>
-            </router-link>
-            <router-link
-              :class="{'menu-item-selected': activeMenuItem === 'about'}"
-              :to="`/about`"
-              class="menu-item">
-              <MenuItem name="about">
-              {{ $t('site.menu.aboutItemText') }}
-              </MenuItem>
+            <!-- <router-link :class="{'menu-item-selected': activeMenuItem === 'insights'}" :to="`/insights`" class="menu-item">
+              <MenuItem name="insights">{{ $t('site.menu.insightsItemText') }}</MenuItem>
+            </router-link>-->
+            <router-link :class="{'menu-item-selected': activeMenuItem === 'about'}" :to="`/about`" class="menu-item">
+              <MenuItem name="about">{{ $t('site.menu.aboutItemText') }}</MenuItem>
             </router-link>
           </div>
           <!-- Donate -->
           <div class="header-donate">
-            <Button :label="this.$t('site.donate.donateBtnLabel')" fontSize="14px" lineHeight="22px" @click.native="onClickDonateButton" />
+            <Button
+              :label="this.$t('site.donate.donateBtnLabel')"
+              fontSize="14px"
+              lineHeight="22px"
+              @click.native="onClickDonateButton"
+            />
           </div>
           <!-- INFO -->
           <div class="header-user">
@@ -254,6 +226,12 @@ header {
     .ivu-menu-item {
       font-size: 1.15em;
     }
+  }
+
+  .header-donate {
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 }
 

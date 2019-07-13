@@ -1,10 +1,11 @@
 {
   "donation": {
     "title": "支持我們",
-    "description": "<span class='underscore'><span>美國國會台灣觀測站（U.S. Taiwan Watch）</span></span>是一個開源（open source）專案，所有國會資料皆取自於公開授權平台，而我們網站上的資料，乃至於原始碼也都會是開源，以回饋社群。我們的團隊由一群工程師、設計師、以及政治研究學者組成，目前都是用義務兼職的方式貢獻專案。如果你支持我們的專案，卻不知該如何貢獻，捐款會是對我們直接的鼓勵，讓網站可以持續營運下去，並在未來產出更多實用和有影響力的內容。",
+    "description": "<span class='underscore'><span>美國國會台灣觀測站（U.S. Taiwan Watch）</span></span>是一個開源（open source）專案，所有國會資料皆取自於公開授權平台，而我們網站上的資料，乃至於原始碼也都會是開源，以回饋社群。我們的團隊由一群工程師、設計師、以及政治研究學者組成，目前都是用義務兼職的方式貢獻專案。如果你支持我們的專案，卻不知該如何貢獻，捐款會是對我們直接的鼓勵，讓網站可以持續營運下去，並在未來產出更多實用和有影響力的內容。如果你是<span class='underscore'><span>美國公民</span></span>，給我們的捐款將<span class='underscore'><span>符合退稅資格</span></span>，但須<a href='https://donorbox.org/ustw'>由此捐款</a>我們才能提供退稅相關收據。",
     "source": "U.S. Taiwan Watch 美國國會台灣觀測站",
     "currency": "twd",
-    "currencyDisplay": "NT$",
+    "currencyDisplay": "TWD",
+    "currencyLabel": "NT$",
     "plans": {
       "basic": {
         "amount": "50",
@@ -30,6 +31,10 @@
         "content": "你自己決定好了(NT$50以上)",
         "acceptBtnText": "看我的"
       }
-    }
+    },
+    "successTitle": "捐款成功",
+    "successDescription": "謝謝你的捐款，觀測站工程師和小編會繼續努力製作更好的內容。你將會收到由<span class='underscore'><span>American Citizens for Taiwan (ACT)</span></span>發出的收據到你剛剛所填寫的email。若有任何問題，歡迎<a href='mailto:liho@uswatch.tw'>聯絡我們</a>。",
+    "failTitle": "捐款失敗",
+    "failDescription": "哎啊，好像出錯了。不要緊張，確認一下你的信用卡有沒有被扣款，或是檢查你剛剛填寫的email有沒有收到由<span class='underscore'><span>American Citizens for Taiwan (ACT)</span></span>寄出的收據。若有任何問題，歡迎<a href='mailto:liho@uswatch.tw'>聯絡我們</a>。"
   }
 }
