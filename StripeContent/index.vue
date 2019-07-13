@@ -130,7 +130,7 @@ export default {
         email: email,
         amount: this.checkoutOpts.amount,
         currency: this.checkoutOpts.currency,
-        description: `Donate $${this.checkoutOpts.amount / 100} USD to ${this.$t('donation.source')} via the website.`
+        description: `捐贈${this.$t('donation.source')}新台幣${this.checkoutOpts.amount / 100}元整。`
       }
     },
     done ({ token, args }) {
