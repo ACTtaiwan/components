@@ -2,7 +2,7 @@
   <div>
     <div class="support-block">
       <h1 v-if="showTitle" class="title">{{ $t('donation.title') }}</h1>
-      <img :src="supportImg" />
+      <img :src="supportImg"></img>
       <div class="content">
         <p v-html="$t('donation.description')" />
       </div>
@@ -124,7 +124,7 @@ export default {
       default: undefined
     }
   },
-  data() {
+  data () {
     return {
       checkoutOpts: {
         image: twlogo,
@@ -142,10 +142,10 @@ export default {
     }
   },
   computed: {
-    isPhone() {
+    isPhone () {
       return this.$store.getters.isPhone
     },
-    showTitle() {
+    showTitle () {
       if (this.config && this.config.showTitle !== undefined) {
         return !!this.config.showTitle
       }
@@ -153,7 +153,7 @@ export default {
     }
   },
   methods: {
-    async checkout(donateAmount) {
+    async checkout (donateAmount) {
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       this.checkoutOpts.amount = donateAmount * 100
@@ -161,7 +161,7 @@ export default {
         this.$refs.checkoutRef.open()
       })
     },
-    genInput({ id, email, card, type, client_ip, created }) {
+    genInput ({ id, email, card, type, client_ip, created }) {
       return {
         token: id,
         email: email,
@@ -172,7 +172,7 @@ export default {
         )} via the website.`
       }
     },
-    done({ token, args }) {
+    done ({ token, args }) {
       // token - is the token object
       // args - is an object containing the billing and shipping address if enabled
       // do stuff...
@@ -197,13 +197,13 @@ export default {
           console.log('[STRIPECONTENT] ERR = ' + JSON.stringify(error, null, 2))
         })
     },
-    opened() {
+    opened () {
       // do stuff
     },
-    closed() {
+    closed () {
       // do stuff
     },
-    canceled() {
+    canceled () {
       // do stuff
     }
   }
